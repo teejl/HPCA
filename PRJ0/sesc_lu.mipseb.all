@@ -1,0 +1,54 @@
+# Bench : /home/cs6290/sesc/sesc.opt -fn32.rpt -c /home/cs6290/sesc/confs/cmp4-noc.conf -olu.out -elu.err lu.mipseb -n32 -p1 
+# File  : sesc_lu.mipseb.n32.rpt :       Fri Aug 21 21:16:31 2020
+      Exe Speed        Exe MHz         Exe Time         Sim Time (1000MHz)
+    431.557 KIPS      0.6157 MHz       0.750 secs       0.462 msec
+Proc  Avg.Time BPType       Total          RAS           BPred          BTB            BTAC
+   0   55.439  hybrid       91.07% ( 99.89% of  11.34%)  89.94% ( 95.81% of  57.74%)   0.00% 
+           nInst     BJ    Load   Store      INT      FP  : LD Forward , Replay : Worst Unit (clk)
+   0      323668   9.49%  18.01%   9.25%  55.68%   7.57%  :     12.67%     302 inst/repl  :  ALUIssueX 2.80 
+Proc  IPC        Cycles  Busy   LDQ   STQ  IWin   ROB  Regs Ports   TLB  maxBr MisBr Br4Clk  Other
+   0  0.70       461771  35.0   0.0   0.0   0.1  18.0   0.0   0.0   0.0   0.0   45.2    0.1    1.6 
+################################################################################
+Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
+   0  DL1 0.0   0.42% ( 0.1%, 0.3%) 92.43%  0.05GB/s :  MemoryBus 0 MB/s : 
+################################################################################
+Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
+   0  IL1 0.0   0.45% ( 0.4%, 0.0%) 192.04%  0.11GB/s :  MemoryBus 0 MB/s : 
+ 
+ 
+ 
+# Bench : /home/cs6290/sesc/sesc.opt -fn64.rpt -c /home/cs6290/sesc/confs/cmp4-noc.conf -olu.out -elu.err lu.mipseb -n64 -p1 
+# File  : sesc_lu.mipseb.n64.rpt :       Sun Aug 23 17:27:11 2020
+      Exe Speed        Exe MHz         Exe Time         Sim Time (1000MHz)
+    589.197 KIPS      0.5212 MHz       2.920 secs       1.522 msec
+Proc  Avg.Time BPType       Total          RAS           BPred          BTB            BTAC
+   0   28.080  hybrid       94.74% ( 99.97% of   8.07%)  94.29% ( 99.27% of  68.68%)   0.00% 
+           nInst     BJ    Load   Store      INT      FP  : LD Forward , Replay : Worst Unit (clk)
+   0     1720455   9.17%  17.97%   8.80%  53.30%  10.76%  :      9.39%     410 inst/repl  :  ALUIssueX 2.85 
+Proc  IPC        Cycles  Busy   LDQ   STQ  IWin   ROB  Regs Ports   TLB  maxBr MisBr Br4Clk  Other
+   0  1.13      1521941  56.5   0.0   0.0   0.0  22.2   0.0   0.0   0.0   0.0   18.1    0.5    2.7 
+################################################################################
+Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
+   0  DL1 0.0   0.25% ( 0.1%, 0.1%) 94.19%  0.04GB/s :  MemoryBus 0 MB/s : 
+################################################################################
+Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
+   0  IL1 0.0   0.08% ( 0.1%, 0.0%) 196.49%  0.03GB/s :  MemoryBus 0 MB/s : 
+ 
+ 
+ 
+# Bench : /home/cs6290/sesc/sesc.opt -fn256.rpt -c /home/cs6290/sesc/confs/cmp4-noc.conf -olu.out -elu.err lu.mipseb -n256 -p1 
+# File  : sesc_lu.mipseb.n256.rpt :       Sun Aug 23 17:29:34 2020
+      Exe Speed        Exe MHz         Exe Time         Sim Time (1000MHz)
+    638.988 KIPS      0.4545 MHz     119.330 secs      54.240 msec
+Proc  Avg.Time BPType       Total          RAS           BPred          BTB            BTAC
+   0   13.553  hybrid       94.72% (100.00% of   2.74%)  94.57% ( 99.98% of  81.85%)   0.00% 
+           nInst     BJ    Load   Store      INT      FP  : LD Forward , Replay : Worst Unit (clk)
+   0    76250392   9.44%  18.07%   8.59%  49.00%  14.88%  :      3.35%    1150 inst/repl  :  ALUIssueX 2.63 
+Proc  IPC        Cycles  Busy   LDQ   STQ  IWin   ROB  Regs Ports   TLB  maxBr MisBr Br4Clk  Other
+   0  1.41     54240492  70.3   0.0   0.0   0.0  16.0   0.0   0.0   0.0   0.0    9.2    1.4    3.0 
+################################################################################
+Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
+   0  DL1 0.0   0.51% ( 0.5%, 0.0%) 99.16%  0.12GB/s :  MemoryBus 0 MB/s : 
+################################################################################
+Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
+   0  IL1 0.0   0.00% ( 0.0%, 0.0%) 200.55%  0.00GB/s :  MemoryBus 0 MB/s : 
