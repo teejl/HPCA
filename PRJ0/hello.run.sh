@@ -15,7 +15,7 @@ function main
     echo "Generate the report for hello$i.c"
     ~/sesc/sesc.opt -fhello$i.rpt -c ~/sesc/confs/cmp4-noc.conf -ohello$i.out hello$i.mipseb
     echo "Outputting the report to hello$i.results.txt"
-    ~/sesc/scripts/report.pl sesc_hello$i.mipseb.hello$i.rpt > hello$i.results.txt
+    ~/sesc/scripts/report.pl sesc_hello.mipseb.hello$i.rpt > hello$i.results.txt
     echo ""
     echo ""
   done
