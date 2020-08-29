@@ -1,0 +1,68 @@
+# Bench : /home/cs6290/sesc/sesc.opt -fhello0.rpt -c /home/cs6290/sesc/confs/cmp4-noc.conf -ohello.out hello.mipseb 
+# File  : sesc_hello.mipseb.hello0.rpt :       Thu Aug 27 22:20:53 2020
+      Exe Speed        Exe MHz         Exe Time         Sim Time (1000MHz)
+     44.255 KIPS      0.7777 MHz       0.110 secs       0.086 msec
+Proc  Avg.Time BPType       Total          RAS           BPred          BTB            BTAC
+   0   132.380  hybrid       50.34% ( 95.74% of  10.61%)  44.95% ( 57.92% of  43.45%)   0.00% 
+           nInst     BJ    Load   Store      INT      FP  : LD Forward , Replay : Worst Unit (clk)
+   0        4868  18.20%  20.15%  18.61%  43.04%   0.00%  :      0.20%    4868 inst/repl  :  LDSTIssueX 1.10 
+Proc  IPC        Cycles  Busy   LDQ   STQ  IWin   ROB  Regs Ports   TLB  maxBr MisBr Br4Clk  Other
+   0  0.06        85548   2.8   0.0   0.0   0.3   0.2   0.0   0.0   0.0   0.0   96.5    0.0    0.2 
+################################################################################
+Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
+   0  DL1 0.2   5.27% ( 3.2%, 2.0%) 114.57%  0.09GB/s :  MemoryBus 0 MB/s : 
+################################################################################
+Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
+   0  IL1 0.6   9.76% ( 9.8%, 0.0%) 168.27%  0.23GB/s :  MemoryBus 0 MB/s : 
+
+# Bench : /home/cs6290/sesc/sesc.opt -fhello1.rpt -c /home/cs6290/sesc/confs/cmp4-noc.conf -ohello.out hello.mipseb 
+# File  : sesc_hello.mipseb.hello1.rpt :       Thu Aug 27 22:36:42 2020
+      Exe Speed        Exe MHz         Exe Time         Sim Time (1000MHz)
+     44.255 KIPS      0.7777 MHz       0.110 secs       0.086 msec
+Proc  Avg.Time BPType       Total          RAS           BPred          BTB            BTAC
+   0   132.380  hybrid       50.34% ( 95.74% of  10.61%)  44.95% ( 57.92% of  43.45%)   0.00% 
+           nInst     BJ    Load   Store      INT      FP  : LD Forward , Replay : Worst Unit (clk)
+   0        4868  18.20%  20.15%  18.61%  43.04%   0.00%  :      0.20%    4868 inst/repl  :  LDSTIssueX 1.10 
+Proc  IPC        Cycles  Busy   LDQ   STQ  IWin   ROB  Regs Ports   TLB  maxBr MisBr Br4Clk  Other
+   0  0.06        85548   2.8   0.0   0.0   0.3   0.2   0.0   0.0   0.0   0.0   96.5    0.0    0.2 
+################################################################################
+Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
+   0  DL1 0.2   5.27% ( 3.2%, 2.0%) 114.57%  0.09GB/s :  MemoryBus 0 MB/s : 
+################################################################################
+Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
+   0  IL1 0.6   9.76% ( 9.8%, 0.0%) 168.27%  0.23GB/s :  MemoryBus 0 MB/s : 
+
+# Bench : /home/cs6290/sesc/sesc.opt -fhello2.rpt -c /home/cs6290/sesc/confs/cmp4-noc.conf -ohello.out hello.mipseb 
+# File  : sesc_hello.mipseb.hello2.rpt :       Thu Aug 27 22:37:52 2020
+      Exe Speed        Exe MHz         Exe Time         Sim Time (1000MHz)
+     44.400 KIPS      0.7735 MHz       0.110 secs       0.085 msec
+Proc  Avg.Time BPType       Total          RAS           BPred          BTB            BTAC
+   0   130.710  hybrid       50.34% ( 95.74% of  10.56%)  44.97% ( 57.88% of  43.48%)   0.00% 
+           nInst     BJ    Load   Store      INT      FP  : LD Forward , Replay : Worst Unit (clk)
+   0        4884  18.22%  20.17%  18.59%  43.02%   0.00%  :      0.20%    4884 inst/repl  :  LDSTIssueX 1.10 
+Proc  IPC        Cycles  Busy   LDQ   STQ  IWin   ROB  Regs Ports   TLB  maxBr MisBr Br4Clk  Other
+   0  0.06        85082   2.9   0.0   0.0   0.3   0.2   0.0   0.0   0.0   0.0   96.4    0.0    0.2 
+################################################################################
+Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
+   0  DL1 0.2   5.25% ( 3.2%, 2.0%) 114.68%  0.09GB/s :  MemoryBus 0 MB/s : 
+################################################################################
+Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
+   0  IL1 0.6   9.74% ( 9.7%, 0.0%) 168.00%  0.23GB/s :  MemoryBus 0 MB/s : 
+
+# Bench : /home/cs6290/sesc/sesc.opt -fhello3.rpt -c /home/cs6290/sesc/confs/cmp4-noc.conf -ohello.out hello.mipseb 
+# File  : sesc_hello.mipseb.hello3.rpt :       Thu Aug 27 22:39:16 2020
+      Exe Speed        Exe MHz         Exe Time         Sim Time (1000MHz)
+     44.255 KIPS      0.7688 MHz       0.110 secs       0.085 msec
+Proc  Avg.Time BPType       Total          RAS           BPred          BTB            BTAC
+   0   130.185  hybrid       50.56% ( 95.74% of  10.61%)  45.20% ( 58.14% of  43.68%)   0.00% 
+           nInst     BJ    Load   Store      INT      FP  : LD Forward , Replay : Worst Unit (clk)
+   0        4868  18.20%  20.15%  18.61%  43.04%   0.00%  :      0.20%    4868 inst/repl  :  LDSTIssueX 1.11 
+Proc  IPC        Cycles  Busy   LDQ   STQ  IWin   ROB  Regs Ports   TLB  maxBr MisBr Br4Clk  Other
+   0  0.06        84567   2.9   0.0   0.0   0.3   0.2   0.0   0.0   0.0   0.0   96.4    0.0    0.2 
+################################################################################
+Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
+   0  DL1 0.2   5.25% ( 3.2%, 2.0%) 115.04%  0.09GB/s :  MemoryBus 0 MB/s : 
+################################################################################
+Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
+   0  IL1 0.6   9.78% ( 9.8%, 0.0%) 167.85%  0.23GB/s :  MemoryBus 0 MB/s : 
+
