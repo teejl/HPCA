@@ -6,12 +6,17 @@ function simulate
 
   # run simulation for hybrid case
   echo "~~~~~  HYBRID  ~~~~~" >> results.txt
-  ~/sesc/sesc.opt -f HyA -c cmp4-noc.conf -ort.out -ert.err ~/sesc/apps/Splash2/raytrace/raytrace.mipseb -p1 -m128 -a3 ~/sesc/apps/Splash2/raytrace/Input/reduced.env
-  mv ~/sesc/apps/Splash2/raytrace/sesc_raytrace.mipseb.HyA .
-  ~/sesc/scripts/report.pl sesc_raytrace.mipseb.HyA >> results.txt
+  # reusable try start
+  #~/sesc/sesc.opt -f HyA -c cmp4-noc.conf -ort.out -ert.err ~/sesc/apps/Splash2/raytrace/raytrace.mipseb -p1 -m128 -a3 ~/sesc/apps/Splash2/raytrace/Input/reduced.env
+  #mv ~/sesc/apps/Splash2/raytrace/sesc_raytrace.mipseb.HyA .
+  #~/sesc/scripts/report.pl sesc_raytrace.mipseb.HyA >> results.txt
+  # end
+
+  cd ~/sesc/apps/Splash2/raytrace
+  ~/sesc/sesc.opt -f HyA -c ~/Repos/HPCA/PRJ1/trial2/cmp4-noc.conf -ort.out -ert.err raytrace.mipseb -p1 -m128 -a3 Input/reduced.env
+  mv ~/sesc/apps/Splash2/raytrace/sesc_raytrace.mipseb.HyA ~/Repos/HPCA/PRJ1/trial2/
   echo "~~~~~  HYBRID ~~~~~~" >> results.txt
 }
-
 
 #cd ~/sesc/apps/Splash2/raytrace
 #~/sesc/sesc.opt -f HyA -c ~/sesc/confs/cmp4-noc.conf -ort.out -ert.err raytrace.mipseb -p1 -m128 -a3 Input/reduced.env
