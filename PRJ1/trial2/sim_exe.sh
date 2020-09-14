@@ -14,7 +14,9 @@ function simulate
 
   cd ~/sesc/apps/Splash2/raytrace
   cp ~/Repos/HPCA/PRJ1/trial2/cmp4-noc.conf ~/sesc/confs/cmp4-noc.conf
+  rm ~/sesc/apps/Splash2/raytrace/sesc_raytrace.mipseb.HyA
   ~/sesc/sesc.opt -f HyA -c ~/sesc/confs/cmp4-noc.conf -ort.out -ert.err raytrace.mipseb -p1 -m128 -a3 Input/reduced.env
+  rm ~/Repos/HPCA/PRJ1/trial2/sesc_raytrace.mipseb.HyA
   cp ~/sesc/apps/Splash2/raytrace/sesc_raytrace.mipseb.HyA ~/Repos/HPCA/PRJ1/trial2/
   ~/sesc/scripts/report.pl ~/Repos/HPCA/PRJ1/trial2/sesc_raytrace.mipseb.HyA >> results.txt
   echo "~~~~~  HYBRID ~~~~~~" >> results.txt
@@ -25,7 +27,9 @@ function simulate
   echo "~~~~~  ORACLE  ~~~~~" >> results.txt
   cd ~/sesc/apps/Splash2/raytrace
   cp ~/Repos/HPCA/PRJ1/trial2/cmp4-noc-ora.conf ~/sesc/confs/cmp4-noc-ora.conf
+  rm ~/sesc/apps/Splash2/raytrace/sesc_raytrace.mipseb.OrA
   ~/sesc/sesc.opt -f HyA -c ~/sesc/confs/cmp4-noc-ora.conf -ort.out -ert.err raytrace.mipseb -p1 -m128 -a3 Input/reduced.env
+  rm ~/Repos/HPCA/PRJ1/trial2/sesc_raytrace.mipseb.HyA
   cp ~/sesc/apps/Splash2/raytrace/sesc_raytrace.mipseb.OrA ~/Repos/HPCA/PRJ1/trial2/
   ~/sesc/scripts/report.pl ~/Repos/HPCA/PRJ1/trial2/sesc_raytrace.mipseb.OrA >> results.txt
   echo "~~~~~  ORACLE ~~~~~~" >> results.txt
@@ -36,7 +40,9 @@ function simulate
   echo "~~~~~  NOT TAKEN  ~~~~~" >> results.txt
   cd ~/sesc/apps/Splash2/raytrace
   cp ~/Repos/HPCA/PRJ1/trial2/cmp4-noc-nta.conf ~/sesc/confs/cmp4-noc-nta.conf
+  rm ~/sesc/apps/Splash2/raytrace/sesc_raytrace.mipseb.NTA
   ~/sesc/sesc.opt -f HyA -c ~/sesc/confs/cmp4-noc-nta.conf -ort.out -ert.err raytrace.mipseb -p1 -m128 -a3 Input/reduced.env
+  rm ~/Repos/HPCA/PRJ1/trial2/sesc_raytrace.mipseb.NTA
   cp ~/sesc/apps/Splash2/raytrace/sesc_raytrace.mipseb.NTA ~/Repos/HPCA/PRJ1/trial2/
   ~/sesc/scripts/report.pl ~/Repos/HPCA/PRJ1/trial2/sesc_raytrace.mipseb.NTA >> results.txt
   echo "~~~~~  NOT TAKEN ~~~~~~" >> results.txt
