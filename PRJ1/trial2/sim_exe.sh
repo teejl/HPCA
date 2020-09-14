@@ -16,6 +16,7 @@ function simulate
   cp ~/Repos/HPCA/PRJ1/trial2/cmp4-noc.conf ~/sesc/confs/cmp4-noc.conf
   ~/sesc/sesc.opt -f HyA -c ~/sesc/confs/cmp4-noc.conf -ort.out -ert.err raytrace.mipseb -p1 -m128 -a3 Input/reduced.env
   mv ~/sesc/apps/Splash2/raytrace/sesc_raytrace.mipseb.HyA ~/Repos/HPCA/PRJ1/trial2/
+  ~/sesc/scripts/report.pl sesc_raytrace.mipseb.HyA >> results.txt
   echo "~~~~~  HYBRID ~~~~~~" >> results.txt
 }
 
