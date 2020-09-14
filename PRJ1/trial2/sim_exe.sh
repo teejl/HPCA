@@ -28,7 +28,7 @@ function simulate
   cd ~/sesc/apps/Splash2/raytrace
   cp ~/Repos/HPCA/PRJ1/trial2/cmp4-noc-ora.conf ~/sesc/confs/cmp4-noc-ora.conf
   rm ~/sesc/apps/Splash2/raytrace/sesc_raytrace.mipseb.OrA
-  ~/sesc/sesc.opt -f HyA -c ~/sesc/confs/cmp4-noc-ora.conf -ort.out -ert.err raytrace.mipseb -p1 -m128 -a3 Input/reduced.env
+  ~/sesc/sesc.opt -f OrA -c ~/sesc/confs/cmp4-noc-ora.conf -ort.out -ert.err raytrace.mipseb -p1 -m128 -a3 Input/reduced.env
   rm ~/Repos/HPCA/PRJ1/trial2/sesc_raytrace.mipseb.OrA
   cp ~/sesc/apps/Splash2/raytrace/sesc_raytrace.mipseb.OrA ~/Repos/HPCA/PRJ1/trial2/
   ~/sesc/scripts/report.pl ~/Repos/HPCA/PRJ1/trial2/sesc_raytrace.mipseb.OrA >> ~/Repos/HPCA/PRJ1/trial2/results.txt
@@ -41,7 +41,7 @@ function simulate
   cd ~/sesc/apps/Splash2/raytrace
   cp ~/Repos/HPCA/PRJ1/trial2/cmp4-noc-nta.conf ~/sesc/confs/cmp4-noc-nta.conf
   rm ~/sesc/apps/Splash2/raytrace/sesc_raytrace.mipseb.NTA
-  ~/sesc/sesc.opt -f HyA -c ~/sesc/confs/cmp4-noc-nta.conf -ort.out -ert.err raytrace.mipseb -p1 -m128 -a3 Input/reduced.env
+  ~/sesc/sesc.opt -f NTA -c ~/sesc/confs/cmp4-noc-nta.conf -ort.out -ert.err raytrace.mipseb -p1 -m128 -a3 Input/reduced.env
   rm ~/Repos/HPCA/PRJ1/trial2/sesc_raytrace.mipseb.NTA
   cp ~/sesc/apps/Splash2/raytrace/sesc_raytrace.mipseb.NTA ~/Repos/HPCA/PRJ1/trial2/
   ~/sesc/scripts/report.pl ~/Repos/HPCA/PRJ1/trial2/sesc_raytrace.mipseb.NTA >> ~/Repos/HPCA/PRJ1/trial2/results.txt
