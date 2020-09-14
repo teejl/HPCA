@@ -18,7 +18,7 @@ function simulate
   ~/sesc/sesc.opt -f HyA -c ~/sesc/confs/cmp4-noc.conf -ort.out -ert.err raytrace.mipseb -p1 -m128 -a3 Input/reduced.env
   rm ~/Repos/HPCA/PRJ1/trial2/sesc_raytrace.mipseb.HyA
   cp ~/sesc/apps/Splash2/raytrace/sesc_raytrace.mipseb.HyA ~/Repos/HPCA/PRJ1/trial2/
-  ~/sesc/scripts/report.pl ~/Repos/HPCA/PRJ1/trial2/sesc_raytrace.mipseb.HyA >> results.txt
+  ~/sesc/scripts/report.pl ~/Repos/HPCA/PRJ1/trial2/sesc_raytrace.mipseb.HyA >> ~/Repos/HPCA/PRJ1/trial2/results.txt
   echo "~~~~~  HYBRID ~~~~~~" >> ~/Repos/HPCA/PRJ1/trial2/results.txt
   echo "" >> ~/Repos/HPCA/PRJ1/trial2/results.txt
   echo "" >> ~/Repos/HPCA/PRJ1/trial2/results.txt
@@ -31,7 +31,7 @@ function simulate
   ~/sesc/sesc.opt -f HyA -c ~/sesc/confs/cmp4-noc-ora.conf -ort.out -ert.err raytrace.mipseb -p1 -m128 -a3 Input/reduced.env
   rm ~/Repos/HPCA/PRJ1/trial2/sesc_raytrace.mipseb.HyA
   cp ~/sesc/apps/Splash2/raytrace/sesc_raytrace.mipseb.OrA ~/Repos/HPCA/PRJ1/trial2/
-  ~/sesc/scripts/report.pl ~/Repos/HPCA/PRJ1/trial2/sesc_raytrace.mipseb.OrA >> results.txt
+  ~/sesc/scripts/report.pl ~/Repos/HPCA/PRJ1/trial2/sesc_raytrace.mipseb.OrA >> ~/Repos/HPCA/PRJ1/trial2/results.txt
   echo "~~~~~  ORACLE ~~~~~~" >> ~/Repos/HPCA/PRJ1/trial2/results.txt
   echo "" >> ~/Repos/HPCA/PRJ1/trial2/results.txt
   echo "" >> ~/Repos/HPCA/PRJ1/trial2/results.txt
