@@ -1,4 +1,4 @@
-function simlulation
+function simulate
 {
   # clear results.txt
   echo "Simulation executing..." > results.txt
@@ -25,5 +25,5 @@ echo "~~~~ Starting Simulation ~~~~"
 echo "I will be simulating a processor with this script. PRJ1."
 echo "by TeeJ"
 echo ""
-simulation
+simulate
 echo "~~~~ Finishing Main ~~~~"
