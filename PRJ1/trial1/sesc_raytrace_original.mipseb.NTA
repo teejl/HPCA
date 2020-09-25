@@ -200,7 +200,7 @@ Occ       =1
 [techParam]
 frequency =1.000000e+09
 #END Configuration used. Extracted from "/home/cs6290/sesc/confs/cmp4-noc-nta.conf":
-OSSim:beginTime=Thu Sep 24 21:53:59 2020
+OSSim:beginTime=Sun Sep 13 11:54:54 2020
 
 OSSim:bench=/home/cs6290/sesc/sesc.opt -f NTA -c /home/cs6290/sesc/confs/cmp4-noc-nta.conf -ort.out -ert.err raytrace.mipseb -p1 -m128 -a3 Input/reduced.env 
 OSSim:benchName=raytrace.mipseb
@@ -212,7 +212,7 @@ Proc(1):clockTicks=0
 Proc(2):clockTicks=0
 Proc(3):clockTicks=0
 OSSim:reportName=Final
-OSSim:msecs=  762.08:nCPUs=4:nCycles=401805272
+OSSim:msecs=  769.39:nCPUs=4:nCycles=401805272
 OSSim:pseudoreset=0
 BEGIN GStats::report Final
 Read_U=0
@@ -1479,5 +1479,5 @@ BPred(3):nMiss=0
 BPred(3)_NotTaken:nHit=0
 BPred(3)_NotTaken:nMiss=0
 END GStats::report Final
-OSSim:endTime=Thu Sep 24 22:06:42 2020
+OSSim:endTime=Sun Sep 13 12:07:43 2020
 

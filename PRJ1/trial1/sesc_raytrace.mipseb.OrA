@@ -204,7 +204,7 @@ Occ       =1
 [techParam]
 frequency =1.000000e+09
 #END Configuration used. Extracted from "/home/cs6290/sesc/confs/cmp4-noc-ora.conf":
-OSSim:beginTime=Sun Sep 13 11:38:04 2020
+OSSim:beginTime=Thu Sep 24 21:43:24 2020
 
 OSSim:bench=/home/cs6290/sesc/sesc.opt -f OrA -c /home/cs6290/sesc/confs/cmp4-noc-ora.conf -ort.out -ert.err raytrace.mipseb -p1 -m128 -a3 Input/reduced.env 
 OSSim:benchName=raytrace.mipseb
@@ -216,7 +216,7 @@ Proc(1):clockTicks=0
 Proc(2):clockTicks=0
 Proc(3):clockTicks=0
 OSSim:reportName=Final
-OSSim:msecs=  621.51:nCPUs=4:nCycles=278626126
+OSSim:msecs=  635.17:nCPUs=4:nCycles=278626126
 OSSim:pseudoreset=0
 BEGIN GStats::report Final
 Read_U=0
@@ -1491,5 +1491,5 @@ BPred(3)_Oracle:nMiss=0
 BPred(3)_BTB:nHit=0
 BPred(3)_BTB:nMiss=0
 END GStats::report Final
-OSSim:endTime=Sun Sep 13 11:48:26 2020
+OSSim:endTime=Thu Sep 24 21:53:59 2020
 
