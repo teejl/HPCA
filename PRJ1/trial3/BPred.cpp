@@ -114,12 +114,7 @@ PredType BPRas::predict(const Instruction *inst, InstID oracleID, bool doUpdate)
     // statistics when the branch is resolved. RAS automatically updates the
     // tables when predict is called. The update only actualizes the statistics.
 
-    std::cout << "Running BPRas::predict...\n";
-    std::cout << Instruction;
-    std::cout << "\t";
-    std::cout << inst;
-    std::cout << "\n"; // ADDED TJL
-
+    std::cout << "Running BPRas::predict...\n"; // ADDED TJL
 
     if(inst->isFuncRet()) {
         rasEnergy->inc();
@@ -211,12 +206,8 @@ void BPBTB::updateOnly(const Instruction *inst, InstID oracleID)
 
 PredType BPBTB::predict(const Instruction * inst, InstID oracleID, bool doUpdate)
 {
+    std::cout << "Running BPBTB::predict...\n"; // ADDED TJL
     bool ntaken = inst->calcNextInstID() == oracleID;
-    std::cout << "Running BPBTB::predict...\n";
-    std::cout << Instruction;
-    std::cout << "\t";
-    std::cout << inst;
-    std::cout << "\n"; // ADDED TJL
 
     btbEnergy->inc();
 
