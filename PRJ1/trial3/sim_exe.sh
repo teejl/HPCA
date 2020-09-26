@@ -9,6 +9,9 @@ function simulate
   cp ~/Repos/HPCA/PRJ1/trial3/BPred.cpp ~/sesc/src/libcore/BPred.cpp
   cp ~/Repos/HPCA/PRJ1/trial3/BPred.h ~/sesc/src/libcore/BPred.h
 
+  cd ~/sesc/
+  make
+
   # run simulation for hybrid case
   echo "~~~~~  HYBRID  ~~~~~" >> ~/Repos/HPCA/PRJ1/trial3/results.txt
   # reusable try start
