@@ -42,7 +42,7 @@ BPred::BPred(int32_t i, int32_t fetchWidth, const char *sec, const char *name)
     ,nMiss("BPred(%d)_%s:nMiss",i,name)
 {
     // bpred4CycleAddrShift
-    std::cout << "Running BPred...\n";
+    std::cout << "Running BPred...\n"; // ADDED TJL
     if (SescConf->checkInt(sec, "bpred4Cycle")) {
         SescConf->isPower2(sec, "bpred4Cycle");
         SescConf->isBetween(sec, "bpred4Cycle", 1, fetchWidth);
@@ -81,6 +81,7 @@ BPRas::BPRas(int32_t i, int32_t fetchWidth, const char *section)
     ,RasSize(SescConf->getInt(section,"rasSize"))
 {
     char cadena[100];
+    std::cout << "Running RAS...\n"; // ADDED TJL
 
     sprintf(cadena, "BPred(%d)_RAS", i);
     rasEnergy = new GStatsEnergy("rasEnergy", cadena, i, FetchPower , EnergyMgr::get("rasEnergy",i));
@@ -112,6 +113,13 @@ PredType BPRas::predict(const Instruction *inst, InstID oracleID, bool doUpdate)
     // the state without knowing the oracleID. All the other predictors update the
     // statistics when the branch is resolved. RAS automatically updates the
     // tables when predict is called. The update only actualizes the statistics.
+
+    std::cout << "Running BPRas::predict...\n";
+    std::cout << Instruction;
+    std::cout << "\t";
+    std::cout << inst;
+    std::cout << "\n"; // ADDED TJL
+
 
     if(inst->isFuncRet()) {
         rasEnergy->inc();
@@ -204,6 +212,11 @@ void BPBTB::updateOnly(const Instruction *inst, InstID oracleID)
 PredType BPBTB::predict(const Instruction * inst, InstID oracleID, bool doUpdate)
 {
     bool ntaken = inst->calcNextInstID() == oracleID;
+    std::cout << "Running BPBTB::predict...\n";
+    std::cout << Instruction;
+    std::cout << "\t";
+    std::cout << inst;
+    std::cout << "\n"; // ADDED TJL
 
     btbEnergy->inc();
 
