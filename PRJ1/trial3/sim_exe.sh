@@ -7,7 +7,7 @@ function simulate
   rm ~/sesc/src/libcore/BPred.cpp
   rm ~/sesc/src/libcore/BPred.h
   cp ~/Repos/HPCA/PRJ1/trial3/BPred.cpp ~/sesc/src/libcore/BPred.cpp
-  cp ~/Repos/HPCA/PRJ1/trial3/Bpred.h ~/sesc/src/libcore/BPred.h
+  cp ~/Repos/HPCA/PRJ1/trial3/BPred.h ~/sesc/src/libcore/BPred.h
 
   # run simulation for hybrid case
   echo "~~~~~  HYBRID  ~~~~~" >> ~/Repos/HPCA/PRJ1/trial3/results.txt
