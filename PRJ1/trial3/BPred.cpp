@@ -25,6 +25,7 @@ Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #include <strings.h>
 #include <math.h>
 #include <alloca.h>
+#include <stdio.h>
 
 #include "ReportGen.h"
 #include "BPred.h"
@@ -41,6 +42,7 @@ BPred::BPred(int32_t i, int32_t fetchWidth, const char *sec, const char *name)
     ,nMiss("BPred(%d)_%s:nMiss",i,name)
 {
     // bpred4CycleAddrShift
+    printf("Running BPred...\n");
     if (SescConf->checkInt(sec, "bpred4Cycle")) {
         SescConf->isPower2(sec, "bpred4Cycle");
         SescConf->isBetween(sec, "bpred4Cycle", 1, fetchWidth);
