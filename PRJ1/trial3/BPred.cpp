@@ -42,7 +42,7 @@ BPred::BPred(int32_t i, int32_t fetchWidth, const char *sec, const char *name)
     ,nMiss("BPred(%d)_%s:nMiss",i,name)
 {
     // bpred4CycleAddrShift
-    std::cout << "Running BPred...\n"
+    std::cout << "Running BPred...\n";
     if (SescConf->checkInt(sec, "bpred4Cycle")) {
         SescConf->isPower2(sec, "bpred4Cycle");
         SescConf->isBetween(sec, "bpred4Cycle", 1, fetchWidth);
