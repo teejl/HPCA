@@ -142,7 +142,7 @@ PredType BPRas::predict(const Instruction *inst, InstID oracleID, bool doUpdate)
                 index = 0;
         }
     }
-    std::cout << inst << ", BPRas" << ", NoPrediction \n"; // ADDED TJL
+    // std::cout << inst << ", BPRas" << ", NoPrediction \n"; // ADDED TJL
     return NoPrediction;
 }
 
@@ -232,7 +232,7 @@ PredType BPBTB::predict(const Instruction * inst,   InstID oracleID, bool doUpda
 
         if( cl == 0 ) {
             nMiss.cinc(doUpdate);
-            std::cout << inst << ", BTB" << ", NoPrediction \n"; // ADDED TJL
+            // std::cout << inst << ", BTB" << ", NoPrediction \n"; // ADDED TJL
             return NoBTBPrediction; // NoBTBPrediction because BTAC would hide the prediction
         }
 
@@ -243,7 +243,7 @@ PredType BPBTB::predict(const Instruction * inst,   InstID oracleID, bool doUpda
         }
 
         nMiss.cinc(doUpdate);
-        std::cout << inst << ", BTB" << ", NoPrediction \n"; // ADDED TJL
+        // std::cout << inst << ", BTB" << ", NoPrediction \n"; // ADDED TJL
         return NoBTBPrediction;
     }
 
@@ -264,7 +264,7 @@ PredType BPBTB::predict(const Instruction * inst,   InstID oracleID, bool doUpda
     }
 
     nMiss.inc();
-    std::cout << inst << ", BTB" << ", NoPrediction \n"; // ADDED TJL
+    // std::cout << inst << ", BTB" << ", NoPrediction \n"; // ADDED TJL
     return NoBTBPrediction;
 }
 
