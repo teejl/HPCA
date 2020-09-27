@@ -117,7 +117,7 @@ PredType BPRas::predict(const Instruction *inst, InstID oracleID, bool doUpdate)
     if(inst->isFuncRet()) {
         rasEnergy->inc();
         if(stack == 0)
-            std::cout << "BPRas, " << inst << ", " << "CorrectPrediction \n"; // ADDED TJL
+            std::cout << inst << ", BPRas" << " ,CorrectPrediction \n"; // ADDED TJL
             return CorrectPrediction;
 
         //    I(oracleID);
@@ -128,10 +128,10 @@ PredType BPRas::predict(const Instruction *inst, InstID oracleID, bool doUpdate)
         }
 
         if( stack[index] == oracleID )
-            std::cout << "BPRas, " << inst << ", " << "CorrectPrediction \n"; // ADDED TJL
+            std::cout << inst << ", BPRas" << " ,CorrectPrediction \n"; // ADDED TJL
             return CorrectPrediction;
 
-        std::cout << "BPRas, " << inst << ", " << "MissPrediction \n"; // ADDED TJL
+            std::cout << inst << ", BPRas" << " ,MissPrediction \n"; // ADDED TJL
         return MissPrediction;
     } else if(inst->isFuncCall() && stack) {
         rasEnergy->inc();
@@ -144,7 +144,7 @@ PredType BPRas::predict(const Instruction *inst, InstID oracleID, bool doUpdate)
                 index = 0;
         }
     }
-    std::cout << "BPRas, " << inst << ", " << "MissPrediction \n"; // ADDED TJL
+    std::cout << inst << ", BPRas" << " ,NoPrediction \n"; // ADDED TJL
     return NoPrediction;
 }
 
