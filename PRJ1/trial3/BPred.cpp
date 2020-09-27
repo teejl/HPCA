@@ -42,7 +42,6 @@ BPred::BPred(int32_t i, int32_t fetchWidth, const char *sec, const char *name)
     ,nMiss("BPred(%d)_%s:nMiss",i,name)
 {
     // bpred4CycleAddrShift
-    std::cout << "BPred...\n"; // ADDED TJL
     if (SescConf->checkInt(sec, "bpred4Cycle")) {
         SescConf->isPower2(sec, "bpred4Cycle");
         SescConf->isBetween(sec, "bpred4Cycle", 1, fetchWidth);
@@ -81,7 +80,6 @@ BPRas::BPRas(int32_t i, int32_t fetchWidth, const char *section)
     ,RasSize(SescConf->getInt(section,"rasSize"))
 {
     char cadena[100];
-    std::cout << "RAS...\n"; // ADDED TJL
 
     sprintf(cadena, "BPred(%d)_RAS", i);
     rasEnergy = new GStatsEnergy("rasEnergy", cadena, i, FetchPower , EnergyMgr::get("rasEnergy",i));
@@ -117,7 +115,7 @@ PredType BPRas::predict(const Instruction *inst, InstID oracleID, bool doUpdate)
     if(inst->isFuncRet()) {
         rasEnergy->inc();
         if(stack == 0)
-            std::cout << inst << ", BPRas" << " ,CorrectPrediction \n"; // ADDED TJL
+            std::cout << inst << ", BPRas" << ", CorrectPrediction \n"; // ADDED TJL
             return CorrectPrediction;
 
         //    I(oracleID);
@@ -128,10 +126,10 @@ PredType BPRas::predict(const Instruction *inst, InstID oracleID, bool doUpdate)
         }
 
         if( stack[index] == oracleID )
-            std::cout << inst << ", BPRas" << " ,CorrectPrediction \n"; // ADDED TJL
+            std::cout << inst << ", BPRas" << ", CorrectPrediction \n"; // ADDED TJL
             return CorrectPrediction;
 
-            std::cout << inst << ", BPRas" << " ,MissPrediction \n"; // ADDED TJL
+            std::cout << inst << ", BPRas" << ", MissPrediction \n"; // ADDED TJL
         return MissPrediction;
     } else if(inst->isFuncCall() && stack) {
         rasEnergy->inc();
@@ -144,7 +142,7 @@ PredType BPRas::predict(const Instruction *inst, InstID oracleID, bool doUpdate)
                 index = 0;
         }
     }
-    std::cout << inst << ", BPRas" << " ,NoPrediction \n"; // ADDED TJL
+    std::cout << inst << ", BPRas" << ", NoPrediction \n"; // ADDED TJL
     return NoPrediction;
 }
 
@@ -207,7 +205,6 @@ void BPBTB::updateOnly(const Instruction *inst, InstID oracleID)
 
 PredType BPBTB::predict(const Instruction * inst,   InstID oracleID, bool doUpdate)
 {
-    std::cout << "BPBTB::predict... " << inst << "\n"; // ADDED TJL
     bool ntaken = inst->calcNextInstID() == oracleID;
 
     btbEnergy->inc();
@@ -220,8 +217,10 @@ PredType BPBTB::predict(const Instruction * inst,   InstID oracleID, bool doUpda
         if (ntaken) {
             // Trash result because it shouldn't have reach BTB. Otherwise, the
             // worse the predictor, the better the results.
+            std::cout << inst << ", BTB" << ", NoPrediction \n"; // ADDED TJL
             return NoBTBPrediction;
         }
+        std::cout << inst << ", BTB" << ", CorrectPrediction \n"; // ADDED TJL
         return CorrectPrediction;
     }
 
@@ -233,15 +232,18 @@ PredType BPBTB::predict(const Instruction * inst,   InstID oracleID, bool doUpda
 
         if( cl == 0 ) {
             nMiss.cinc(doUpdate);
+            std::cout << inst << ", BTB" << ", NoPrediction \n"; // ADDED TJL
             return NoBTBPrediction; // NoBTBPrediction because BTAC would hide the prediction
         }
 
         if( cl->inst == oracleID ) {
             nHit.cinc(doUpdate);
+            std::cout << inst << ", BTB" << ", CorrectPrediction \n"; // ADDED TJL
             return CorrectPrediction;
         }
 
         nMiss.cinc(doUpdate);
+        std::cout << inst << ", BTB" << ", NoPrediction \n"; // ADDED TJL
         return NoBTBPrediction;
     }
 
@@ -257,10 +259,12 @@ PredType BPBTB::predict(const Instruction * inst,   InstID oracleID, bool doUpda
 
     if( predictID == oracleID ) {
         nHit.inc();
+        std::cout << inst << ", BTB" << ", CorrectPrediction \n"; // ADDED TJL
         return CorrectPrediction;
     }
 
     nMiss.inc();
+    std::cout << inst << ", BTB" << ", NoPrediction \n"; // ADDED TJL
     return NoBTBPrediction;
 }
 
@@ -281,7 +285,6 @@ void BPBTB::switchOut(Pid_t pid)
 PredType BPOracle::predict(const Instruction * inst, InstID oracleID, bool doUpdate)
 {
     bpredEnergy->inc();
-    std::cout << "BPOracle::predict... " << inst << "\n"; // ADDED TJL
 
     if( inst->calcNextInstID() == oracleID )
         return CorrectPrediction; //NT
@@ -305,9 +308,9 @@ void BPOracle::switchOut(Pid_t pid)
 PredType BPTaken::predict(const Instruction * inst, InstID oracleID, bool doUpdate)
 {
     bpredEnergy->inc();
-    std::cout << "BPTaken::predict... " << inst << "\n"; // ADDED TJL
 
     if( inst->calcNextInstID() == oracleID )
+        std::cout << inst << ", BPTaken" << ", MissPrediction \n"; // ADDED TJL
         return MissPrediction;
 
     return btb.predict(inst, oracleID, doUpdate);
@@ -329,7 +332,6 @@ void BPTaken::switchOut(Pid_t pid)
 PredType  BPNotTaken::predict(const Instruction * inst, InstID oracleID, bool doUpdate)
 {
     bpredEnergy->inc();
-    std::cout << "BPNotTaken::predict... " << inst << "\n"; // ADDED TJL
 
     return inst->calcNextInstID() == oracleID ? CorrectPrediction : MissPrediction;
 }
@@ -350,7 +352,6 @@ void BPNotTaken::switchOut(Pid_t pid)
 PredType BPStatic::predict(const Instruction * inst, InstID oracleID, bool doUpdate)
 {
     bpredEnergy->inc();
-    std::cout << "BPStatic::predict... " << inst << "\n"; // ADDED TJL
 
     bool ptaken = inst->guessAsTaken();
 
@@ -359,6 +360,7 @@ PredType BPStatic::predict(const Instruction * inst, InstID oracleID, bool doUpd
     if( taken != ptaken) {
         if (doUpdate)
             btb.updateOnly(inst, oracleID);
+        std::cout << inst << ", BPStatic" << ", MissPrediction \n"; // ADDED TJL
         return MissPrediction;
     }
 
@@ -398,7 +400,6 @@ BP2bit::BP2bit(int32_t i, int32_t fetchWidth, const char *section)
 PredType BP2bit::predict(const Instruction *inst, InstID oracleID, bool doUpdate)
 {
     bpredEnergy->inc();
-    std::cout << "BP2bit::predict... " << inst << "\n"; // ADDED TJL
 
     if( inst->isBranchTaken() )
         return btb.predict(inst, oracleID, doUpdate);
@@ -414,6 +415,7 @@ PredType BP2bit::predict(const Instruction *inst, InstID oracleID, bool doUpdate
     if( taken != ptaken ) {
         if (doUpdate)
             btb.updateOnly(inst,oracleID);
+        std::cout << inst << ", BP2bit" << ", MissPrediction \n"; // ADDED TJL
         return MissPrediction;
     }
 
@@ -471,7 +473,6 @@ BP2level::~BP2level()
 PredType BP2level::predict(const Instruction * inst, InstID oracleID, bool doUpdate)
 {
     bpredEnergy->inc();
-    std::cout << "BP2level::predict... " << inst << "\n"; // ADDED TJL
 
     if( inst->isBranchTaken() )
         return btb.predict(inst, oracleID, doUpdate);
@@ -497,6 +498,7 @@ PredType BP2level::predict(const Instruction * inst, InstID oracleID, bool doUpd
     if( taken != ptaken) {
         if (doUpdate)
             btb.updateOnly(inst,oracleID);
+        std::cout << inst << ", B2level" << ", MissPrediction \n"; // ADDED TJL
         return MissPrediction;
     }
 
@@ -556,7 +558,6 @@ BPHybrid::~BPHybrid()
 PredType BPHybrid::predict(const Instruction *inst, InstID oracleID, bool doUpdate)
 {
     bpredEnergy->inc();
-    std::cout << "BPHybrid::predict... " << inst << "\n"; // ADDED TJL
 
     if( inst->isBranchTaken() )
         return btb.predict(inst, oracleID, doUpdate);
@@ -601,6 +602,7 @@ PredType BPHybrid::predict(const Instruction *inst, InstID oracleID, bool doUpda
     if (taken != ptaken) {
         if (doUpdate)
             btb.updateOnly(inst,oracleID);
+        std::cout << inst << ", BPHybrid" << ", MissPrediction \n"; // ADDED TJL
         return MissPrediction;
     }
 
@@ -678,7 +680,6 @@ BP2BcgSkew::~BP2BcgSkew()
 PredType BP2BcgSkew::predict(const Instruction * inst, InstID oracleID, bool doUpdate)
 {
     bpredEnergy->inc();
-    std::cout << "BP2BcgSkew::predict... " << inst << "\n"; // ADDED TJL
 
     if (inst->isBranchTaken())
         return btb.predict(inst, oracleID, doUpdate);
@@ -707,6 +708,7 @@ PredType BP2BcgSkew::predict(const Instruction * inst, InstID oracleID, bool doU
 
     if (ptaken != taken) {
         if (!doUpdate)
+            std::cout << inst << ", BP2BcgSkew" << ", MissPrediction \n"; // ADDED TJL
             return MissPrediction;
 
         BIM.predict(iID,taken);
@@ -725,6 +727,7 @@ PredType BP2BcgSkew::predict(const Instruction * inst, InstID oracleID, bool doU
 
         I(doUpdate);
         btb.updateOnly(inst, oracleID);
+        std::cout << inst << ", BP2BcgSkew" << ", MissPrediction \n"; // ADDED TJL
         return MissPrediction;
     }
 
@@ -908,6 +911,7 @@ PredType BPyags::predict(const Instruction *inst, InstID oracleID,bool doUpdate)
     if( taken != ptaken ) {
         if (doUpdate)
             btb.updateOnly(inst,oracleID);
+        std::cout << inst << ", BPyags" << ", MissPrediction \n"; // ADDED TJL
         return MissPrediction;
     }
 
@@ -994,7 +998,6 @@ BPOgehl::~BPOgehl()
 PredType BPOgehl::predict(const Instruction *inst, InstID oracleID, bool doUpdate)
 {
     bpredEnergy->inc();
-    std::cout << "BPOgehl::predict... " << inst << "\n"; // ADDED TJL
 
     if( inst->isBranchTaken() )
         return btb.predict(inst, oracleID, doUpdate);
@@ -1089,6 +1092,7 @@ PredType BPOgehl::predict(const Instruction *inst, InstID oracleID, bool doUpdat
     }
 
     if (taken != ptaken)
+        std::cout << inst << ", BPOgehl" << ", MissPrediction \n"; // ADDED TJL
         return MissPrediction;
 
     return ptaken ? btb.predict(inst, oracleID, doUpdate) : CorrectPrediction;
