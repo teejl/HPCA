@@ -114,12 +114,10 @@ PredType BPRas::predict(const Instruction *inst, InstID oracleID, bool doUpdate)
     // statistics when the branch is resolved. RAS automatically updates the
     // tables when predict is called. The update only actualizes the statistics.
 
-    std::cout << "BPRas, " << inst << ", "; // ADDED TJL
-
     if(inst->isFuncRet()) {
         rasEnergy->inc();
         if(stack == 0)
-            std::cout << "CorrectPrediction \n"; // ADDED TJL
+            std::cout << "BPRas, " << inst << ", " << "CorrectPrediction \n"; // ADDED TJL
             return CorrectPrediction;
 
         //    I(oracleID);
@@ -130,10 +128,10 @@ PredType BPRas::predict(const Instruction *inst, InstID oracleID, bool doUpdate)
         }
 
         if( stack[index] == oracleID )
-            std::cout << "CorrectPrediction \n"; // ADDED TJL
+            std::cout << "BPRas, " << inst << ", " << "CorrectPrediction \n"; // ADDED TJL
             return CorrectPrediction;
 
-        std::cout << "MissPrediction \n"; // ADDED TJL
+        std::cout << "BPRas, " << inst << ", " << "MissPrediction \n"; // ADDED TJL
         return MissPrediction;
     } else if(inst->isFuncCall() && stack) {
         rasEnergy->inc();
@@ -146,7 +144,7 @@ PredType BPRas::predict(const Instruction *inst, InstID oracleID, bool doUpdate)
                 index = 0;
         }
     }
-    std::cout << "NoPrediction \n"; // ADDED TJL
+    std::cout << "BPRas, " << inst << ", " << "MissPrediction \n"; // ADDED TJL
     return NoPrediction;
 }
 
