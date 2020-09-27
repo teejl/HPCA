@@ -115,7 +115,7 @@ PredType BPRas::predict(const Instruction *inst, InstID oracleID, bool doUpdate)
     if(inst->isFuncRet()) {
         rasEnergy->inc();
         if(stack == 0)
-            std::cout << inst << ", BPRas" << ", CorrectPrediction \n"; // ADDED TJL
+            // std::cout << inst << ", BPRas" << ", CorrectPrediction \n"; // ADDED TJL
             return CorrectPrediction;
 
         //    I(oracleID);
@@ -126,10 +126,10 @@ PredType BPRas::predict(const Instruction *inst, InstID oracleID, bool doUpdate)
         }
 
         if( stack[index] == oracleID )
-            std::cout << inst << ", BPRas" << ", CorrectPrediction \n"; // ADDED TJL
+            // std::cout << inst << ", BPRas" << ", CorrectPrediction \n"; // ADDED TJL
             return CorrectPrediction;
 
-        std::cout << inst << ", BPRas" << ", MissPrediction \n"; // ADDED TJL
+        // std::cout << inst << ", BPRas" << ", MissPrediction \n"; // ADDED TJL
         return MissPrediction;
     } else if(inst->isFuncCall() && stack) {
         rasEnergy->inc();
@@ -217,7 +217,7 @@ PredType BPBTB::predict(const Instruction * inst,   InstID oracleID, bool doUpda
         if (ntaken) {
             // Trash result because it shouldn't have reach BTB. Otherwise, the
             // worse the predictor, the better the results.
-            // // std::cout << inst << ", BTB" << ", NoPrediction \n"; // ADDED TJL
+            std::cout << inst << ", BTB" << ", NoPrediction \n"; // ADDED TJL
             return NoBTBPrediction;
         }
         std::cout << inst << ", BTB" << ", CorrectPrediction \n"; // ADDED TJL
@@ -232,7 +232,7 @@ PredType BPBTB::predict(const Instruction * inst,   InstID oracleID, bool doUpda
 
         if( cl == 0 ) {
             nMiss.cinc(doUpdate);
-            // std::cout << inst << ", BTB" << ", NoPrediction \n"; // ADDED TJL
+           std::cout << inst << ", BTB" << ", NoPrediction \n"; // ADDED TJL
             return NoBTBPrediction; // NoBTBPrediction because BTAC would hide the prediction
         }
 
@@ -243,7 +243,7 @@ PredType BPBTB::predict(const Instruction * inst,   InstID oracleID, bool doUpda
         }
 
         nMiss.cinc(doUpdate);
-        // std::cout << inst << ", BTB" << ", NoPrediction \n"; // ADDED TJL
+        std::cout << inst << ", BTB" << ", NoPrediction \n"; // ADDED TJL
         return NoBTBPrediction;
     }
 
@@ -264,7 +264,7 @@ PredType BPBTB::predict(const Instruction * inst,   InstID oracleID, bool doUpda
     }
 
     nMiss.inc();
-    // std::cout << inst << ", BTB" << ", NoPrediction \n"; // ADDED TJL
+    std::cout << inst << ", BTB" << ", NoPrediction \n"; // ADDED TJL
     return NoBTBPrediction;
 }
 
