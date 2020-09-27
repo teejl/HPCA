@@ -112,6 +112,8 @@ PredType BPRas::predict(const Instruction *inst, InstID oracleID, bool doUpdate)
     // statistics when the branch is resolved. RAS automatically updates the
     // tables when predict is called. The update only actualizes the statistics.
 
+    std::cout << inst << ", " << oracleID << ", " << doUpdate; // TJL
+
     if(inst->isFuncRet()) {
         rasEnergy->inc();
         if(stack == 0)
