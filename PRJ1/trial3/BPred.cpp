@@ -1293,7 +1293,6 @@ BPredictor::BPredictor(int32_t i, int32_t fetchWidth, const char *sec, BPredicto
     ,nMiss("BPred(%d):nMiss", i)
     ,section(strdup(sec ? sec : "null" ))
 {
-    std::cout << nBranches << ", " << nTaken << ", " << nMiss;
     // Threads in SMT system share the predictor. Only the Ras is duplicated
     if (bpred)
         pred = bpred->pred;
