@@ -341,7 +341,7 @@ PredType  BPNotTaken::predict(const Instruction * inst, InstID oracleID, bool do
     }
     else {
         std::cout << inst << ", BPNotTaken" << ", MissPrediction \n"; // ADDED TJL
-        return MissPrediction
+        return MissPrediction;
     }
 
 }
