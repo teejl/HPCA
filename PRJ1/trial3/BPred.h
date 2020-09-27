@@ -34,7 +34,7 @@ Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  * Oracle, NotTaken, Taken, 2bit, 2Level, 2BCgSkew
  *
  */
-
+#include <iostream>
 #include "nanassert.h"
 #include "estl.h"
 
@@ -68,6 +68,7 @@ protected:
 
     GStatsCntr nHit;  // N.B. predictors should not update these counters directly
     GStatsCntr nMiss; // in their predict() function.
+    std::cout << nHit; // TJL
 
     GStatsEnergy *bpredEnergy;
     int32_t bpred4Cycle;
