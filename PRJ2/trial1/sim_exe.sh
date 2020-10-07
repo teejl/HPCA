@@ -29,6 +29,15 @@ function simulate
   rm ~/Repos/HPCA/PRJ2/trial1/sesc_fmm.mipseb.Default
   cp ~/sesc/apps/Splash2/fmm/sesc_fmm.mipseb.Default ~/Repos/HPCA/PRJ2/trial1/
   
+  # copy over error files and print them out
+  echo " ~~~~~~ ERRORS ~~~~~~"
+  cp ~/sesc/apps/Splash2/fmm/fmm.err
+  cat ~/sesc/apps/Splash2/fmm/fmm.err
+  echo " ~~~~~~  OUT   ~~~~~~"
+  cp ~/sesc/apps/Splash2/fmm/fmm.out
+  cat ~/sesc/apps/Splash2/fmm/fmm.out
+  echo " ~~~~~~        ~~~~~~"
+
   # get report statistics
   ~/sesc/scripts/report.pl ~/sesc/apps/Splash2/fmm/sesc_fmm.mipseb.Default >> ~/Repos/HPCA/PRJ2/trial1/results.txt
   
