@@ -52,4 +52,4 @@ echo "I will be simulating a processor with this script. PRJ2."
 echo "by TeeJ"
 echo ""
 simulate
-echo "~~~~ Finishing Main ~~~~"
+echo "~~~~ Finishing Simulation ~~~~"
