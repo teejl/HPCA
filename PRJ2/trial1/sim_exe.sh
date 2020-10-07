@@ -31,12 +31,13 @@ function simulate
   
   # copy over error files and print them out
   echo " ~~~~~~ ERRORS ~~~~~~"
-  cp ~/sesc/apps/Splash2/fmm/fmm.err
+  cp ~/sesc/apps/Splash2/fmm/fmm.err ~/Repos/HPCA/PRJ2/trial1/
   cat ~/sesc/apps/Splash2/fmm/fmm.err
+  echo ""
   echo " ~~~~~~  OUT   ~~~~~~"
-  cp ~/sesc/apps/Splash2/fmm/fmm.out
+  cp ~/sesc/apps/Splash2/fmm/fmm.out ~/Repos/HPCA/PRJ2/trial1/
   cat ~/sesc/apps/Splash2/fmm/fmm.out
-  echo " ~~~~~~        ~~~~~~"
+  echo " ~~~~~~~~~~~~~~~~~~~~"
 
   # get report statistics
   ~/sesc/scripts/report.pl ~/sesc/apps/Splash2/fmm/sesc_fmm.mipseb.Default >> ~/Repos/HPCA/PRJ2/trial1/results.txt
@@ -45,14 +46,6 @@ function simulate
   echo "~~~~~  HYBRID ~~~~~~" >> ~/Repos/HPCA/PRJ2/trial1/results.txt
   
 }
-
-#cd ~/sesc/apps/Splash2/raytrace
-#~/sesc/sesc.opt -f HyA -c ~/sesc/confs/cmp4-noc.conf -ort.out -ert.err raytrace.mipseb -p1 -m128 -a3 Input/reduced.env
-#mv ~/sesc/apps/Splash2/raytrace/sesc_raytrace.mipseb.HyA ~/Repos/HPCA/PRJ2/trial1/
-#~/sesc/sesc.opt -f OrA -c ~/sesc/confs/cmp4-noc-ora.conf -ort.out -ert.err raytrace.mipseb -p1 -m128 -a3 Input/reduced.env
-#mv ~/sesc/apps/Splash2/raytrace/sesc_raytrace.mipseb.OrA ~/Repos/HPCA/PRJ2/trial1/
-#~/sesc/sesc.opt -f NTA -c ~/sesc/confs/cmp4-noc-nta.conf -ort.out -ert.err raytrace.mipseb -p1 -m128 -a3 Input/reduced.env
-#mv ~/sesc/apps/Splash2/raytrace/sesc_raytrace.mipseb.NTA ~/Repos/HPCA/PRJ2/trial1/
 
 echo "~~~~ Starting Simulation ~~~~"
 echo "I will be simulating a processor with this script. PRJ2."
