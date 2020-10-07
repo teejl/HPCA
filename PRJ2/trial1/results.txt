@@ -2,9 +2,9 @@ Simulation executing...
 
 ~~~~~  HYBRID  ~~~~~
 # Bench : /home/cs6290/sesc/sesc.opt -f Default -c /home/cs6290/sesc/confs/cmp4-noc.conf -iInput/input.256 -ofmm.out -efmm.err fmm.mipseb -p 1 
-# File  : /home/cs6290/sesc/apps/Splash2/fmm/sesc_fmm.mipseb.Default :       Tue Oct  6 23:44:06 2020
+# File  : /home/cs6290/sesc/apps/Splash2/fmm/sesc_fmm.mipseb.Default :       Tue Oct  6 23:50:49 2020
       Exe Speed        Exe MHz         Exe Time         Sim Time (1000MHz)
-    496.879 KIPS      0.5730 MHz      27.660 secs      15.850 msec
+    500.133 KIPS      0.5768 MHz      27.480 secs      15.850 msec
 Proc  Avg.Time BPType       Total          RAS           BPred          BTB            BTAC
    0   25.942  Hybrid       95.65% ( 99.99% of   4.02%)  95.47% ( 98.91% of  66.05%)   0.00% 
            nInst     BJ    Load   Store      INT      FP  : LD Forward , Replay : Worst Unit (clk)

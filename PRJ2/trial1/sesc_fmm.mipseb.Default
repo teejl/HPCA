@@ -211,7 +211,7 @@ Occ       =1
 [techParam]
 frequency =1.000000e+09
 #END Configuration used. Extracted from "/home/cs6290/sesc/confs/cmp4-noc.conf":
-OSSim:beginTime=Tue Oct  6 23:43:38 2020
+OSSim:beginTime=Tue Oct  6 23:50:21 2020
 
 OSSim:bench=/home/cs6290/sesc/sesc.opt -f Default -c /home/cs6290/sesc/confs/cmp4-noc.conf -iInput/input.256 -ofmm.out -efmm.err fmm.mipseb -p 1 
 OSSim:benchName=fmm.mipseb
@@ -223,7 +223,7 @@ Proc(1):clockTicks=0
 Proc(2):clockTicks=0
 Proc(3):clockTicks=0
 OSSim:reportName=Final
-OSSim:msecs=   27.66:nCPUs=4:nCycles=15849770
+OSSim:msecs=   27.48:nCPUs=4:nCycles=15849770
 OSSim:pseudoreset=0
 BEGIN GStats::report Final
 Read_U=0
@@ -1453,5 +1453,5 @@ BPred(3)_Hybrid:nMiss=0
 BPred(3)_BTB:nHit=0
 BPred(3)_BTB:nMiss=0
 END GStats::report Final
-OSSim:endTime=Tue Oct  6 23:44:06 2020
+OSSim:endTime=Tue Oct  6 23:50:49 2020
 
