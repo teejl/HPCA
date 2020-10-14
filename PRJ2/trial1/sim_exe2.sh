@@ -25,11 +25,11 @@ function simulate
   echo "~~~~~  ${2}  ~~~~~" >> ~/Repos/HPCA/PRJ2/trial1/results.txt
 
   # remove output, run simulation, and copy it to the trail folder
-  rm ~/sesc/apps/Splash2/fmm/sesc_fmm.mipseb.Temp
-  cp ~/Repos/HPCA/PRJ2/SESC_original_files/cmp4-noc.conf ~/sesc/confs/cmp4-noc.conf
-  ~/sesc/sesc.opt -f $2 -c "~/Repos/HPCA/PRJ2/trial1/${1}" -iInput/input.256 -ofmm.out -efmm.err fmm.mipseb -p 1
-  rm ~/Repos/HPCA/PRJ2/trial1/sesc_fmm.mipseb.Temp
-  cp ~/sesc/apps/Splash2/fmm/sesc_fmm.mipseb.Temp ~/Repos/HPCA/PRJ2/trial1/
+  rm "~/sesc/apps/Splash2/fmm/sesc_fmm.mipseb.${2}"
+  cp "~/Repos/HPCA/PRJ2/trial1/${1}" ~/sesc/confs/
+  ~/sesc/sesc.opt -f $2 -c "~/sesc/confs/${1}" -iInput/input.256 -ofmm.out -efmm.err fmm.mipseb -p 1
+  rm "~/Repos/HPCA/PRJ2/trial1/sesc_fmm.mipseb.${2}"
+  cp "~/sesc/apps/Splash2/fmm/sesc_fmm.mipseb.${2}" ~/Repos/HPCA/PRJ2/trial1/
   
   # copy over error files and print them out
   echo " ~~~~~~ ERRORS ~~~~~~"
@@ -42,7 +42,7 @@ function simulate
   echo " ~~~~~~~~~~~~~~~~~~~~"
 
   # get report statistics
-  ~/sesc/scripts/report.pl ~/sesc/apps/Splash2/fmm/sesc_fmm.mipseb."${2}" >> ~/Repos/HPCA/PRJ2/trial1/results.txt
+  ~/sesc/scripts/report.pl "~/sesc/apps/Splash2/fmm/sesc_fmm.mipseb.${2}" >> ~/Repos/HPCA/PRJ2/trial1/results.txt
   
   # output results
   echo "~~~~~  ${2}  ~~~~~"  >> ~/Repos/HPCA/PRJ2/trial1/results.txt
@@ -61,7 +61,7 @@ echo "I will be simulating a processor with this script. PRJ2."
 echo "by TeeJ"
 #testing cmp4-noc.conf Default
 init
-simulate "cmp4-noc.conf" Default
+simulate cmp4-noc.conf Default
 #simulate cmp4-noc-small-l1.conf SmallL1
 #simulate cmp4-noc-dmap.conf DMapL1
 #simulate cmp4-noc-5cyc-l1.conf 5CycL1
