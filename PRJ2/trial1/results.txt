@@ -18,6 +18,7 @@ Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ...
 Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
    0  IL1 0.0   0.03% ( 0.0%, 0.0%) 250.93%  0.01GB/s :  MemoryBus 0 MB/s : 
 ~~~~~  Default  ~~~~~
+
 ~~~~~  SmallL1  ~~~~~
 # Bench : /home/cs6290/sesc/sesc.opt -f SmallL1 -c /home/cs6290/sesc/confs/cmp4-noc-small-l1.conf -iInput/input.256 -ofmm.out -efmm.err fmm.mipseb -p 1 
 # File  : /home/cs6290/sesc/apps/Splash2/fmm/sesc_fmm.mipseb.SmallL1 :       Tue Oct 13 22:18:12 2020
@@ -36,6 +37,7 @@ Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ...
 Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
    0  IL1 0.0   0.03% ( 0.0%, 0.0%) 250.93%  0.01GB/s :  MemoryBus 0 MB/s : 
 ~~~~~  SmallL1  ~~~~~
+
 ~~~~~  DMapL1  ~~~~~
 # Bench : /home/cs6290/sesc/sesc.opt -f DMapL1 -c /home/cs6290/sesc/confs/cmp4-noc-dmap-l1.conf -iInput/input.256 -ofmm.out -efmm.err fmm.mipseb -p 1 
 # File  : /home/cs6290/sesc/apps/Splash2/fmm/sesc_fmm.mipseb.DMapL1 :       Tue Oct 13 22:18:46 2020
@@ -54,6 +56,7 @@ Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ...
 Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
    0  IL1 0.0   0.03% ( 0.0%, 0.0%) 250.93%  0.01GB/s :  MemoryBus 0 MB/s : 
 ~~~~~  DMapL1  ~~~~~
+
 ~~~~~  5CycL1  ~~~~~
 # Bench : /home/cs6290/sesc/sesc.opt -f 5CycL1 -c /home/cs6290/sesc/confs/cmp4-noc-5cyc-l1.conf -iInput/input.256 -ofmm.out -efmm.err fmm.mipseb -p 1 
 # File  : /home/cs6290/sesc/apps/Splash2/fmm/sesc_fmm.mipseb.5CycL1 :       Tue Oct 13 22:19:19 2020
@@ -72,6 +75,7 @@ Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ...
 Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
    0  IL1 0.0   0.03% ( 0.0%, 0.0%) 250.93%  0.01GB/s :  MemoryBus 0 MB/s : 
 ~~~~~  5CycL1  ~~~~~
+
 ~~~~~  9CycL1  ~~~~~
 # Bench : /home/cs6290/sesc/sesc.opt -f 9CycL1 -c /home/cs6290/sesc/confs/cmp4-noc-9cyc-l1.conf -iInput/input.256 -ofmm.out -efmm.err fmm.mipseb -p 1 
 # File  : /home/cs6290/sesc/apps/Splash2/fmm/sesc_fmm.mipseb.9CycL1 :       Tue Oct 13 22:19:52 2020
@@ -90,3 +94,4 @@ Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ...
 Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
    0  IL1 0.0   0.03% ( 0.0%, 0.0%) 250.93%  0.01GB/s :  MemoryBus 0 MB/s : 
 ~~~~~  9CycL1  ~~~~~
+
