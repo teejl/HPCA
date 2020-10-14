@@ -25,10 +25,11 @@ function simulate
   echo "~~~~~  ${2}  ~~~~~" >> ~/Repos/HPCA/PRJ2/trial1/results.txt
 
   # remove output, run simulation, and copy it to the trail folder
-  rm ~/sesc/apps/Splash2/fmm/sesc_fmm.mipseb."${2}"
-  ~/sesc/sesc.opt -f Default -c ~/Repos/HPCA/PRJ2/trial1/"${1}" -iInput/input.256 -ofmm.out -efmm.err fmm.mipseb -p 1
-  rm ~/Repos/HPCA/PRJ2/trial1/sesc_fmm.mipseb."${2}"
-  cp ~/sesc/apps/Splash2/fmm/sesc_fmm.mipseb."${2}" ~/Repos/HPCA/PRJ2/trial1/
+  rm ~/sesc/apps/Splash2/fmm/sesc_fmm.mipseb.Temp
+  cp ~/Repos/HPCA/PRJ2/SESC_original_files/cmp4-noc.conf ~/sesc/confs/cmp4-noc.conf
+  ~/sesc/sesc.opt -f Temp -c "~/Repos/HPCA/PRJ2/trial1/${1}" -iInput/input.256 -ofmm.out -efmm.err fmm.mipseb -p 1
+  rm ~/Repos/HPCA/PRJ2/trial1/sesc_fmm.mipseb.Temp
+  cp ~/sesc/apps/Splash2/fmm/sesc_fmm.mipseb.Temp ~/Repos/HPCA/PRJ2/trial1/
   
   # copy over error files and print them out
   echo " ~~~~~~ ERRORS ~~~~~~"
