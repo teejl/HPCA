@@ -58,7 +58,7 @@ function testing
 echo "~~~~ Starting Simulation ~~~~"
 echo "I will be simulating a processor with this script. PRJ2."
 echo "by TeeJ"
-testing "cmp4-noc.conf" "Default"
-# init
-# simulate "cmp4-noc.conf" "Default"
+testing "cmp4-noc.conf" Default
+#init
+#simulate "cmp4-noc.conf" "Default"
 echo "~~~~ Finishing Simulation ~~~~"
