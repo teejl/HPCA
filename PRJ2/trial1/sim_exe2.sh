@@ -49,10 +49,16 @@ function simulate
 
 }
 
+function testing
+{
+    echo $1
+    echo $2
+}
+
 echo "~~~~ Starting Simulation ~~~~"
 echo "I will be simulating a processor with this script. PRJ2."
 echo "by TeeJ"
-echo ""
-init
-simulate "cmp4-noc.conf" "Default"
+testing "cmp4-noc.conf" "Default"
+# init
+# simulate "cmp4-noc.conf" "Default"
 echo "~~~~ Finishing Simulation ~~~~"
