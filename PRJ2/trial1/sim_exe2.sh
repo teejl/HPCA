@@ -54,5 +54,5 @@ echo "I will be simulating a processor with this script. PRJ2."
 echo "by TeeJ"
 echo ""
 init
-simulate
+simulate "cmp4-noc.conf"
 echo "~~~~ Finishing Simulation ~~~~"
