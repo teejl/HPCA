@@ -26,7 +26,7 @@ function simulate
 
   # remove output, run simulation, and copy it to the trail folder
   rm ~/sesc/apps/Splash2/fmm/sesc_fmm.mipseb."${2}"
-  ~/sesc/sesc.opt -f "${2}" -c ~/Repos/HPCA/PRJ2/trial1/$1 -iInput/input.256 -ofmm.out -efmm.err fmm.mipseb -p 1
+  ~/sesc/sesc.opt -f $2 -c ~/Repos/HPCA/PRJ2/trial1/$1 -iInput/input.256 -ofmm.out -efmm.err fmm.mipseb -p 1
   rm ~/Repos/HPCA/PRJ2/trial1/sesc_fmm.mipseb."${2}"
   cp ~/sesc/apps/Splash2/fmm/sesc_fmm.mipseb."${2}" ~/Repos/HPCA/PRJ2/trial1/
   
@@ -60,7 +60,7 @@ echo "I will be simulating a processor with this script. PRJ2."
 echo "by TeeJ"
 #testing cmp4-noc.conf Default
 init
-simulate "cmp4-noc.conf" "Default"
+simulate "cmp4-noc.conf" Default
 #simulate cmp4-noc-small-l1.conf SmallL1
 #simulate cmp4-noc-dmap.conf DMapL1
 #simulate cmp4-noc-5cyc-l1.conf 5CycL1
