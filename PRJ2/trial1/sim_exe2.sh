@@ -46,7 +46,7 @@ function simulate
   
   # output results
   echo "~~~~~  ${2}  ~~~~~"  >> ~/Repos/HPCA/PRJ2/trial1/results.txt
-  echo ""
+  echo "" >> ~/Repos/HPCA/PRJ2/trial1/results.txt
 
 }
 
