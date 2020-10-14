@@ -62,8 +62,8 @@ echo "by TeeJ"
 #testing cmp4-noc.conf Default
 init
 simulate cmp4-noc.conf Default
-#simulate cmp4-noc-small-l1.conf SmallL1
-#simulate cmp4-noc-dmap.conf DMapL1
-#simulate cmp4-noc-5cyc-l1.conf 5CycL1
-#simulate cmp4-noc-9cyc-l1.conf 9CycL1
+simulate cmp4-noc-small-l1.conf SmallL1
+simulate cmp4-noc-dmap-l1.conf DMapL1
+simulate cmp4-noc-5cyc-l1.conf 5CycL1
+simulate cmp4-noc-9cyc-l1.conf 9CycL1
 echo "~~~~ Finishing Simulation ~~~~"
