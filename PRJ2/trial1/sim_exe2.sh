@@ -22,7 +22,7 @@ function init
 function simulate
 {
   # run simulation for default case
-  echo "~~~~~  DEFAULT  ~~~~~" >> ~/Repos/HPCA/PRJ2/trial1/results.txt
+  echo "~~~~~  ${2}  ~~~~~" >> ~/Repos/HPCA/PRJ2/trial1/results.txt
 
   # remove output, run simulation, and copy it to the trail folder
   rm ~/sesc/apps/Splash2/fmm/sesc_fmm.mipseb."${2}"
@@ -44,7 +44,7 @@ function simulate
   ~/sesc/scripts/report.pl ~/sesc/apps/Splash2/fmm/sesc_fmm.mipseb."${2}" >> ~/Repos/HPCA/PRJ2/trial1/results.txt
   
   # output results
-  echo "~~~~~  DEFAULT  ~~~~~"  >> ~/Repos/HPCA/PRJ2/trial1/results.txt
+  echo "~~~~~  ${2}  ~~~~~"  >> ~/Repos/HPCA/PRJ2/trial1/results.txt
   echo ""
 
 }
@@ -61,4 +61,8 @@ echo "by TeeJ"
 #testing cmp4-noc.conf Default
 init
 simulate cmp4-noc.conf Default
+simulate cmp4-noc-small-l1.conf SmallL1
+simulate cmp4-noc-dmap.conf DMapL1
+simulate cmp4-noc-5cyc-l1.conf 5CycL1
+simulate cmp4-noc-9cyc-l1.conf 9CycL1
 echo "~~~~ Finishing Simulation ~~~~"
