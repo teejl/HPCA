@@ -27,7 +27,7 @@ function simulate
   # remove output, run simulation, and copy it to the trail folder
   rm ~/sesc/apps/Splash2/fmm/sesc_fmm.mipseb.Temp
   cp ~/Repos/HPCA/PRJ2/SESC_original_files/cmp4-noc.conf ~/sesc/confs/cmp4-noc.conf
-  ~/sesc/sesc.opt -f Temp -c "~/Repos/HPCA/PRJ2/trial1/${1}" -iInput/input.256 -ofmm.out -efmm.err fmm.mipseb -p 1
+  ~/sesc/sesc.opt -f $2 -c "~/Repos/HPCA/PRJ2/trial1/${1}" -iInput/input.256 -ofmm.out -efmm.err fmm.mipseb -p 1
   rm ~/Repos/HPCA/PRJ2/trial1/sesc_fmm.mipseb.Temp
   cp ~/sesc/apps/Splash2/fmm/sesc_fmm.mipseb.Temp ~/Repos/HPCA/PRJ2/trial1/
   
