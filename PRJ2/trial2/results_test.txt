@@ -1,0 +1,38 @@
+Simulation executing...
+
+~~~~~  n32.Default.rpt  ~~~~~
+# Bench : /home/cs6290/sesc/sesc.opt -f n32.Default.rpt -c /home/cs6290/sesc/confs/cmp4-noc-SML1.conf -olu.out -elu.err lu.mipseb -n32 -p1 
+# File  : /home/cs6290/sesc/apps/Splash2/lu/sesc_lu.mipseb.n32.Default.rpt :       Wed Oct 14 23:04:45 2020
+      Exe Speed        Exe MHz         Exe Time         Sim Time (1000MHz)
+    296.943 KIPS      0.4925 MHz       1.090 secs       0.537 msec
+Proc  Avg.Time BPType       Total          RAS           BPred          BTB            BTAC
+   0   60.269  Hybrid       91.07% ( 99.89% of  11.34%)  89.94% ( 95.81% of  57.74%)   0.00% 
+           nInst     BJ    Load   Store      INT      FP  : LD Forward , Replay : Worst Unit (clk)
+   0      323668   9.49%  18.01%   9.25%  55.68%   7.57%  :     12.77%     302 inst/repl  :  ALUIssueX 2.53 
+Proc  IPC        Cycles  Busy   LDQ   STQ  IWin   ROB  Regs Ports   TLB  maxBr MisBr Br4Clk  Other
+   0  0.60       536818  30.1   0.0   0.0   0.1  27.8   0.0   0.0   0.0   0.0   40.7    0.0    1.3 
+################################################################################
+Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
+   0  DL1 0.1   4.02% ( 3.5%, 0.5%) 100.98%  0.43GB/s :  MemoryBus 0 MB/s : 
+################################################################################
+Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
+   0  IL1 0.0   0.45% ( 0.4%, 0.0%) 192.04%  0.09GB/s :  MemoryBus 0 MB/s : 
+~~~~~  n32.Default.rpt  ~~~~~
+~~~~~  n32.L1NXLRU.rpt  ~~~~~
+# Bench : /home/cs6290/sesc/sesc.opt -f n32.L1NXLRU.rpt -c /home/cs6290/sesc/confs/cmp4-noc-L1NXLRU.conf -olu.out -elu.err lu.mipseb -n32 -p1 
+# File  : /home/cs6290/sesc/apps/Splash2/lu/sesc_lu.mipseb.n32.L1NXLRU.rpt :       Wed Oct 14 23:04:47 2020
+      Exe Speed        Exe MHz         Exe Time         Sim Time (1000MHz)
+    311.219 KIPS      0.5162 MHz       1.040 secs       0.537 msec
+Proc  Avg.Time BPType       Total          RAS           BPred          BTB            BTAC
+   0   60.269  Hybrid       91.07% ( 99.89% of  11.34%)  89.94% ( 95.81% of  57.74%)   0.00% 
+           nInst     BJ    Load   Store      INT      FP  : LD Forward , Replay : Worst Unit (clk)
+   0      323668   9.49%  18.01%   9.25%  55.68%   7.57%  :     12.77%     302 inst/repl  :  ALUIssueX 2.53 
+Proc  IPC        Cycles  Busy   LDQ   STQ  IWin   ROB  Regs Ports   TLB  maxBr MisBr Br4Clk  Other
+   0  0.60       536818  30.1   0.0   0.0   0.1  27.8   0.0   0.0   0.0   0.0   40.7    0.0    1.3 
+################################################################################
+Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
+   0  DL1 0.1   4.02% ( 3.5%, 0.5%) 100.98%  0.43GB/s :  MemoryBus 0 MB/s : 
+################################################################################
+Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
+   0  IL1 0.0   0.45% ( 0.4%, 0.0%) 192.04%  0.09GB/s :  MemoryBus 0 MB/s : 
+~~~~~  n32.L1NXLRU.rpt  ~~~~~
