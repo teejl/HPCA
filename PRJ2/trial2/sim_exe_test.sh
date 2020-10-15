@@ -29,7 +29,7 @@ function simulate
   # remove output, run simulation, and copy it to the trail folder
   rm ~/sesc/apps/Splash2/lu/"sesc_lu.mipseb.${2}"
   cp ~/Repos/HPCA/PRJ2/trial2/"${1}" ~/sesc/confs/
-  ~/sesc/sesc.opt -fn32.rpt -c ~/sesc/confs/"${1}" -iInput/input.256 -olu.out -elu.err lu.mipseb -n32 -p1
+  ~/sesc/sesc.opt -f $2 -c ~/sesc/confs/"${1}" -iInput/input.256 -olu.out -elu.err lu.mipseb -n32 -p1
   rm ~/Repos/HPCA/PRJ2/trial2/"sesc_lu.mipseb.${2}"
   cp ~/sesc/apps/Splash2/lu/"sesc_lu.mipseb.${2}" ~/Repos/HPCA/PRJ2/trial2/
   
@@ -63,8 +63,8 @@ echo "I will be simulating a processor with this script. PRJ2."
 echo "by TeeJ"
 #testing cmp4-noc.conf Default
 init
-simulate cmp4-noc.conf Default
-simulate cmp4-noc-L1NXLRU.conf L1NXLRU
+simulate cmp4-noc.conf n32.Default.rpt
+simulate cmp4-noc-L1NXLRU.conf n32.L1NXLRU.rpt
 #simulate cmp4-noc-dmap-l1.conf DMapL1
 #simulate cmp4-noc-5cyc-l1.conf 5CycL1
 #simulate cmp4-noc-9cyc-l1.conf 9CycL1
