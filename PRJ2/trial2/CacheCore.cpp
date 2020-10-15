@@ -359,7 +359,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         if (policy == RANDOM) {
             lineFree = &theSet[irand];
             irand = (irand + 1) & maskAssoc;
-        } else if {
+        } else if (policy == LRU) {
             I(policy == LRU);
             // Get the oldest line possible
             lineFree = setEnd-1;
@@ -372,7 +372,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         if (policy == RANDOM && (*lineFree)->isValid()) {
             lineFree = &theSet[irand];
             irand = (irand + 1) & maskAssoc;
-        } else if {
+        } else if (policy == LRU) {
             I(policy == LRU);
             // Do nothing. lineFree is the oldest
         } else {
