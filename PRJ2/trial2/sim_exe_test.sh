@@ -1,8 +1,8 @@
 function init 
 {
-  # clear results.txt
-  echo "Simulation executing..." > ~/Repos/HPCA/PRJ2/trial2/results.txt
-  echo "" >> results.txt
+  # clear results_test.txt
+  echo "Simulation executing..." > ~/Repos/HPCA/PRJ2/trial2/results_test.txt
+  echo "" >> results_test.txt
 
   # resetting the configuration files
   rm ~/sesc/src/libsuc/CacheCore.cpp
@@ -17,37 +17,37 @@ function init
   # build out simulator and simulation
   cd ~/sesc/
   make
-  cd ~/sesc/apps/Splash2/fmm
+  cd ~/sesc/apps/Splash2/lu
   make
 }
 
 function simulate
 {
   # run simulation for default case
-  echo "~~~~~  ${2}  ~~~~~" >> ~/Repos/HPCA/PRJ2/trial2/results.txt
+  echo "~~~~~  ${2}  ~~~~~" >> ~/Repos/HPCA/PRJ2/trial2/results_test.txt
 
   # remove output, run simulation, and copy it to the trail folder
-  rm ~/sesc/apps/Splash2/fmm/"sesc_fmm.mipseb.${2}"
+  rm ~/sesc/apps/Splash2/lu/"sesc_lu.mipseb.${2}"
   cp ~/Repos/HPCA/PRJ2/trial2/"${1}" ~/sesc/confs/
-  ~/sesc/sesc.opt -f $2 -c ~/sesc/confs/"${1}" -iInput/input.256 -ofmm.out -efmm.err fmm.mipseb -p 1
-  rm ~/Repos/HPCA/PRJ2/trial2/"sesc_fmm.mipseb.${2}"
-  cp ~/sesc/apps/Splash2/fmm/"sesc_fmm.mipseb.${2}" ~/Repos/HPCA/PRJ2/trial2/
+  ~/sesc/sesc.opt -f $2 -c ~/sesc/confs/"${1}" -iInput/input.256 -olu.out -elu.err lu.mipseb -n32 -p1
+  rm ~/Repos/HPCA/PRJ2/trial2/"sesc_lu.mipseb.${2}"
+  cp ~/sesc/apps/Splash2/lu/"sesc_lu.mipseb.${2}" ~/Repos/HPCA/PRJ2/trial2/
   
   # copy over error files and print them out
   echo " ~~~~~~ ERRORS ~~~~~~"
-  cp ~/sesc/apps/Splash2/fmm/fmm.err ~/Repos/HPCA/PRJ2/trial2/
-  cat ~/sesc/apps/Splash2/fmm/fmm.err
+  cp ~/sesc/apps/Splash2/lu/lu.err ~/Repos/HPCA/PRJ2/trial2/
+  cat ~/sesc/apps/Splash2/lu/lu.err
   echo ""
   echo " ~~~~~~  OUT   ~~~~~~"
-  cp ~/sesc/apps/Splash2/fmm/fmm.out ~/Repos/HPCA/PRJ2/trial2/
-  cat ~/sesc/apps/Splash2/fmm/fmm.out
+  cp ~/sesc/apps/Splash2/lu/lu.out ~/Repos/HPCA/PRJ2/trial2/
+  cat ~/sesc/apps/Splash2/lu/lu.out
   echo " ~~~~~~~~~~~~~~~~~~~~"
 
   # get report statistics
-  ~/sesc/scripts/report.pl ~/sesc/apps/Splash2/fmm/"sesc_fmm.mipseb.${2}" >> ~/Repos/HPCA/PRJ2/trial2/results.txt
+  ~/sesc/scripts/report.pl ~/sesc/apps/Splash2/lu/"sesc_lu.mipseb.${2}" >> ~/Repos/HPCA/PRJ2/trial2/results_test.txt
   
   # output results
-  echo "~~~~~  ${2}  ~~~~~"  >> ~/Repos/HPCA/PRJ2/trial2/results.txt
+  echo "~~~~~  ${2}  ~~~~~"  >> ~/Repos/HPCA/PRJ2/trial2/results_test.txt
   echo ""
 
 }
