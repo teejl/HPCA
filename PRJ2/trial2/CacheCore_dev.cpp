@@ -334,31 +334,43 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     Line **setEnd = theSet + assoc;
 
     // new variables added for logic TJL
+    Line **lineHit1=0; 
+    Line **lineHit2=0;
     bool lrufound = false;
 
     // Start in reverse order so that get the youngest invalid possible,
     // and the oldest isLocked possible (lineFree)
     {
         Line **l = setEnd -1;
+        //if (policy == NXLRU) { // this logic almost works however does not really find the 2nd best choice
+            //l--;
+        //}
         while(l >= theSet) {
             if ((*l)->getTag() == tag) {
-                lineHit = l;
-                lrufound = true;
-                if (policy == LRU)
+                //std::cout  << thsSet << " \t";
+                // if LRU has not been found set lineHit1 to l
+                if (!lrufound) {
+                    lineHit1 = l;
+                    lrufound = true;
+                }
+                // stop here if we are using LRU continue if we are going for nxlru
+                if (policy == LRU) 
                     break;
-                else if (lrufound)
+                else if (lrufound && policy == NXLRU) {
+                    lineHit2 = l;
                     break;
+                }
             }
-            if (!(*l)->isValid())
+            if (!(*l)->isValid()) // find next valid line
                 lineFree = l;
-            else if (lineFree == 0 && !(*l)->isLocked())
+            else if (lineFree == 0 && !(*l)->isLocked()) 
                 lineFree = l;
 
             // If line is invalid, isLocked must be false
             GI(!(*l)->isValid(), !(*l)->isLocked());
-            l--;
+            //std::cout << l << " \n";
+            l--; // go to next line to check
         }
-    
     }
     GI(lineFree, !(*lineFree)->isValid() || !(*lineFree)->isLocked());
 
