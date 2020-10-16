@@ -347,15 +347,14 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
 
             // If line is invalid, isLocked must be false
             GI(!(*l)->isValid(), !(*l)->isLocked());
+            std::cout << l << " \n";
             l--;
         }
     }
     GI(lineFree, !(*lineFree)->isValid() || !(*lineFree)->isLocked());
 
-    if (lineHit && policy == NXLRU) {
+    if (lineHit) {
         // std::cout << "line hit!" << lineHit << " \n";
-        return *lineHit - 1;
-    } else {
         return *lineHit;
     }
 
