@@ -364,12 +364,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
 
     if (lineHit) {
         // std::cout << "line hit!" << lineHit << " \n";
-        if (lineHit2 == 0) {
-            return *lineHit1;
-        } else {
-            return *lineHit2;
-        }
-        // return *lineHit;
+        return *lineHit;
     }
 
     I(lineHit==0);
