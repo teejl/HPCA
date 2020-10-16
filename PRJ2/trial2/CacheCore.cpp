@@ -228,12 +228,14 @@ CacheAssoc<State, Addr_t, Energy>::CacheAssoc(int32_t size, int32_t assoc, int32
 {
     I(numLines>0);
 
-    if (strcasecmp(pStr, k_RANDOM) == 0)
+    if (strcasecmp(pStr, k_RANDOM) == 0) {
+        std::cout << "The Policy is RANDOM! \n";
         policy = RANDOM;
-    else if (strcasecmp(pStr, k_LRU)    == 0)
+    } else if (strcasecmp(pStr, k_LRU)    == 0) {
+        std::cout << "The Policy is LRU! \n";
         policy = LRU;
-    else if (strcasecmp(pStr, k_NXLRU)    == 0) {
-        std::cout << "hello world!!!! \n";
+    } else if (strcasecmp(pStr, k_NXLRU)    == 0) {
+        std::cout << "The Policy is NXLRU! \n";
         policy = NXLRU;
     } else {
         MSG("Invalid cache policy [%s]",pStr);
@@ -359,20 +361,19 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     if (lineFree == 0) {
         I(ignoreLocked);
         if (policy == RANDOM) {
+            std::cout << "policy RANDOM is taken for find2Replace \n";
             lineFree = &theSet[irand];
             irand = (irand + 1) & maskAssoc;
         } else if (policy == LRU) {
             //I(policy == LRU);
             // Get the oldest line possible
+            std::cout << "policy LRU is taken for find2Replace \n";
             lineFree = setEnd-1;
         } else {
             // I(policy == NXLRU);
             // Get the second oldest line possible
+            std::cout << "policy NXLRU is taken for find2Replace \n";
             lineFree = setEnd-2;
-            std::cout << lineFree;
-            std::cout << "\t";
-            std::cout << setEnd;
-            std::cout << "\n";
         }
     } else if(ignoreLocked) { // this will never happen so there is no worries
         if (policy == RANDOM && (*lineFree)->isValid()) {

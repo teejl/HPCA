@@ -33,6 +33,14 @@
         "xstddef": "cpp",
         "xstring": "cpp",
         "xtr1common": "cpp",
-        "xutility": "cpp"
+        "xutility": "cpp",
+        "ctime": "cpp",
+        "iomanip": "cpp",
+        "map": "cpp",
+        "tuple": "cpp",
+        "vector": "cpp",
+        "xlocmon": "cpp",
+        "xloctime": "cpp",
+        "xtree": "cpp"
     }
 }
