@@ -318,7 +318,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
 {
     Addr_t tag    = calcTag(addr);
     Line **theSet = &content[calcIndex4Tag(tag)];
-    std::cout << "findLine2Replace is called. \n";
+    //std::cout << "findLine2Replace is called. \n";
 
     // Check most typical case
     if ((*theSet)->getTag() == tag) {
@@ -351,15 +351,20 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     }
     GI(lineFree, !(*lineFree)->isValid() || !(*lineFree)->isLocked());
 
-    if (lineHit)
+    if (lineHit) {
+        std::cout << "line hit!" << lineHit << " \n";
         return *lineHit;
+    }
 
     I(lineHit==0);
 
-    if(lineFree == 0 && !ignoreLocked)
+    if(lineFree == 0 && !ignoreLocked) {
+        std::cout << "lineFree == 0 && !ignoreLocked hit!! return 0 \n";
         return 0;
+    }
 
     if (lineFree == 0) {
+        std::cout << "lineFree == 0 policy logic is here .... \n";
         I(ignoreLocked);
         if (policy == RANDOM) {
             std::cout << "policy RANDOM is taken for find2Replace \n";
