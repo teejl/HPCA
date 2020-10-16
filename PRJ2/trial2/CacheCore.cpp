@@ -330,6 +330,8 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     }
 
     Line **lineHit=0;
+    Line **lineHit1=0; // added for additional logic TJL
+    Line **lineHit2=0; // added for additional logic TJL
     Line **lineFree=0; // Order of preference, invalid, locked
     Line **setEnd = theSet + assoc;
 
@@ -337,31 +339,44 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     // and the oldest isLocked possible (lineFree)
     {
         Line **l = setEnd -1;
-        if (policy == NXLRU) {
-            l--;
-        }
+        //if (policy == NXLRU) { // this logic almost works however does not really find the 2nd best choice
+            //l--;
+        //}
         while(l >= theSet) {
             if ((*l)->getTag() == tag) {
                 //std::cout  << thsSet << " \t";
-                lineHit = l;
-                break;
+                // if LRU has not been found set lineHit1 to l
+                if (!lrufound) {
+                    lineHit1 = l;
+                }
+                // stop here if we are using LRU continue if we are going for nxlru
+                if (policy == LRU) 
+                    break;
+                else if (lrufound && policy == NXLRU) {
+                    lineHit2 = l;
+                }
             }
-            if (!(*l)->isValid())
+            if (!(*l)->isValid()) // find next valid line
                 lineFree = l;
-            else if (lineFree == 0 && !(*l)->isLocked())
+            else if (lineFree == 0 && !(*l)->isLocked()) 
                 lineFree = l;
 
             // If line is invalid, isLocked must be false
             GI(!(*l)->isValid(), !(*l)->isLocked());
             //std::cout << l << " \n";
-            l--;
+            l--; // go to next line to check
         }
     }
     GI(lineFree, !(*lineFree)->isValid() || !(*lineFree)->isLocked());
 
     if (lineHit) {
         // std::cout << "line hit!" << lineHit << " \n";
-        return *lineHit;
+        if (policy == NXLRU) {
+            return *lineHit2;
+        } else {
+            return *lineHit1;
+        }
+        // return *lineHit;
     }
 
     I(lineHit==0);
