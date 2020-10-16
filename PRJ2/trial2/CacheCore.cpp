@@ -335,6 +335,9 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     {
         //std::cout << "I think this is where we implement the policy! \n";
         Line **l = setEnd -1;
+        std::cout << Line << " \t";
+        std::cout << setEnd -1 << " \t";
+        std::cout << setEnd -2 << " \n";
         while(l >= theSet) {
             if ((*l)->getTag() == tag) {
                 lineHit = l;
@@ -360,7 +363,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     I(lineHit==0);
 
     if(lineFree == 0 && !ignoreLocked) {
-        std::cout << "lineFree == 0 && !ignoreLocked hit!! return 0 \n";
+        // std::cout << "lineFree == 0 && !ignoreLocked hit!! return 0 \n";
         return 0;
     }
 
