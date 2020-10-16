@@ -335,7 +335,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     {
         // std::cout << "I think this is where we implement the policy! \n";
         if (policy == NXLRU) {
-            Line **l = setEnd -2;
+            Line **l = setEnd -1;
         } else {
             Line **l = setEnd -1;
         }
