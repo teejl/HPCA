@@ -335,26 +335,12 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     {
         Line **l = setEnd -1;
         while(l >= theSet) {
+            if (policy == NXLRU) {
+                l--;
+            }
             if ((*l)->getTag() == tag) {
                 //std::cout  << thsSet << " \t";
                 lineHit = l;
-                // trying to put the logic in once again
-                while(l >= theSet && policy == NXLRU) {
-                    l--;
-                    if ((*l)->getTag() == tag) {
-                        //std::cout  << thsSet << " \t";
-                        lineHit = l;
-                        break;
-                    }
-                    if (!(*l)->isValid())
-                        lineFree = l;
-                    else if (lineFree == 0 && !(*l)->isLocked())
-                        lineFree = l;
-
-                    // If line is invalid, isLocked must be false
-                    GI(!(*l)->isValid(), !(*l)->isLocked());
-                    //std::cout << l << " \n";
-                }
                 break;
             }
             if (!(*l)->isValid())
