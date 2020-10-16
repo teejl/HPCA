@@ -334,6 +334,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     Line **lineHit2=0; // added for additional logic TJL
     Line **lineFree=0; // Order of preference, invalid, locked
     Line **setEnd = theSet + assoc;
+    bool lrufound = false;
 
     // Start in reverse order so that get the youngest invalid possible,
     // and the oldest isLocked possible (lineFree)
@@ -348,6 +349,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
                 // if LRU has not been found set lineHit1 to l
                 if (!lrufound) {
                     lineHit1 = l;
+                    lrufound = true;
                 }
                 // stop here if we are using LRU continue if we are going for nxlru
                 if (policy == LRU) 
