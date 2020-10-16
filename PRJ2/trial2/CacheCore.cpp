@@ -312,6 +312,7 @@ template<class State, class Addr_t, bool Energy>
 typename CacheAssoc<State, Addr_t, Energy>::Line
 *CacheAssoc<State, Addr_t, Energy>::findLine2Replace(Addr_t addr, bool ignoreLocked)
 {
+    std::cout << "calling that one function... \n";
     Addr_t tag    = calcTag(addr);
     Line **theSet = &content[calcIndex4Tag(tag)];
 
