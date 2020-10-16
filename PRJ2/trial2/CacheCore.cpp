@@ -367,8 +367,12 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
             I(policy == NXLRU);
             // Get the second oldest line possible
             lineFree = setEnd-2;
+            std::cout << LineFree;
+            std::cout << "\t";
+            std::cout << setEnd;
+            std::cout << "\n";
         }
-    } else if(ignoreLocked) {
+    } else if(ignoreLocked) { // this will never happen so there is no worries
         if (policy == RANDOM && (*lineFree)->isValid()) {
             lineFree = &theSet[irand];
             irand = (irand + 1) & maskAssoc;
