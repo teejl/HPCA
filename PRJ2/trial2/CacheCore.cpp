@@ -233,6 +233,7 @@ CacheAssoc<State, Addr_t, Energy>::CacheAssoc(int32_t size, int32_t assoc, int32
     else if (strcasecmp(pStr, k_LRU)    == 0)
         policy = LRU;
     else if (strcasecmp(pStr, k_NXLRU)    == 0)
+        std::cout << "hello world!!!! \n";
         policy = NXLRU;
     else {
         MSG("Invalid cache policy [%s]",pStr);
