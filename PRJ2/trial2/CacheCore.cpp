@@ -334,10 +334,9 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     // and the oldest isLocked possible (lineFree)
     {
         //std::cout << "I think this is where we implement the policy! \n";
-        (policy == NXLRU) ? Line **l = setEnd -1 : Line **l = setEnd -1;
-        //std::cout << Line << " \t";
-        std::cout << setEnd -1 << " \t";
-        std::cout << setEnd -2 << " \n";
+        Line **l = setEnd -1;
+        if (policy == NXLRU)
+            Line **l = setEnd -2;
         while(l >= theSet) {
             if ((*l)->getTag() == tag) {
                 lineHit = l;
