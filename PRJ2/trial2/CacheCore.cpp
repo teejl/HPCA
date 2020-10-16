@@ -335,7 +335,6 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     {
         Line **l = setEnd -1;
         if (policy == NXLRU) {
-            Line **l = setEnd -2;
             l--;
         }
         while(l >= theSet) {
