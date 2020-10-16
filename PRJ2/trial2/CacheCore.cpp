@@ -330,10 +330,12 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     }
 
     Line **lineHit=0;
-    Line **lineHit1=0; // added for additional logic TJL
-    Line **lineHit2=0; // added for additional logic TJL
     Line **lineFree=0; // Order of preference, invalid, locked
     Line **setEnd = theSet + assoc;
+
+    // new variables added for logic TJL
+    Line **lineHit1=0; 
+    Line **lineHit2=0;
     bool lrufound = false;
 
     // Start in reverse order so that get the youngest invalid possible,
@@ -356,6 +358,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
                     break;
                 else if (lrufound && policy == NXLRU) {
                     lineHit2 = l;
+                    break;
                 }
             }
             if (!(*l)->isValid()) // find next valid line
