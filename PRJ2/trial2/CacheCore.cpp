@@ -376,10 +376,10 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
 
     if (lineHit) {
         // std::cout << "line hit!" << lineHit << " \n";
-        if (policy == NXLRU) {
-            return *lineHit2;
-        } else {
+        if (lineHit2 == 0) {
             return *lineHit1;
+        } else {
+            return *lineHit2;
         }
         // return *lineHit;
     }
