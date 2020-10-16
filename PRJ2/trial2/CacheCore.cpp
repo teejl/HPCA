@@ -358,10 +358,10 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
 
     I(lineHit==0);
 
-    if(lineFree == 0 && !ignoreLocked) {
-        std::cout << "lineFree == 0 && !ignoreLocked hit!! return 0 \n";
-        return 0;
-    }
+    //if(lineFree == 0 && !ignoreLocked) {
+    //    std::cout << "lineFree == 0 && !ignoreLocked hit!! return 0 \n";
+    //    return 0;
+    //}
 
     if (lineFree == 0) {
         std::cout << "lineFree == 0 policy logic is here .... \n";
