@@ -333,13 +333,8 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     // Start in reverse order so that get the youngest invalid possible,
     // and the oldest isLocked possible (lineFree)
     {
-        // std::cout << "I think this is where we implement the policy! \n";
-        if (policy == NXLRU) {
-            Line **l = setEnd -1;
-        } else {
-            Line **l = setEnd -1;
-        }
-
+        //std::cout << "I think this is where we implement the policy! \n";
+        Line **l = setEnd -1;
         while(l >= theSet) {
             if ((*l)->getTag() == tag) {
                 lineHit = l;
