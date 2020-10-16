@@ -352,7 +352,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     GI(lineFree, !(*lineFree)->isValid() || !(*lineFree)->isLocked());
 
     if (lineHit) {
-        std::cout << "line hit!" << lineHit << " \n";
+        // std::cout << "line hit!" << lineHit << " \n";
         return *lineHit;
     }
 
