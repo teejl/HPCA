@@ -318,11 +318,12 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
 {
     Addr_t tag    = calcTag(addr);
     Line **theSet = &content[calcIndex4Tag(tag)];
-    //std::cout << "findLine2Replace is called. \n";
+    std::cout << "findLine2Replace is called. " << Line << " " << Addr_t << " " << "\n";
 
     // Check most typical case
     if ((*theSet)->getTag() == tag) {
         GI(tag,(*theSet)->isValid());
+        std::cout << *theSet << "\n";
         return *theSet;
     }
 
@@ -333,6 +334,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     // Start in reverse order so that get the youngest invalid possible,
     // and the oldest isLocked possible (lineFree)
     {
+        std::cout << "I think this is where we implement the policy! \n";
         Line **l = setEnd -1;
         while(l >= theSet) {
             if ((*l)->getTag() == tag) {
@@ -358,12 +360,12 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
 
     I(lineHit==0);
 
-    //if(lineFree == 0 && !ignoreLocked) {
-    //    std::cout << "lineFree == 0 && !ignoreLocked hit!! return 0 \n";
-    //    return 0;
-    //}
+    if(lineFree == 0 && !ignoreLocked) {
+        std::cout << "lineFree == 0 && !ignoreLocked hit!! return 0 \n";
+        return 0;
+    }
 
-    if (lineFree == 0) {
+    /*if (lineFree == 0) { // ignore LOCKED IS NEVER TRUE
         std::cout << "lineFree == 0 policy logic is here .... \n";
         I(ignoreLocked);
         if (policy == RANDOM) {
@@ -393,7 +395,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
             // Get the second oldest line possible
             lineFree = setEnd-1;
         } 
-    }
+    } */
 
     I(lineFree);
     GI(!ignoreLocked, !(*lineFree)->isValid() || !(*lineFree)->isLocked());
