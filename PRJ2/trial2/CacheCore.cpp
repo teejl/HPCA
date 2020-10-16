@@ -333,12 +333,29 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     // Start in reverse order so that get the youngest invalid possible,
     // and the oldest isLocked possible (lineFree)
     {
-        //std::cout << "I think this is where we implement the policy! \n";
         Line **l = setEnd -1;
         while(l >= theSet) {
             if ((*l)->getTag() == tag) {
                 //std::cout  << thsSet << " \t";
                 lineHit = l;
+                l--;
+                // trying to put the logic in once again
+                while(l >= theSet && policy == NXLRU) {
+                    if ((*l)->getTag() == tag) {
+                        //std::cout  << thsSet << " \t";
+                        lineHit = l;
+                        break;
+                    }
+                    if (!(*l)->isValid())
+                        lineFree = l;
+                    else if (lineFree == 0 && !(*l)->isLocked())
+                        lineFree = l;
+
+                    // If line is invalid, isLocked must be false
+                    GI(!(*l)->isValid(), !(*l)->isLocked());
+                    //std::cout << l << " \n";
+                    l--;
+                }
                 break;
             }
             if (!(*l)->isValid())
