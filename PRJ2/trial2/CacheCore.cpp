@@ -337,7 +337,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         Line **l = setEnd -1;
         while(l >= theSet) {
             if ((*l)->getTag() == tag) {
-                std::cout << getTag() << " \t";
+                std::cout  << thsSet << " \t";
                 lineHit = l;
                 break;
             }
