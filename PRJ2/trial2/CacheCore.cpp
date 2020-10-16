@@ -335,8 +335,6 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     {
         //std::cout << "I think this is where we implement the policy! \n";
         Line **l = setEnd -1;
-        if (policy == NXLRU)
-            Line **l = setEnd -2;
         while(l >= theSet) {
             if ((*l)->getTag() == tag) {
                 lineHit = l;
@@ -354,8 +352,10 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     }
     GI(lineFree, !(*lineFree)->isValid() || !(*lineFree)->isLocked());
 
-    if (lineHit) {
+    if (lineHit && policy == NXLRU) {
         // std::cout << "line hit!" << lineHit << " \n";
+        return *lineHit - 1;
+    } else {
         return *lineHit;
     }
 
