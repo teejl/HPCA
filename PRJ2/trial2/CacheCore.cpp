@@ -337,6 +337,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         Line **l = setEnd -1;
         while(l >= theSet) {
             if ((*l)->getTag() == tag) {
+                std::cout << getTag() << " \t";
                 lineHit = l;
                 break;
             }
@@ -347,7 +348,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
 
             // If line is invalid, isLocked must be false
             GI(!(*l)->isValid(), !(*l)->isLocked());
-            std::cout << l << " \n";
+            //std::cout << l << " \n";
             l--;
         }
     }
