@@ -334,7 +334,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     // and the oldest isLocked possible (lineFree)
     {
         Line **l = setEnd -1;
-        if (policy == NXLRU) {
+        if (policy == NXLRU && l >= theSet) {
             l--;
         }
         while(l >= theSet) {
