@@ -369,7 +369,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
             // I(policy == NXLRU);
             // Get the second oldest line possible
             lineFree = setEnd-2;
-            std::cout << LineFree;
+            std::cout << lineFree;
             std::cout << "\t";
             std::cout << setEnd;
             std::cout << "\n";
