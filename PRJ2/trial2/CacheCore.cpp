@@ -343,11 +343,12 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         while(l >= theSet) {
             if ((*l)->getTag() == tag) {
                 lineHit = l;
-                lrufound = true;
                 if (policy == LRU)
                     break;
                 else if (lrufound)
                     break;
+                else 
+                    lrufound = true;
             }
             if (!(*l)->isValid())
                 lineFree = l;
