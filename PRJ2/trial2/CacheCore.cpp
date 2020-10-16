@@ -322,7 +322,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     // Check most typical case
     if ((*theSet)->getTag() == tag) {
         GI(tag,(*theSet)->isValid());
-        std::cout << *theSet << "\n";
+        // std::cout << *theSet << "\n";
         return *theSet;
     }
 
@@ -333,8 +333,12 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     // Start in reverse order so that get the youngest invalid possible,
     // and the oldest isLocked possible (lineFree)
     {
-        std::cout << "I think this is where we implement the policy! \n";
-        Line **l = setEnd -1;
+        // std::cout << "I think this is where we implement the policy! \n";
+        if (policy == NXLRU)
+            Line **l = setEnd -2;
+        else 
+            Line **l = setEnd -1;
+            
         while(l >= theSet) {
             if ((*l)->getTag() == tag) {
                 lineHit = l;
