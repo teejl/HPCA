@@ -323,9 +323,11 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     if ((*theSet)->getTag() == tag) {
         GI(tag,(*theSet)->isValid());
         // std::cout << *theSet << "\n";
+        if (policy == NXLRU) {
+            return *theSet--;
+        }
         return *theSet;
     }
-    std::cout << *theSet;
 
     Line **lineHit=0;
     Line **lineFree=0; // Order of preference, invalid, locked
