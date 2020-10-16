@@ -318,7 +318,6 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
 {
     Addr_t tag    = calcTag(addr);
     Line **theSet = &content[calcIndex4Tag(tag)];
-    std::cout << "findLine2Replace is called. " << Line << " " << Addr_t << " " << "\n";
 
     // Check most typical case
     if ((*theSet)->getTag() == tag) {
