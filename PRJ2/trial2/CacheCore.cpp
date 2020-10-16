@@ -340,6 +340,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     // and the oldest isLocked possible (lineFree)
     {
         Line **l = setEnd -1;
+        if (policy == NXLRU) l--;
         while(l >= theSet) {
             if ((*l)->getTag() == tag) {
                 lineHit = l;
