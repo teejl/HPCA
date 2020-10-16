@@ -336,6 +336,9 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         Line **l = setEnd -1;
         if (policy == NXLRU) {
             l--;
+            if (l < theSet) {
+                l++;
+            }
         }
         while(l >= theSet) {
             if ((*l)->getTag() == tag) {
