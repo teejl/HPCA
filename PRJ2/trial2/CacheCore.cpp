@@ -325,6 +325,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         // std::cout << *theSet << "\n";
         return *theSet;
     }
+    std::cout << *theSet;
 
     Line **lineHit=0;
     Line **lineFree=0; // Order of preference, invalid, locked
@@ -334,7 +335,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     // and the oldest isLocked possible (lineFree)
     {
         Line **l = setEnd -1;
-        if (policy == NXLRU && l >= theSet) {
+        if (policy == NXLRU) {
             l--;
         }
         while(l >= theSet) {
