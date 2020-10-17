@@ -333,12 +333,15 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     // and the oldest isLocked possible (lineFree)
     {
         Line **l = setEnd -1;
-        // handle case start
+        // handle cases start
         if ((*l)->getTag() == tag) {
             lineHit = l;
             return *lineHit;
         }
-        // handle case end
+        if (l == theSet) {
+            lineFree = l;
+        }
+        // handle cases end
 
         // start at 2nd to last for NXLRU
         if (policy == NXLRU) l--;
@@ -395,9 +398,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         return *lineFree;
     }
     
-    // No matter what is the policy, move lineHit to the *theSet. This
-    // increases locality
-    // this is the brains!
+    // move most recently taken line to the top
     Line *tmp = *lineFree;
     {
         Line **l = lineFree;
