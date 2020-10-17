@@ -336,11 +336,12 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     // and the oldest isLocked possible (lineFree)
     {
         Line **l = setEnd -1;
+        int c = 0;
         // if (policy == NXLRU) l--;
         while(l >= theSet) {
             if ((*l)->getTag() == tag) { // exact match
                 lineHit = l;
-                std::cout << "line hit!! \n";
+                c++; // increase counter
             }
             if (!(*l)->isValid()) // current line is not valid then lineFree
                 lineFree = l;
@@ -356,6 +357,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
 
     if (lineHit) { // found valid line use it
         // std::cout << "line hit!" << lineHit << " \n";
+        std::cout << c << "\n";
         return *lineHit;
     }
 
