@@ -327,7 +327,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     Line **setEnd = theSet + assoc;
 
     // some custom vars
-    bool pbool = false; //(policy == NXLRU);
+    bool pbool = (policy == NXLRU);
     int c = 0;
 
     // Start in reverse order so that get the youngest invalid possible,
@@ -420,7 +420,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     GI(!ignoreLocked, !(*lineFree)->isValid() || !(*lineFree)->isLocked());
 
     if (lineFree == theSet) { 
-        //if (policy == NXLRU) std::cout << "return LF: " << *lineFree;
+        if (policy == NXLRU) std::cout << "return LF: " << *lineFree;
         return *lineFree;
     }
     
