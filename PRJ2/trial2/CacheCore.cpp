@@ -322,7 +322,6 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     // Check most typical case
     if ((*theSet)->getTag() == tag) {
         GI(tag,(*theSet)->isValid());
-        // std::cout << *theSet << "\n";
         return *theSet;
     }
 
@@ -339,29 +338,23 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         Line **l = setEnd -1;
         // if (policy == NXLRU) l--;
         while(l >= theSet) {
-            if ((*l)->getTag() == tag) {
+            if ((*l)->getTag() == tag) { // exact match
                 lineHit = l;
-                if (policy == LRU)
-                    break;
-                else if (lrufound)
-                    break;
-                else 
-                    lrufound = true;
+                std::cout << "line hit!! \n";
             }
-            if (!(*l)->isValid())
+            if (!(*l)->isValid()) // current line is not valid then lineFree
                 lineFree = l;
             else if (lineFree == 0 && !(*l)->isLocked())
                 lineFree = l;
-
+            // we want to know how many valid unlocked -> ready to be used
             // If line is invalid, isLocked must be false
-            GI(!(*l)->isValid(), !(*l)->isLocked());
-            l--;
+            GI(!(*l)->isValid(), !(*l)->isLocked()); // making sure its invalid or unlocked
+            l--; // invalid -> does not mean it cannot be used
         }
-    
     }
     GI(lineFree, !(*lineFree)->isValid() || !(*lineFree)->isLocked());
 
-    if (lineHit) {
+    if (lineHit) { // found valid line use it
         // std::cout << "line hit!" << lineHit << " \n";
         return *lineHit;
     }
