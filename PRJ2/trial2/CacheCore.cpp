@@ -325,11 +325,11 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     Line **lineHit=0;
     Line **lineFree=0; // Order of preference, invalid, locked
     Line **setEnd = theSet + assoc;
+    Line **nlineFree=0; // add one more line for NXLRU
 
     // some custom vars
     bool pbool = (policy == NXLRU);
     int c = 0;
-    Line **nlineFree=0; // add one more line for NXLRU
     int found = 0;
 
     // Start in reverse order so that get the youngest invalid possible,
@@ -362,7 +362,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
             // If line is invalid, isLocked must be false
             GI(!(*l)->isValid(), !(*l)->isLocked());
             }
-            
+
             //print out data
             if (pbool) std::cout << l << ":" << *l << ", " << (*l)->isValid() << ", " << (*l)->isLocked() << ", " << theSet << ", " << setEnd << " \n";
             if (policy == NXLRU) {
