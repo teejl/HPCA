@@ -385,14 +385,12 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         while(l > theSet) {
             Line **prev = l - 1;
             *l = *prev;;
-            *nxLine = *prev;
             l = prev;
         }
         *theSet = tmp;
     }
-    // added to NXLRU
-    return tmp;
 
+    return tmp;
 }
 
 /*********************************************************
