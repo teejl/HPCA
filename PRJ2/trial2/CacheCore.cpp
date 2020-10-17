@@ -347,8 +347,8 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
             // find the first line free
             if ((*l)->getTag() == tag) {
                 lineHit = l;
-                std::cout << "line break!!! \n";
-                if (policy != NXLRU) break;
+                //std::cout << "line break!!! \n";
+                if (found > 1) break;
             }
             if (!(*l)->isValid()) {
                 if (found > 0){
