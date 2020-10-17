@@ -1,7 +1,7 @@
 function init 
 {
   # clear results.txt
-  echo "Simulation executing..." > ~/Repos/HPCA/PRJ2/trial2/results.txt
+  echo "Simulation executing..." > ~/Repos/HPCA/PRJ2/trial3/results.txt
   echo "" >> results.txt
 
   # resetting the configuration files
@@ -9,10 +9,10 @@ function init
   rm ~/sesc/src/libsuc/CacheCore.h
   rm ~/sesc/src/libcmp/SMPCache.cpp
   rm ~/sesc/src/libcmp/SMPCache.h
-  cp ~/Repos/HPCA/PRJ2/trial2/CacheCore.cpp ~/sesc/src/libsuc/
-  cp ~/Repos/HPCA/PRJ2/trial2/CacheCore.h ~/sesc/src/libsuc/
-  cp ~/Repos/HPCA/PRJ2/trial2/SMPCache.cpp ~/sesc/src/libcmp/
-  cp ~/Repos/HPCA/PRJ2/trial2/SMPCache.h ~/sesc/src/libcmp/
+  cp ~/Repos/HPCA/PRJ2/trial3/CacheCore.cpp ~/sesc/src/libsuc/
+  cp ~/Repos/HPCA/PRJ2/trial3/CacheCore.h ~/sesc/src/libsuc/
+  cp ~/Repos/HPCA/PRJ2/trial3/SMPCache.cpp ~/sesc/src/libcmp/
+  cp ~/Repos/HPCA/PRJ2/trial3/SMPCache.h ~/sesc/src/libcmp/
 
   # build out simulator and simulation
   cd ~/sesc/
@@ -24,30 +24,30 @@ function init
 function simulate
 {
   # run simulation for default case
-  echo "~~~~~  ${2}  ~~~~~" >> ~/Repos/HPCA/PRJ2/trial2/results.txt
+  echo "~~~~~  ${2}  ~~~~~" >> ~/Repos/HPCA/PRJ2/trial3/results.txt
 
   # remove output, run simulation, and copy it to the trail folder
   rm ~/sesc/apps/Splash2/fmm/"sesc_fmm.mipseb.${2}"
-  cp ~/Repos/HPCA/PRJ2/trial2/"${1}" ~/sesc/confs/
+  cp ~/Repos/HPCA/PRJ2/trial3/"${1}" ~/sesc/confs/
   ~/sesc/sesc.opt -f $2 -c ~/sesc/confs/"${1}" -iInput/input.256 -ofmm.out -efmm.err fmm.mipseb -p 1
-  rm ~/Repos/HPCA/PRJ2/trial2/"sesc_fmm.mipseb.${2}"
-  cp ~/sesc/apps/Splash2/fmm/"sesc_fmm.mipseb.${2}" ~/Repos/HPCA/PRJ2/trial2/
+  rm ~/Repos/HPCA/PRJ2/trial3/"sesc_fmm.mipseb.${2}"
+  cp ~/sesc/apps/Splash2/fmm/"sesc_fmm.mipseb.${2}" ~/Repos/HPCA/PRJ2/trial3/
   
   # copy over error files and print them out
   echo " ~~~~~~ ERRORS ~~~~~~"
-  cp ~/sesc/apps/Splash2/fmm/fmm.err ~/Repos/HPCA/PRJ2/trial2/
+  cp ~/sesc/apps/Splash2/fmm/fmm.err ~/Repos/HPCA/PRJ2/trial3/
   cat ~/sesc/apps/Splash2/fmm/fmm.err
   echo ""
   echo " ~~~~~~  OUT   ~~~~~~"
-  cp ~/sesc/apps/Splash2/fmm/fmm.out ~/Repos/HPCA/PRJ2/trial2/
+  cp ~/sesc/apps/Splash2/fmm/fmm.out ~/Repos/HPCA/PRJ2/trial3/
   cat ~/sesc/apps/Splash2/fmm/fmm.out
   echo " ~~~~~~~~~~~~~~~~~~~~"
 
   # get report statistics
-  ~/sesc/scripts/report.pl ~/sesc/apps/Splash2/fmm/"sesc_fmm.mipseb.${2}" >> ~/Repos/HPCA/PRJ2/trial2/results.txt
+  ~/sesc/scripts/report.pl ~/sesc/apps/Splash2/fmm/"sesc_fmm.mipseb.${2}" >> ~/Repos/HPCA/PRJ2/trial3/results.txt
   
   # output results
-  echo "~~~~~  ${2}  ~~~~~"  >> ~/Repos/HPCA/PRJ2/trial2/results.txt
+  echo "~~~~~  ${2}  ~~~~~"  >> ~/Repos/HPCA/PRJ2/trial3/results.txt
   echo ""
 
 }
