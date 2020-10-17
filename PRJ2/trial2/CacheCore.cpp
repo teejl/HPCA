@@ -363,7 +363,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
 
     if (lineHit) { // found valid line use it
         // std::cout << "line hit!" << lineHit << " \n";
-        if (nxLine && polic == NXLRU) {
+        if (nxLine && policy == NXLRU) {
             return *nxLine;
         } else {
         return *lineHit;
@@ -425,7 +425,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
             Line **prev = l - 1;
             *l = *prev;;
             l = prev;
-            std::cout << "Thinking: "<< l << " " << prev << " " << *l << " " << *prev << " \n";
+            // std::cout << "Thinking: "<< l << " " << prev << " " << *l << " " << *prev << " \n";
         }
         *theSet = tmp;
     }
