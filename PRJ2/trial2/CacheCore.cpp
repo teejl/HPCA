@@ -373,7 +373,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
             GI(!(*l)->isValid(), !(*l)->isLocked());
             //std::cout << l << ":" << *l << ", " << (*l)->isValid() << ", " << (*l)->isLocked() << ", " 
             //<< lineFree << ":" << *lineFree << ", " << lineHit << ", " << theSet << ", " << setEnd << " \n";
-            std::cout << l << ":" << *l << ", " << (*l)->isValid() << ", " << (*l)->isLocked() << ", " << theSet << ", " << setEnd << " \n";
+            if (policy == NXLRU) std::cout << l << ":" << *l << ", " << (*l)->isValid() << ", " << (*l)->isLocked() << ", " << theSet << ", " << setEnd << " \n";
             l--;
         }
 
