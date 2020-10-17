@@ -389,14 +389,14 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     GI(lineFree, !(*lineFree)->isValid() || !(*lineFree)->isLocked());
 
     if (lineHit) {
-        std::cout << "return LH: " << *lineHit;
+        // std::cout << "return LH: " << *lineHit;
         return *lineHit;
     }
 
     I(lineHit==0);
 
     if(lineFree == 0 && !ignoreLocked) {
-        std::cout << "return 0: 0";
+        // std::cout << "return 0: 0";
         return 0;
     }
 
@@ -404,7 +404,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     GI(!ignoreLocked, !(*lineFree)->isValid() || !(*lineFree)->isLocked());
 
     if (lineFree == theSet) { 
-        std::cout << "return LF: " << *lineFree;
+        if (policy == NXLRU) std::cout << "return LF: " << *lineFree;
         return *lineFree;
     }
     
@@ -419,7 +419,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         }
         *theSet = tmp;
     }
-    std::cout << "return T: " << tmp;
+    if (policy == NXLRU) std::cout << "return T: " << tmp;
     return tmp;
 }
 
