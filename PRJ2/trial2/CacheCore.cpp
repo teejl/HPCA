@@ -331,53 +331,43 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     // Start in reverse order so that get the youngest invalid possible,
     // and the oldest isLocked possible (lineFree)
     {
-        std::cout << "Running first loop, ";
         Line **l = setEnd -1;
         while(l >= theSet) {
             if ((*l)->getTag() == tag) {
-                std::cout << "Found tag!, " << l << ", ";
                 lineHit = l;
                 break;
             }
             if (!(*l)->isValid()) {
-                std::cout << "Line is Invalid, " << l << ", ";
                 lineFree = l;
             } else if (lineFree == 0 && !(*l)->isLocked()) {
-                std::cout << "Line is Not Locked and lineFree==0, " << l << ", ";
                 lineFree = l;
             }
             // If line is invalid, isLocked must be false
             GI(!(*l)->isValid(), !(*l)->isLocked());
-            std::cout << "loop to next line, " << l << ", "; 
             l--;
         }
     }
     GI(lineFree, !(*lineFree)->isValid() || !(*lineFree)->isLocked());
 
     if (lineHit)
-        std::cout << "return *lineHit:" << *lineHit << "\n";
         return *lineHit;
 
     I(lineHit==0);
 
     if(lineFree == 0 && !ignoreLocked)
-        std::cout << "return 0 \n";
         return 0;
 
     I(lineFree);
     GI(!ignoreLocked, !(*lineFree)->isValid() || !(*lineFree)->isLocked());
 
-    if (lineFree == theSet) { // this had 0 impact
-        std::cout << "lineFree == theSet, return *lineFree:" << *lineFree; 
-        //std::cout << "Return lineFree! "<< policy << "\n";
-        //std::cout << "\n" << "linefree: " << v << ":" << vl << "\n";
+    if (lineFree == theSet) { 
         return *lineFree;
     }
+    
     // No matter what is the policy, move lineHit to the *theSet. This
     // increases locality
     Line *tmp = *lineFree;
     {
-        std::cout << "running tmp, ";
         Line **l = lineFree;
         while(l > theSet) {
             Line **prev = l - 1;
@@ -386,7 +376,6 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         }
         *theSet = tmp;
     }
-    std::cout << "returning tmp:" << tmp;
     return tmp;
 }
 
