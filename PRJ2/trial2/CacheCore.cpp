@@ -333,7 +333,17 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     // and the oldest isLocked possible (lineFree)
     {
         Line **l = setEnd -1;
-        if (policy == NXLRU && (*l)->getTag() != tag) l--; // start at 2nd to last for NXLRU
+        // handle case start
+        if ((*l)->getTag() == tag) {
+            lineHit = l;
+            return *lineHit;
+        }
+        // handle case end
+
+        // start at 2nd to last for NXLRU
+        if (policy == NXLRU) l--;
+
+        // loop to find LRU free line
         while(l >= theSet) {
             if ((*l)->getTag() == tag) {
                 lineHit = l;
@@ -350,7 +360,8 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
             //<< lineFree << ":" << *lineFree << ", " << lineHit << ", " << theSet << ", " << setEnd << " \n";
             l--;
         }
-        // last case where the only valid line is the last line
+
+        // handle last line in set
         Line **x = setEnd -1;
         if (policy == NXLRU && !lineHit) {
             if (!(*x)->isValid()) {
@@ -359,6 +370,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
                 lineFree = x;
             }
         }
+        // handle case end
     }
     GI(lineFree, !(*lineFree)->isValid() || !(*lineFree)->isLocked());
 
