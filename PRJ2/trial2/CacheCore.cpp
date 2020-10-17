@@ -416,6 +416,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     Line *tmp = *lineFree;
     {
         Line **l = lineFree;
+        if (policy == NXLRU) l++;
         while(l > theSet) {
             Line **prev = l - 1;
             *l = *prev;;
