@@ -353,7 +353,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
             // handle cases end
             l--;
         }
-
+        
         // loop to find LRU free line
         while(l >= theSet) {
             if ((*l)->getTag() == tag) {
@@ -373,14 +373,14 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         }
 
         // handle last line in set
-        **l = setEnd -1;
+        Line **x = setEnd -1;
         if (policy == NXLRU && !lineHit) {
-            if (!(*l)->isValid()) {
-                lineFree = l;
-            } else if (lineFree == 0 && !(*l)->isLocked()) {
-                lineFree = l;
+            if (!(*x)->isValid()) {
+                lineFree = x;
+            } else if (lineFree == 0 && !(*x)->isLocked()) {
+                lineFree = x;
             }
-            GI(!(*l)->isValid(), !(*l)->isLocked());
+            GI(!(*x)->isValid(), !(*x)->isLocked());
         }
         // handle case end
     }
