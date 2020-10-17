@@ -391,7 +391,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     GI(!ignoreLocked, !(*lineFree)->isValid() || !(*lineFree)->isLocked());
 
     if (lineFree == theSet) { 
-        if (policy == NXLRU) std::cout << "return LF: " << *lineFree;
+        if (pbool) std::cout << "return LF: " << *lineFree;
         return *lineFree;
     }
     
@@ -410,7 +410,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         *theSet = tmp;
     }
     if (pbool) std::cout << "return T: " << tmp << "\n";
-    if (c >= 2) {
+    if (c >= 2 && pbool) {
         std::cout << "hit!!! \n";
         std::cout << "return T: " << tmp << "\n";
     }
