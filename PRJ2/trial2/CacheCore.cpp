@@ -407,7 +407,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     GI(!ignoreLocked, !(*lineFree)->isValid() || !(*lineFree)->isLocked());
 
     if (lineFree == theSet)
-        std::cout << *lineFree << " done (linefree)! \n";
+        std::cout << *lineFree << " | " << lineFree << " done (linefree)! \n";
         return *lineFree; // Hit in the first possition
 
     // No matter what is the policy, move lineHit to the *theSet. This
