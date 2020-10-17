@@ -389,12 +389,11 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         Line **l = lineFree;
         while(l > theSet) {
             Line **prev = l - 1;
-            *nxLine = *prev;
+            std::cout << policy << " \t"
             *l = *prev;;
             l = prev;
         }
         *theSet = tmp;
-        std::cout << *nxLine << "\t";
     }
     return tmp;
 }
