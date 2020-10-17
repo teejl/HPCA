@@ -323,9 +323,6 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     if ((*theSet)->getTag() == tag) {
         GI(tag,(*theSet)->isValid());
         // std::cout << *theSet << "\n";
-        if (policy == NXLRU) {
-            return *theSet--;
-        }
         return *theSet;
     }
 
@@ -340,7 +337,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     // and the oldest isLocked possible (lineFree)
     {
         Line **l = setEnd -1;
-        if (policy == NXLRU) l--;
+        // if (policy == NXLRU) l--;
         while(l >= theSet) {
             if ((*l)->getTag() == tag) {
                 lineHit = l;
