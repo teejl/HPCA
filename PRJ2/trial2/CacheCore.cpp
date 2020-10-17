@@ -360,8 +360,6 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         // std::cout << "line hit!" << lineHit << " \n";
         if (c > 1) {
             std::cout << c << "\n";
-        } else {
-            std::cout << "1 \t";
         }
         return *lineHit;
     }
