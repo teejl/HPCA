@@ -439,7 +439,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         *theSet = tmp;
     }
     if (pbool) std::cout << "return T: " << tmp << "\n";
-    if (c > 2) {
+    if (c >= 2) {
         std::cout << "hit!!! \n";
         std::cout << "return T: " << tmp << "\n";
     }
