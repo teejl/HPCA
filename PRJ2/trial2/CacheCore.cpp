@@ -326,6 +326,9 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     Line **lineFree=0; // Order of preference, invalid, locked
     Line **setEnd = theSet + assoc;
 
+    // new variables added for logic TJL
+    Line **nxLine=0;
+
     // Start in reverse order so that get the youngest invalid possible,
     // and the oldest isLocked possible (lineFree)
     {
@@ -379,8 +382,14 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     GI(!ignoreLocked, !(*lineFree)->isValid() || !(*lineFree)->isLocked());
 
     if (lineFree == theSet)
-        std::cout << "Return lineFree! "<< policy << "\n";
-        return *lineFree; // Hit in the first possition
+        //std::cout << "Return lineFree! "<< policy << "\n";
+        if (nxLine && policy == NXLRU) { // maybe this never happens?
+            std::cout << "NXLRU taken! \n";
+            //return *nxLine;
+            return *lineFree;
+        } else {
+            return *lineFree;
+        }
 
     // No matter what is the policy, move lineHit to the *theSet. This
     // increases locality
