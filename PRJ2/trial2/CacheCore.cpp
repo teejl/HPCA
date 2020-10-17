@@ -346,8 +346,10 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
             }
             if (!(*l)->isValid()) // current line is not valid then lineFree
                 lineFree = l;
+                std::cout << lineFree << " \t";
             else if (lineFree == 0 && !(*l)->isLocked())
                 lineFree = l;
+                std::cout << lineFree << " \t";
             // we want to know how many valid unlocked -> ready to be used
             // If line is invalid, isLocked must be false
             GI(!(*l)->isValid(), !(*l)->isLocked()); // making sure its invalid or unlocked
@@ -358,9 +360,6 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
 
     if (lineHit) { // found valid line use it
         // std::cout << "line hit!" << lineHit << " \n";
-        if (c > 1) {
-            std::cout << c << "\n";
-        }
         return *lineHit;
     }
 
@@ -370,6 +369,8 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         // std::cout << "lineFree == 0 && !ignoreLocked hit!! return 0 \n";
         return 0;
     }
+
+    std::cout << "done. \n";
 
     /*if (lineFree == 0) { // ignore LOCKED IS NEVER TRUE
         std::cout << "lineFree == 0 policy logic is here .... \n";
@@ -421,7 +422,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         }
         *theSet = tmp;
     }
-    std::cout << tmp << " \t";
+    // std::cout << tmp << " \t";
     return tmp;
 }
 
