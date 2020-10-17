@@ -427,13 +427,13 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     {
         Line **l = lineFree;
         while(l > theSet) {
-            std::cout << "Thinking1: "<< l << ":" << l* << " \n";
+            std::cout << "Thinking1: "<< l << ":" << prev << " " << *l << ":" << *prev << " \n";
             Line **prev = l - 1;
-            std::cout << "Thinking2: "<< l << ":" << l* << " \n";
+            std::cout << "Thinking2: "<< l << ":" << prev << " " << *l << ":" << *prev << " \n";
             *l = *prev;;
-            std::cout << "Thinking3: "<< l << ":" << l* << " \n";
+            std::cout << "Thinking3: "<< l << ":" << prev << " " << *l << ":" << *prev << " \n";
             l = prev;
-            std::cout << "Thinking4: "<< l << ":" << l* << " \n";
+            std::cout << "Thinking4: "<< l << ":" << prev << " " << *l << ":" << *prev << " \n";
         }
         *theSet = tmp;
     }
