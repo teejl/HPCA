@@ -327,7 +327,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     Line **setEnd = theSet + assoc;
 
     std::cout << "\n Starting findLine2Replace: \n";
-    std::cout << "line:*line, isValid, isLocked, lineFree:*linFree, lineHit, theSet, setEnd \n";
+    std::cout << "line:*line, isValid, isLocked, lineFree:*lineFree, lineHit, theSet, setEnd \n";
 
     // Start in reverse order so that get the youngest invalid possible,
     // and the oldest isLocked possible (lineFree)
@@ -374,6 +374,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     
     // No matter what is the policy, move lineHit to the *theSet. This
     // increases locality
+    // this is the brains!
     Line *tmp = *lineFree;
     {
         Line **l = lineFree;
@@ -385,6 +386,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         *theSet = tmp;
     }
     std::cout << "return T: " << tmp;
+    std::cout << "return alternative: " << lineFree -1;
     return tmp;
 }
 
