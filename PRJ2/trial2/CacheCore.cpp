@@ -369,6 +369,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
             } else if (lineFree == 0 && !(*x)->isLocked()) {
                 lineFree = x;
             }
+            GI(!(*x)->isValid(), !(*x)->isLocked());
         }
         // handle case end
     }
