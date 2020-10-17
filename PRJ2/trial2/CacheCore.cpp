@@ -376,7 +376,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         Line **l = setEnd -1;
         if (policy == NXLRU && !lineHit) {
             if (!(*l)->isValid()) {
-                lineFree = x;
+                lineFree = l;
             } else if (lineFree == 0 && !(*l)->isLocked()) {
                 lineFree = l;
             }
