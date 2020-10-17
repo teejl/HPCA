@@ -340,9 +340,9 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
 
         // if (policy == NXLRU) l--;
         while(l >= theSet) {
+            c=c+1; // increase counter
             if ((*l)->getTag() == tag) { // exact match
                 lineHit = l;
-                c=c+1; // increase counter
             }
             if (!(*l)->isValid()) // current line is not valid then lineFree
                 lineFree = l;
