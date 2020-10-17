@@ -338,13 +338,13 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
                 lineHit = l;
                 break;
             }
-            if (!(*l)->isValid())
+            if (!(*l)->isValid()) {
                 nxLine = lineFree;
                 lineFree = l;
-            else if (lineFree == 0 && !(*l)->isLocked())
+            } else if (lineFree == 0 && !(*l)->isLocked()) {
                 nxLine = lineFree;
                 lineFree = l;
-
+            }
             // If line is invalid, isLocked must be false
             GI(!(*l)->isValid(), !(*l)->isLocked());
             l--;
