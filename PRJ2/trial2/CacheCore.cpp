@@ -425,7 +425,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
             *l = *prev;;
             l = prev;
             if (policy == NXLRU) std::cout << "**prev:" << l - 1 << " *prev:" << *prev << " prev:" << prev << " tmp:" << tmp << " lineFree:" <<  lineFree << "\n";
-            //if (policy == NXLRU) std::cout << " l:" << l " \n"; 
+            if (policy == NXLRU) std::cout << " l:" << l << " \n"; 
         }
         *theSet = tmp;
     }
