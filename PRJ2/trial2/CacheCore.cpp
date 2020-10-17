@@ -428,17 +428,18 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         Line **l = lineFree;
         while(l > theSet) {
             Line **prev = l - 1; // find previous line
-            std::cout << "Thinking1: "<< l << ":" << prev << " " << *l << ":" << *prev << " \n";
+            //std::cout << "Thinking: "<< l << ":" << prev << " " << *l << ":" << *prev << " \n";
+            nxLine = l;
             *l = *prev;;
-            std::cout << "Thinking2: "<< l << ":" << prev << " " << *l << ":" << *prev << " \n";
+            //std::cout << "Thinking: "<< l << ":" << prev << " " << *l << ":" << *prev << " \n";
             l = prev;
-            std::cout << "Thinking3: "<< l << ":" << prev << " " << *l << ":" << *prev << " \n";
+            std::cout << "Thinking: "<< l << ":" << prev << " " << *l << ":" << *prev << " \n";
         }
         *theSet = tmp;
     }
-    std::cout << tmp << ":" << *lineFree << " done (tmp) \n";
+    std::cout << tmp << ":" << *nxLine << " " << policy << " done (tmp) \n";
     if (policy == NXLRU && *lineFree) {
-        return *lineFree;
+        return *nxLine;
     } else {
         return tmp;
     }
