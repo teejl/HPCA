@@ -328,14 +328,14 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
 
     // some custom vars
     bool pbool = (policy == NXLRU); // used to toggle debug prints
-    int c = 0; // used to count invalid cases
+    int c = 0; // used for debug counting
     Line **nlineFree=0; // add one more line for NXLRU
-    int found = 0; // used to toggle for next free line
 
     // Start in reverse order so that get the youngest invalid possible,
     // and the oldest isLocked possible (lineFree)
     {
         Line **l = setEnd -1;
+        // toggle debug print
         if (pbool) {
             // print data to figure out tmp
             std::cout << "\n Starting findLine2Replace: \n";
@@ -351,15 +351,11 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
                 if (found > 1) break;
             }
             if (!(*l)->isValid()) { //takes care of all 1s on isValid
-                //if (found > 0){
-                    //nlineFree = l;
-                //}
                 lineFree = l;
-                //found++;
+                nlineFree = l;
             } else if (lineFree == 0 && !(*l)->isLocked()) { // set line free to first unlocked
                 lineFree = l;
-                //found++;
-            } else if (!(*l)->isLocked()){ // set next line free to next unlocked
+            } else if (nlineFree == 0 && !(*l)->isLocked()){ // set next line free to next unlocked
                 nlineFree = l;
             }
             // If line is invalid, isLocked must be false
