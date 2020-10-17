@@ -326,8 +326,8 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     Line **lineFree=0; // Order of preference, invalid, locked
     Line **setEnd = theSet + assoc;
 
-    //std::cout << "\n Starting findLine2Replace: \n";
-    //std::cout << "line:*line, isValid, isLocked, lineFree:*lineFree, lineHit, theSet, setEnd \n";
+    std::cout << "\n Starting findLine2Replace: \n";
+    std::cout << "line:*line, isValid, isLocked, lineFree:*lineFree, lineHit, theSet, setEnd \n";
 
     // Start in reverse order so that get the youngest invalid possible,
     // and the oldest isLocked possible (lineFree)
@@ -351,9 +351,11 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
                 }
             }
             // handle cases end
+            std::cout << l << ":" << *l << ", " << (*l)->isValid() << ", " << (*l)->isLocked() << ", " 
+            << lineFree << ":" << *lineFree << ", " << lineHit << ", " << theSet << ", " << setEnd << " \n";
             l--;
         }
-        
+
         // loop to find LRU free line
         while(l >= theSet) {
             if ((*l)->getTag() == tag) {
@@ -387,14 +389,14 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     GI(lineFree, !(*lineFree)->isValid() || !(*lineFree)->isLocked());
 
     if (lineHit) {
-        //std::cout << "return LH: " << *lineHit;
+        std::cout << "return LH: " << *lineHit;
         return *lineHit;
     }
 
     I(lineHit==0);
 
     if(lineFree == 0 && !ignoreLocked) {
-        //std::cout << "return 0: 0";
+        std::cout << "return 0: 0";
         return 0;
     }
 
@@ -402,7 +404,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     GI(!ignoreLocked, !(*lineFree)->isValid() || !(*lineFree)->isLocked());
 
     if (lineFree == theSet) { 
-        //std::cout << "return LF: " << *lineFree;
+        std::cout << "return LF: " << *lineFree;
         return *lineFree;
     }
     
@@ -417,7 +419,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         }
         *theSet = tmp;
     }
-    //std::cout << "return T: " << tmp;
+    std::cout << "return T: " << tmp;
     //std::cout << "\t return alternative: " << (*lineFree -1);
     return tmp;
 }
