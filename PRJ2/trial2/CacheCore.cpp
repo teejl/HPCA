@@ -367,14 +367,15 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     I(lineFree);
     GI(!ignoreLocked, !(*lineFree)->isValid() || !(*lineFree)->isLocked());
 
-    if (lineFree == theSet) {
+    if (lineFree == theSet) { // this had 0 impact
         //std::cout << "Return lineFree! "<< policy << "\n";
         //std::cout << "\n" << "linefree: " << v << ":" << vl << "\n";
         if (policy == NXLRU && vl == 0 && v >= 2) { // maybe this never happens?
             //std::cout << "NXLRU taken! \n";
             //std::cout << *lineFree << " \n";
             //std::cout << *nxLine << ":" << *lineFree << " \n";
-            return *nxLine;
+            // return *nxLine;
+            return *lineFree;
         } else {
             return *lineFree;
         }
@@ -386,7 +387,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         Line **l = lineFree;
         while(l > theSet) {
             Line **prev = l - 1;
-            //*nxLine = *prev;
+            std::cout << *l << ":" << l << " " << *prev << ":" << prev << "\n";
             *l = *prev;;
             l = prev;
         }
@@ -397,8 +398,8 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         //std::cout << v << ":" << vl << "\n";
         //std::cout << *lineFree << " \n";
         //std::cout << *nxLine << ":" << tmp << " \n";
-        //return tmp;
-        return *nxLine;
+        return tmp;
+        //return *nxLine;
     } else {
         //std::cout << tmp << " \n";
         return tmp;
