@@ -329,7 +329,6 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     // some custom vars
     bool pbool = (policy == NXLRU);
     int c = 0;
-    Line **nlineFree=0; // add one more line for NXLRU
 
     // Start in reverse order so that get the youngest invalid possible,
     // and the oldest isLocked possible (lineFree)
@@ -342,38 +341,47 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
             std::cout << "line:*line, isValid, isLocked, theSet, setEnd \n";
         }
 
-        // loop to find LRU free line then Loop again for NXLRU
+        // start at 2nd to last for NXLRU
+        if (policy == NXLRU) {
+
+            // handle cases start
+            // last line is a hit
+            if ((*l)->getTag() == tag) {
+                lineHit = l;
+                GI(lineFree, !(*lineFree)->isValid() || !(*lineFree)->isLocked());
+                return *lineHit;
+            }
+            // only 1 line available
+            if (l == theSet) {
+                if (!(*l)->isValid()) {
+                    lineFree = l;
+                } else if (lineFree == 0 && !(*l)->isLocked()) {
+                    lineFree = l;
+                }
+            if ((*l)->isLocked()) c++;
+            }
+            // handle cases end
+        
+            //std::cout << l << ":" << *l << ", " << (*l)->isValid() << ", " << (*l)->isLocked() << ", " 
+            //<< lineFree << ":" << *lineFree << ", " << lineHit << ", " << theSet << ", " << setEnd << " \n";
+            if (pbool) std::cout << l << ":" << *l << ", " << (*l)->isValid() << ", " << (*l)->isLocked() << ", " << theSet << ", " << setEnd << " \n";
+            l--;
+        }
+
+        // loop to find LRU free line
         while(l >= theSet) {
-            // find the first line free
-            if (!lineFree) {
-                if ((*l)->getTag() == tag) {
-                    lineHit = l;
-                    break;
-                }
-                if (!(*l)->isValid()) {
-                    lineFree = l;
-                } else if (lineFree == 0 && !(*l)->isLocked()) {
-                    lineFree = l;
-                }
-                // If line is invalid, isLocked must be false
-                GI(!(*l)->isValid(), !(*l)->isLocked());
-                }
+            if ((*l)->getTag() == tag) {
+                lineHit = l;
+                break;
             }
-            // proceed to find the next lineFree
-            else {
-                if ((*l)->getTag() == tag) {
-                    lineHit = l;
-                    break;
-                }
-                if (!(*l)->isValid()) {
-                    nlineFree = l;
-                } else if (lineFree == 0 && !(*l)->isLocked()) {
-                    nlineFree = l;
-                }
-                // If line is invalid, isLocked must be false
-                GI(!(*l)->isValid(), !(*l)->isLocked());
-                }
+            if (!(*l)->isValid()) {
+                lineFree = l;
+            } else if (lineFree == 0 && !(*l)->isLocked()) {
+                lineFree = l;
             }
+            // If line is invalid, isLocked must be false
+            GI(!(*l)->isValid(), !(*l)->isLocked());
+
             //print out data
             if (pbool) std::cout << l << ":" << *l << ", " << (*l)->isValid() << ", " << (*l)->isLocked() << ", " << theSet << ", " << setEnd << " \n";
             if (policy == NXLRU) {
@@ -382,10 +390,17 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
             l--;
         }
 
-        // set lineFree to the next available line if is is NXLRU
-        if (policy == NXLRU && nlineFree) {
-            lineFree = nlineFree;
+        // handle last line in set
+        Line **x = setEnd -1;
+        if (policy == NXLRU && !lineHit) {
+            if (!(*x)->isValid()) {
+                lineFree = x;
+            } else if (lineFree == 0 && !(*x)->isLocked()) {
+                lineFree = x;
+            }
+            GI(!(*x)->isValid(), !(*x)->isLocked());
         }
+        // handle case end
     }
     GI(lineFree, !(*lineFree)->isValid() || !(*lineFree)->isLocked());
 
