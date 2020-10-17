@@ -420,6 +420,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
             Line **prev = l - 1;
             *l = *prev;;
             l = prev;
+            std::cout << l << " " << prev << " " << *l << " " << *prev;
         }
         *theSet = tmp;
     }
