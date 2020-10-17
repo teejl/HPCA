@@ -342,7 +342,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         while(l >= theSet) {
             if ((*l)->getTag() == tag) { // exact match
                 lineHit = l;
-                c++; // increase counter
+                c+=1; // increase counter
             }
             if (!(*l)->isValid()) // current line is not valid then lineFree
                 lineFree = l;
