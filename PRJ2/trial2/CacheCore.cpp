@@ -352,7 +352,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         }
         // last case where the only valid line is the last line
         Line **x = setEnd -1;
-        if (policy == NXLRU) {
+        if (policy == NXLRU && (*l)->getTag() != tag) {
             if (!(*x)->isValid()) {
                 lineFree = x;
             } else if (lineFree == 0 && !(*x)->isLocked()) {
