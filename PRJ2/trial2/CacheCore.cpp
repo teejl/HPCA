@@ -328,6 +328,8 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
 
     // new variables added for logic TJL
     Line **nxLine=0;
+    int v = 0;
+    int vl = 0;
 
     // Start in reverse order so that get the youngest invalid possible,
     // and the oldest isLocked possible (lineFree)
@@ -339,9 +341,11 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
                 break;
             }
             if (!(*l)->isValid()) {
+                v=v+1; // start the counter
                 nxLine = lineFree;
                 lineFree = l;
             } else if (lineFree == 0 && !(*l)->isLocked()) {
+                vl = vl+1;
                 nxLine = lineFree;
                 lineFree = l;
             }
@@ -389,6 +393,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
             std::cout << "NXLRU taken! \n";
             std::cout << *lineFree << " \n";
             std::cout << *nxLine << " \n";
+            std::cout << v << ":" << vl << "\n";
             return *nxLine;
             //return *lineFree;
         } else {
