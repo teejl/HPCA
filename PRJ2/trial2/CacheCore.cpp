@@ -413,8 +413,8 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         // ||| std::cout << "\n" << *lineFree << "|" << lineFree << " done (linefree)! \n";
         // ||| std::cout << "\n" << *nxLine << "|" << nxLine << " done (linefree)! \n";
         if (nxLine && policy == NXLRU) {
-            //return *nxLine;
-            return *lineFree;
+            return *nxLine;
+            //return *lineFree;
         } else {
             return *lineFree;
         }
