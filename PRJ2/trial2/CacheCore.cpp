@@ -414,6 +414,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     }
     if (policy == NXLRU && *nxLine) {
         std::cout << "NXLRU taken! \n";
+        std::cout << v << ":" << vl << "\n";
         std::cout << *lineFree << " \n";
         std::cout << *nxLine << " \n";
         return tmp;
