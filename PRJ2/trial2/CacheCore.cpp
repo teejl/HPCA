@@ -330,8 +330,9 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     // and the oldest isLocked possible (lineFree)
     {
         Line **l = setEnd -1;
+        bool pbool = (policy == NXLRU);
 
-        if (policy != NXLRU) {
+        if (pbool) {
             // print data to figure out tmp
             std::cout << "\n Starting findLine2Replace: \n";
             std::cout << "line:*line, isValid, isLocked, theSet, setEnd \n";
@@ -359,7 +360,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         
             //std::cout << l << ":" << *l << ", " << (*l)->isValid() << ", " << (*l)->isLocked() << ", " 
             //<< lineFree << ":" << *lineFree << ", " << lineHit << ", " << theSet << ", " << setEnd << " \n";
-            std::cout << l << ":" << *l << ", " << (*l)->isValid() << ", " << (*l)->isLocked() << ", " << theSet << ", " << setEnd << " \n";
+            if (pbool) std::cout << l << ":" << *l << ", " << (*l)->isValid() << ", " << (*l)->isLocked() << ", " << theSet << ", " << setEnd << " \n";
             l--;
         }
 
@@ -378,7 +379,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
             GI(!(*l)->isValid(), !(*l)->isLocked());
 
             //print out data
-            if (policy != NXLRU) std::cout << l << ":" << *l << ", " << (*l)->isValid() << ", " << (*l)->isLocked() << ", " << theSet << ", " << setEnd << " \n";
+            if (pbool) std::cout << l << ":" << *l << ", " << (*l)->isValid() << ", " << (*l)->isLocked() << ", " << theSet << ", " << setEnd << " \n";
             
             l--;
         }
@@ -426,12 +427,12 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
             Line **prev = l - 1;
             *l = *prev;;
             l = prev;
-            if (policy != NXLRU) std::cout << "**prev:" << l - 1 << " *prev:" << *prev << " prev:" << prev << " tmp:" << tmp << " lineFree:" <<  lineFree << "\n";
-            if (policy != NXLRU) std::cout << " l:" << l << " \n"; 
+            if (pbool) std::cout << "**prev:" << l - 1 << " *prev:" << *prev << " prev:" << prev << " tmp:" << tmp << " lineFree:" <<  lineFree << "\n";
+            if (pbool) std::cout << " l:" << l << " \n"; 
         }
         *theSet = tmp;
     }
-    if (policy != NXLRU) std::cout << "return T: " << tmp << "\n";
+    if (pbool) std::cout << "return T: " << tmp << "\n";
     return tmp;
 }
 
