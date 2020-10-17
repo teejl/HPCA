@@ -384,12 +384,11 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     // No matter what is the policy, move lineHit to the *theSet. This
     // increases locality
     Line *tmp = *lineFree;
-    Line **nxLine = 0;
     {
         Line **l = lineFree;
         while(l > theSet) {
             Line **prev = l - 1;
-            std::cout << policy << " \t"
+            std::cout << policy << " \t";
             *l = *prev;;
             l = prev;
         }
