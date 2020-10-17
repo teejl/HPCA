@@ -371,13 +371,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         std::cout << "lineFree == theSet, return *lineFree:" << *lineFree; 
         //std::cout << "Return lineFree! "<< policy << "\n";
         //std::cout << "\n" << "linefree: " << v << ":" << vl << "\n";
-        if (policy == NXLRU) { // maybe this never happens?
-            //std::cout << "NXLRU taken! \n";
-            //std::cout << *lineFree << " \n";
-            return *lineFree;
-        } else {
-            return *lineFree;
-        }
+        return *lineFree;
     }
     // No matter what is the policy, move lineHit to the *theSet. This
     // increases locality
@@ -393,14 +387,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         *theSet = tmp;
     }
     std::cout << "returning tmp:" << tmp;
-    if (policy == NXLRU) { // can add some counter parameters here
-        //std::cout << "NXLRU taken! \n";
-        //std::cout << tmp << " \n";
-        return tmp;
-    } else {
-        //std::cout << tmp << " \n";
-        return tmp;
-    }
+    return tmp;
 }
 
 /*********************************************************
