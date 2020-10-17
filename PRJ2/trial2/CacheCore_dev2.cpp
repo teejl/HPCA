@@ -30,6 +30,7 @@ Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #include <stdarg.h>
 #include <string.h>
 #include <strings.h>
+#include <iostream>
 
 #include "CacheCore.h"
 #include "SescConf.h"
@@ -37,6 +38,7 @@ Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 #define k_RANDOM     "RANDOM"
 #define k_LRU        "LRU"
+#define k_NXLRU      "NXLRU"
 
 //
 // Class CacheGeneric, the combinational logic of Cache
@@ -187,7 +189,7 @@ CacheGeneric<State, Addr_t, Energy> *CacheGeneric<State, Addr_t, Energy>::create
             SescConf->isPower2(section, size) &&
             SescConf->isPower2(section, bsize) &&
             SescConf->isPower2(section, assoc) &&
-            SescConf->isInList(section, repl, k_RANDOM, k_LRU)) {
+            SescConf->isInList(section, repl, k_RANDOM, k_LRU, k_NXLRU)) {
 
         cache = create(s, a, b, u, pStr, sk);
     } else {
@@ -226,11 +228,16 @@ CacheAssoc<State, Addr_t, Energy>::CacheAssoc(int32_t size, int32_t assoc, int32
 {
     I(numLines>0);
 
-    if (strcasecmp(pStr, k_RANDOM) == 0)
+    if (strcasecmp(pStr, k_RANDOM) == 0) {
+        std::cout << "The Policy is RANDOM! \n";
         policy = RANDOM;
-    else if (strcasecmp(pStr, k_LRU)    == 0)
+    } else if (strcasecmp(pStr, k_LRU)    == 0) {
+        std::cout << "The Policy is LRU! \n";
         policy = LRU;
-    else {
+    } else if (strcasecmp(pStr, k_NXLRU)    == 0) {
+        std::cout << "The Policy is NXLRU! \n";
+        policy = NXLRU;
+    } else {
         MSG("Invalid cache policy [%s]",pStr);
         exit(0);
     }
@@ -322,80 +329,121 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     Line **lineFree=0; // Order of preference, invalid, locked
     Line **setEnd = theSet + assoc;
 
+    // new variables added for logic TJL
+    Line **nxLine=0;
+    int c = 0;
+    
     // Start in reverse order so that get the youngest invalid possible,
     // and the oldest isLocked possible (lineFree)
     {
         Line **l = setEnd -1;
+
+        // if (policy == NXLRU) l--;
         while(l >= theSet) {
-            if ((*l)->getTag() == tag) {
+            if ((*l)->getTag() == tag) { // exact match
                 lineHit = l;
                 break;
             }
-            if (!(*l)->isValid())
+            if (!(*l)->isValid()) { // current line is not valid then lineFree
+                nxLine = lineFree;
                 lineFree = l;
-            else if (lineFree == 0 && !(*l)->isLocked())
+                // ||| std::cout << lineFree << ":" << nxLine << "\t";
+            } else if (lineFree == 0 && !(*l)->isLocked()) {
+                nxLine = lineFree;
                 lineFree = l;
-
+                // ||| std::cout << lineFree << ":" << nxLine << "\t";
+            }
+            // we want to know how many valid unlocked -> ready to be used
             // If line is invalid, isLocked must be false
-            GI(!(*l)->isValid(), !(*l)->isLocked());
-            l--;
+            GI(!(*l)->isValid(), !(*l)->isLocked()); // making sure its invalid or unlocked
+            l--; // invalid -> does not mean it cannot be used
         }
     }
     GI(lineFree, !(*lineFree)->isValid() || !(*lineFree)->isLocked());
 
-    if (lineHit)
+    if (lineHit) { // found valid line use it
+        // std::cout << "line hit!" << lineHit << " \n";
         return *lineHit;
+
+    }
 
     I(lineHit==0);
 
-    if(lineFree == 0 && !ignoreLocked)
+    if(lineFree == 0 && !ignoreLocked) {
+        // std::cout << "lineFree == 0 && !ignoreLocked hit!! return 0 \n";
         return 0;
+    }
 
-    if (lineFree == 0) {
+    /*if (lineFree == 0) { // ignore LOCKED IS NEVER TRUE
+        std::cout << "lineFree == 0 policy logic is here .... \n";
         I(ignoreLocked);
         if (policy == RANDOM) {
+            std::cout << "policy RANDOM is taken for find2Replace \n";
             lineFree = &theSet[irand];
             irand = (irand + 1) & maskAssoc;
-        } else {
-            I(policy == LRU);
+        } else if (policy == LRU) {
+            //I(policy == LRU);
             // Get the oldest line possible
+            std::cout << "policy LRU is taken for find2Replace \n";
             lineFree = setEnd-1;
+        } else {
+            // I(policy == NXLRU);
+            // Get the second oldest line possible
+            std::cout << "policy NXLRU is taken for find2Replace \n";
+            lineFree = setEnd-2;
         }
-    } else if(ignoreLocked) {
+    } else if(ignoreLocked) { // this will never happen so there is no worries
         if (policy == RANDOM && (*lineFree)->isValid()) {
             lineFree = &theSet[irand];
             irand = (irand + 1) & maskAssoc;
-        } else {
-            //      I(policy == LRU);
+        } else if (policy == LRU) {
+            I(policy == LRU);
             // Do nothing. lineFree is the oldest
-        }
-    }
+        } else {
+            I(policy == NXLRU);
+            // Get the second oldest line possible
+            lineFree = setEnd-1;
+        } 
+    } */
 
     I(lineFree);
     GI(!ignoreLocked, !(*lineFree)->isValid() || !(*lineFree)->isLocked());
 
-    if (lineFree == theSet)
-        return *lineFree; // Hit in the first possition
-
+    if (lineFree == theSet) {
+        // ||| std::cout << "\n" << *lineFree << "|" << lineFree << " done (linefree)! \n";
+        // ||| std::cout << "\n" << *nxLine << "|" << nxLine << " done (linefree)! \n";
+        if (nxLine && policy == NXLRU) { // maybe this never happens?
+            std::cout << "NXLRU taken! \n";
+            //return *nxLine;
+            return *lineFree;
+        } else {
+            return *lineFree;
+        }
+        //return *lineFree; // Hit in the first possition
+    }
     // No matter what is the policy, move lineHit to the *theSet. This
     // increases locality
     Line *tmp = *lineFree;
-    Line nxLine;
     {
         Line **l = lineFree;
         while(l > theSet) {
-            Line **prev = l - 1;
-            *l = *prev;;
+            Line **prev = l - 1; // find previous line
+            std::cout << "Thinking: "<< l << ":" << prev << " " << *l << ":" << *prev << " \n";
             *nxLine = *prev;
+            *l = *prev;;
+            //std::cout << "Thinking: "<< l << ":" << prev << " " << *l << ":" << *prev << " \n";
             l = prev;
+            // std::cout << "Thinking: "<< l << ":" << prev << " " << *l << ":" << *prev << " \n";
         }
         *theSet = tmp;
     }
-    // added to NXLRU
-    if (policy == NXLRU) {
-        return *nxLine;
+    std::cout << tmp << ":" << *nxLine << " " << policy << " done (tmp) \n";
+    if (policy == NXLRU && *lineFree) {
+        return tmp;
+        //return *nxLine;
     } else {
-    return tmp;
+        return tmp;
+        //return *nxLine;
     }
 }
 
