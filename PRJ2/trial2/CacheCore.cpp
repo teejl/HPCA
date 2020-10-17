@@ -437,9 +437,8 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         *theSet = tmp;
     }
     std::cout << tmp << " done (tmp) \n";
-    if (policy == NXLRU)
-    {
-        return *prev;
+    if (policy == NXLRU) {
+        return *l;
     } else {
         return tmp;
     }
