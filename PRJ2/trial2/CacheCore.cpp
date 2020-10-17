@@ -412,7 +412,16 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         }
         *theSet = tmp;
     }
-    return tmp;
+    if (policy == NXLRU) {
+        std::cout << "NXLRU taken! \n";
+        std::cout << *lineFree << " \n";
+        std::cout << *nxLine << " \n";
+        return tmp;
+        //return *nxLine;
+    } else {
+        return tmp;
+        //return *nxLine;
+    }
 }
 
 /*********************************************************
