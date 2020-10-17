@@ -423,6 +423,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         //return tmp;
         return *nxLine;
     } else {
+        std::cout << tmp << " \n";
         return tmp;
         //return *nxLine;
     }
