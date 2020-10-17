@@ -342,6 +342,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         while(l >= theSet) {
             if ((*l)->getTag() == tag) { // exact match
                 lineHit = l;
+                break;
             }
             if (!(*l)->isValid()) // current line is not valid then lineFree
                 lineFree = l;
@@ -420,12 +421,8 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         }
         *theSet = tmp;
     }
-    if (policy == LRU) {
-        return tmp;
-    }
-    else {
-        return tmp-1;
-    }
+    std::cout << tmp << " \t";
+    return tmp;
 }
 
 /*********************************************************
