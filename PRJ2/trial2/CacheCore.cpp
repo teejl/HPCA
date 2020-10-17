@@ -371,9 +371,9 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         }
 
         // set lineFree to the next available line if is is NXLRU
-        //if (policy == NXLRU && nlineFree) {
-            //lineFree = nlineFree;
-        //}
+        if (policy == NXLRU && nlineFree) {
+            lineFree = nlineFree;
+        }
     }
     GI(lineFree, !(*lineFree)->isValid() || !(*lineFree)->isLocked());
 
