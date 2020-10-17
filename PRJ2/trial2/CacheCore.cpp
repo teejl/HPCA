@@ -383,7 +383,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     // increases locality
     Line *tmp = *lineFree;
     {
-        std::cout << "running tmp, "
+        std::cout << "running tmp, ";
         Line **l = lineFree;
         while(l > theSet) {
             Line **prev = l - 1;
