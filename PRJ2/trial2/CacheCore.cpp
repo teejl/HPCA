@@ -347,11 +347,11 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
             if (!(*l)->isValid()) { // current line is not valid then lineFree
                 nxLine = lineFree;
                 lineFree = l;
-                //std::cout << lineFree << " \t";
+                std::cout << lineFree << ":" << nxLine << "\t";
             } else if (lineFree == 0 && !(*l)->isLocked()) {
                 nxLine = lineFree;
                 lineFree = l;
-                //std::cout << lineFree << " \t";
+                std::cout << lineFree << ":" << nxLine << "\t";
             }
             // we want to know how many valid unlocked -> ready to be used
             // If line is invalid, isLocked must be false
@@ -363,11 +363,8 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
 
     if (lineHit) { // found valid line use it
         // std::cout << "line hit!" << lineHit << " \n";
-        if (nxLine && policy == NXLRU) {
-            return *nxLine;
-        } else {
         return *lineHit;
-        }
+
     }
 
     I(lineHit==0);
@@ -413,8 +410,14 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     GI(!ignoreLocked, !(*lineFree)->isValid() || !(*lineFree)->isLocked());
 
     if (lineFree == theSet)
-        // std::cout << *lineFree << " | " << lineFree << " done (linefree)! \n";
-        return *lineFree; // Hit in the first possition
+        std::cout << "\n" << *lineFree << "|" << lineFree << " done (linefree)! \n";
+        std::cout << "\n" << *nxLine << "|" << nxLine << " done (linefree)! \n";
+        if (nxLine && policy == NXLRU) {
+            return *nxLine;
+        } else {
+            return *lineFree;
+        }
+        //return *lineFree; // Hit in the first possition
 
     // No matter what is the policy, move lineHit to the *theSet. This
     // increases locality
