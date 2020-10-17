@@ -333,7 +333,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
 
         // start at 2nd to last for NXLRU
         if (policy == NXLRU) {
-            
+
             // print data to figure out tmp
             std::cout << "\n Starting findLine2Replace: \n";
             std::cout << "line:*line, isValid, isLocked, theSet, setEnd \n";
@@ -424,7 +424,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
             Line **prev = l - 1;
             *l = *prev;;
             l = prev;
-            if (policy == NXLRU) std::cout << "**prev:" << l - 1 << " *prev:" << *prev << " prev:" << prev << "\n";
+            if (policy == NXLRU) std::cout << "**prev:" << l - 1 << " *prev:" << *prev << " prev:" << prev << " tmp" << tmp << "\n";
             //if (policy == NXLRU) std::cout << " l:" << l " \n"; 
         }
         *theSet = tmp;
