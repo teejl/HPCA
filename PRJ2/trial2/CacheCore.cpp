@@ -340,6 +340,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
             // last line is a hit
             if ((*l)->getTag() == tag) {
                 lineHit = l;
+                GI(lineFree, !(*lineFree)->isValid() || !(*lineFree)->isLocked());
                 return *lineHit;
             }
             // only 1 line available
