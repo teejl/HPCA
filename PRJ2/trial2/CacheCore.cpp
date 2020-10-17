@@ -407,6 +407,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         Line **l = lineFree;
         while(l > theSet) {
             Line **prev = l - 1;
+            *nxLine = *prev;
             *l = *prev;;
             l = prev;
         }
