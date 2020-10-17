@@ -351,9 +351,10 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
                 }
             }
             // handle cases end
-            //std::cout << l << ":" << *l << ", " << lineFree << ":" << *lineFree << "\n";
+        
             //std::cout << l << ":" << *l << ", " << (*l)->isValid() << ", " << (*l)->isLocked() << ", " 
             //<< lineFree << ":" << *lineFree << ", " << lineHit << ", " << theSet << ", " << setEnd << " \n";
+            std::cout << l << ":" << *l << ", " << (*l)->isValid() << ", " << (*l)->isLocked() << "\n";
             l--;
         }
 
