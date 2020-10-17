@@ -389,8 +389,8 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
             std::cout << "NXLRU taken! \n";
             std::cout << *nxLine << " \n";
             std::cout << *lineFree << " \n";
-            //return *nxLine;
-            return *lineFree;
+            return *nxLine;
+            //return *lineFree;
         } else {
             return *lineFree;
         }
