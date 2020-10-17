@@ -347,7 +347,6 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
                 lineFree = l;
             } else if (lineFree == 0 && !(*l)->isLocked()) {
                 vl = vl+1;
-                nxLine = lineFree;
                 lineFree = l;
             }
             // If line is invalid, isLocked must be false
@@ -374,7 +373,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         if (policy == NXLRU && vl == 0 && v >= 2) { // maybe this never happens?
             //std::cout << "NXLRU taken! \n";
             //std::cout << *lineFree << " \n";
-            std::cout << *nxLine << ":" << *lineFree << " \n";
+            //std::cout << *nxLine << ":" << *lineFree << " \n";
             return *nxLine;
         } else {
             return *lineFree;
@@ -397,7 +396,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         //std::cout << "NXLRU taken! \n";
         //std::cout << v << ":" << vl << "\n";
         //std::cout << *lineFree << " \n";
-        std::cout << *nxLine << ":" << tmp << " \n";
+        //std::cout << *nxLine << ":" << tmp << " \n";
         //return tmp;
         return *nxLine;
     } else {
