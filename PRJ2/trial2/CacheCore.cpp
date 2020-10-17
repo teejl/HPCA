@@ -333,25 +333,27 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     // and the oldest isLocked possible (lineFree)
     {
         Line **l = setEnd -1;
-        // handle cases start
-        // last line is a hit
-        if ((*l)->getTag() == tag) {
-            lineHit = l;
-            return *lineHit;
-        }
-        // only 1 line available
-        if (l == theSet) {
-            if (!(*l)->isValid()) {
-                lineFree = l;
-            } else if (lineFree == 0 && !(*l)->isLocked()) {
-                lineFree = l;
-            }
-        }
-        // handle cases end
 
         // start at 2nd to last for NXLRU
-        if (policy == NXLRU) l--;
-
+        if (policy == NXLRU) {
+            // handle cases start
+            // last line is a hit
+            if ((*l)->getTag() == tag) {
+                lineHit = l;
+                return *lineHit;
+            }
+            // only 1 line available
+            if (l == theSet) {
+                if (!(*l)->isValid()) {
+                    lineFree = l;
+                } else if (lineFree == 0 && !(*l)->isLocked()) {
+                    lineFree = l;
+                }
+            }
+            // handle cases end
+            l--;
+        }
+        
         // loop to find LRU free line
         while(l >= theSet) {
             if ((*l)->getTag() == tag) {
@@ -371,15 +373,15 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         }
 
         // handle last line in set
-        // Line **x = setEnd -1;
-        // if (policy == NXLRU && !lineHit) {
-        //    if (!(*x)->isValid()) {
-        //        lineFree = x;
-        //    } else if (lineFree == 0 && !(*x)->isLocked()) {
-        //        lineFree = x;
-        //    }
-        //    GI(!(*x)->isValid(), !(*x)->isLocked());
-        //}
+        Line **x = setEnd -1;
+        if (policy == NXLRU && !lineHit) {
+            if (!(*x)->isValid()) {
+                lineFree = x;
+            } else if (lineFree == 0 && !(*x)->isLocked()) {
+                lineFree = x;
+            }
+            GI(!(*x)->isValid(), !(*x)->isLocked());
+        }
         // handle case end
     }
     GI(lineFree, !(*lineFree)->isValid() || !(*lineFree)->isLocked());
