@@ -348,7 +348,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
             if ((*l)->getTag() == tag) {
                 lineHit = l;
                 std::cout << "line break!!! \n";
-                break;
+                if (policy != NXLRU) break;
             }
             if (!(*l)->isValid()) {
                 if (found > 0){
