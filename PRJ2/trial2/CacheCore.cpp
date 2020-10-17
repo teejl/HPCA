@@ -383,7 +383,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
 
     if (lineFree == theSet) {
         //std::cout << "Return lineFree! "<< policy << "\n";
-        if (nxLine && policy == NXLRU) { // maybe this never happens?
+        if (policy == NXLRU) { // maybe this never happens?
             std::cout << "NXLRU taken! \n";
             //return *nxLine;
             return *lineFree;
