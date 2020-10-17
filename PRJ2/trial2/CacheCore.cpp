@@ -326,9 +326,6 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     Line **lineFree=0; // Order of preference, invalid, locked
     Line **setEnd = theSet + assoc;
 
-    std::cout << "\n Starting findLine2Replace: \n";
-    std::cout << "line:*line, isValid, isLocked, lineFree:*lineFree, lineHit, theSet, setEnd \n";
-
     // Start in reverse order so that get the youngest invalid possible,
     // and the oldest isLocked possible (lineFree)
     {
@@ -336,6 +333,9 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
 
         // start at 2nd to last for NXLRU
         if (policy == NXLRU) {
+            std::cout << "\n Starting findLine2Replace: \n";
+            std::cout << "line:*line, isValid, isLocked, lineFree:*lineFree, lineHit, theSet, setEnd \n";
+
             // handle cases start
             // last line is a hit
             if ((*l)->getTag() == tag) {
@@ -420,7 +420,6 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         *theSet = tmp;
     }
     std::cout << "return T: " << tmp;
-    //std::cout << "\t return alternative: " << (*lineFree -1);
     return tmp;
 }
 
