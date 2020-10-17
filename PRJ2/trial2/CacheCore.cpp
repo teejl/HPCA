@@ -331,12 +331,13 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
 
     // new variables added for logic TJL
     bool lrufound = false;
-
+    int c = 0;
+    
     // Start in reverse order so that get the youngest invalid possible,
     // and the oldest isLocked possible (lineFree)
     {
         Line **l = setEnd -1;
-        int c = 0;
+
         // if (policy == NXLRU) l--;
         while(l >= theSet) {
             if ((*l)->getTag() == tag) { // exact match
