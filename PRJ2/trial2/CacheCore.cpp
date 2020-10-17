@@ -342,7 +342,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
             }
             if (!(*l)->isValid()) {
                 v=v+1; // start the counter
-                std::cout << l << ":" << *l << " \t";
+                //std::cout << l << ":" << *l << " \t";
                 nxLine = lineFree;
                 lineFree = l;
             } else if (lineFree == 0 && !(*l)->isLocked()) {
@@ -365,26 +365,6 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     if(lineFree == 0 && !ignoreLocked)
         return 0;
 
-    //if (lineFree == 0) {
-    //    I(ignoreLocked);
-    //    if (policy == RANDOM) {
-    //        lineFree = &theSet[irand];
-    //        irand = (irand + 1) & maskAssoc;
-    //    } else {
-    //        I(policy == LRU);
-    //        // Get the oldest line possible
-    //        lineFree = setEnd-1;
-    //    }
-    //} else if(ignoreLocked) {
-    //    if (policy == RANDOM && (*lineFree)->isValid()) {
-    //        lineFree = &theSet[irand];
-    //        irand = (irand + 1) & maskAssoc;
-    //    } else {
-    //        //      I(policy == LRU);
-    //        // Do nothing. lineFree is the oldest
-    //    }
-    //}
-
     I(lineFree);
     GI(!ignoreLocked, !(*lineFree)->isValid() || !(*lineFree)->isLocked());
 
@@ -394,11 +374,9 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         if (policy == NXLRU && vl == 0 && v >= 2) { // maybe this never happens?
             //std::cout << "NXLRU taken! \n";
             //std::cout << *lineFree << " \n";
-            std::cout << *nxLine << " \n";
+            //std::cout << *nxLine << " \n";
             return *nxLine;
-            //return *lineFree;
         } else {
-            std::cout << *lineFree << " \n";
             return *lineFree;
         }
     }
@@ -416,16 +394,15 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         *theSet = tmp;
     }
     if (policy == NXLRU && vl == 0 && v >= 2) {
-        std::cout << "NXLRU taken! \n";
-        std::cout << v << ":" << vl << "\n";
-        std::cout << *lineFree << " \n";
-        std::cout << *nxLine << " \n";
+        //std::cout << "NXLRU taken! \n";
+        //std::cout << v << ":" << vl << "\n";
+        //std::cout << *lineFree << " \n";
+        //std::cout << *nxLine << " \n";
         //return tmp;
         return *nxLine;
     } else {
-        std::cout << tmp << " \n";
+        //std::cout << tmp << " \n";
         return tmp;
-        //return *nxLine;
     }
 }
 
