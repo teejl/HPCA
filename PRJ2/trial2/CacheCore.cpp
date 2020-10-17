@@ -412,7 +412,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     if (lineFree == theSet) {
         // ||| std::cout << "\n" << *lineFree << "|" << lineFree << " done (linefree)! \n";
         // ||| std::cout << "\n" << *nxLine << "|" << nxLine << " done (linefree)! \n";
-        if (nxLine && policy == NXLRU) {
+        if (nxLine && policy == NXLRU) { // maybe this never happens?
             std::cout << "NXLRU taken! \n";
             return *nxLine;
             //return *lineFree;
@@ -430,7 +430,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
             Line **prev = l - 1;
             *l = *prev;;
             l = prev;
-            // std::cout << "Thinking: "<< l << " " << prev << " " << *l << " " << *prev << " \n";
+            std::cout << "Thinking: "<< l << " " << prev << " " << *l << " " << *prev << " \n";
         }
         *theSet = tmp;
     }
