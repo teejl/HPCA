@@ -344,12 +344,13 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
                 lineHit = l;
                 break;
             }
-            if (!(*l)->isValid()) // current line is not valid then lineFree
+            if (!(*l)->isValid()) { // current line is not valid then lineFree
                 lineFree = l;
                 std::cout << lineFree << " \t";
-            else if (lineFree == 0 && !(*l)->isLocked())
+            } else if (lineFree == 0 && !(*l)->isLocked()) {
                 lineFree = l;
                 std::cout << lineFree << " \t";
+            }
             // we want to know how many valid unlocked -> ready to be used
             // If line is invalid, isLocked must be false
             GI(!(*l)->isValid(), !(*l)->isLocked()); // making sure its invalid or unlocked
