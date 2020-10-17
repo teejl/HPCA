@@ -360,25 +360,25 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     if(lineFree == 0 && !ignoreLocked)
         return 0;
 
-    if (lineFree == 0) {
-        I(ignoreLocked);
-        if (policy == RANDOM) {
-            lineFree = &theSet[irand];
-            irand = (irand + 1) & maskAssoc;
-        } else {
-            I(policy == LRU);
-            // Get the oldest line possible
-            lineFree = setEnd-1;
-        }
-    } else if(ignoreLocked) {
-        if (policy == RANDOM && (*lineFree)->isValid()) {
-            lineFree = &theSet[irand];
-            irand = (irand + 1) & maskAssoc;
-        } else {
-            //      I(policy == LRU);
-            // Do nothing. lineFree is the oldest
-        }
-    }
+    //if (lineFree == 0) {
+    //    I(ignoreLocked);
+    //    if (policy == RANDOM) {
+    //        lineFree = &theSet[irand];
+    //        irand = (irand + 1) & maskAssoc;
+    //    } else {
+    //        I(policy == LRU);
+    //        // Get the oldest line possible
+    //        lineFree = setEnd-1;
+    //    }
+    //} else if(ignoreLocked) {
+    //    if (policy == RANDOM && (*lineFree)->isValid()) {
+    //        lineFree = &theSet[irand];
+    //        irand = (irand + 1) & maskAssoc;
+    //    } else {
+    //        //      I(policy == LRU);
+    //        // Do nothing. lineFree is the oldest
+    //    }
+    //}
 
     I(lineFree);
     GI(!ignoreLocked, !(*lineFree)->isValid() || !(*lineFree)->isLocked());
@@ -387,8 +387,10 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         //std::cout << "Return lineFree! "<< policy << "\n";
         if (policy == NXLRU) { // maybe this never happens?
             std::cout << "NXLRU taken! \n";
+            std::cout << *nxLine << " \n";
+            std::cout << *linFree << " \n";
             //return *nxLine;
-            return *nxLine;
+            return *lineFree;
         } else {
             return *lineFree;
         }
