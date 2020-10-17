@@ -326,11 +326,6 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     Line **lineFree=0; // Order of preference, invalid, locked
     Line **setEnd = theSet + assoc;
 
-    // new variables added for logic TJL
-    Line **nxLine=0;
-    int v = 0;
-    int vl = 0;
-
     // Start in reverse order so that get the youngest invalid possible,
     // and the oldest isLocked possible (lineFree)
     {
@@ -341,12 +336,8 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
                 break;
             }
             if (!(*l)->isValid()) {
-                v=v+1; // start the counter
-                //std::cout << l << ":" << *l << " \t";
-                nxLine = lineFree;
                 lineFree = l;
             } else if (lineFree == 0 && !(*l)->isLocked()) {
-                vl = vl+1;
                 lineFree = l;
             }
             // If line is invalid, isLocked must be false
@@ -370,11 +361,9 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     if (lineFree == theSet) { // this had 0 impact
         //std::cout << "Return lineFree! "<< policy << "\n";
         //std::cout << "\n" << "linefree: " << v << ":" << vl << "\n";
-        if (policy == NXLRU && vl == 0 && v >= 2) { // maybe this never happens?
+        if (policy == NXLRU) { // maybe this never happens?
             //std::cout << "NXLRU taken! \n";
             //std::cout << *lineFree << " \n";
-            //std::cout << *nxLine << ":" << *lineFree << " \n";
-            // return *nxLine;
             return *lineFree;
         } else {
             return *lineFree;
@@ -385,24 +374,19 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     Line *tmp = *lineFree;
     {
         Line **l = lineFree;
-        **nxLine = l - 1;
         while(l > theSet) {
             Line **prev = l - 1;
-            std::cout << *l << ":" << l << " " << *prev << ":" << prev << "\n";
             *l = *prev;;
             l = prev;
         }
         *theSet = tmp;
     }
-    if (policy == NXLRU && vl == 0 && v >= 2) {
+    if (policy == NXLRU) { // can add some counter parameters here
         std::cout << "NXLRU taken! \n";
-        //std::cout << v << ":" << vl << "\n";
-        //std::cout << *lineFree << " \n";
-        std::cout << tmp << " \n";
-        //return tmp;
-        return *nxLine;
+        //std::cout << tmp << " \n";
+        return tmp;
     } else {
-        std::cout << tmp << " \n";
+        //std::cout << tmp << " \n";
         return tmp;
     }
 }
