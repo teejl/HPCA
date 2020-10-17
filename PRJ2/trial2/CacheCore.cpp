@@ -436,7 +436,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         }
         *theSet = tmp;
     }
-    std::cout << tmp << ":" << *l << " done (tmp) \n";
+    std::cout << tmp << ":" << lineFree << ":" << *lineFree << " done (tmp) \n";
     return tmp;
 }
 
