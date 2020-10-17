@@ -391,9 +391,9 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         //std::cout << "Return lineFree! "<< policy << "\n";
         //std::cout << v << ":" << vl << "\n";
         if (policy == NXLRU && vl == 0 && v == 4) { // maybe this never happens?
-            std::cout << "NXLRU taken! \n";
-            std::cout << *lineFree << " \n";
-            std::cout << *nxLine << " \n";
+            //std::cout << "NXLRU taken! \n";
+            //std::cout << *lineFree << " \n";
+            //std::cout << *nxLine << " \n";
             return *nxLine;
             //return *lineFree;
         } else {
@@ -412,7 +412,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         }
         *theSet = tmp;
     }
-    if (policy == NXLRU) {
+    if (policy == NXLRU && *nxLine) {
         std::cout << "NXLRU taken! \n";
         std::cout << *lineFree << " \n";
         std::cout << *nxLine << " \n";
