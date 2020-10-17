@@ -373,14 +373,14 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         }
 
         // handle last line in set
-        Line **x = setEnd -1;
+        Line **l = setEnd -1;
         if (policy == NXLRU && !lineHit) {
-            if (!(*x)->isValid() && lineFree == 0) {
+            if (!(*l)->isValid()) {
                 lineFree = x;
-            } else if (lineFree == 0 && !(*x)->isLocked()) {
-                lineFree = x;
+            } else if (lineFree == 0 && !(*l)->isLocked()) {
+                lineFree = l;
             }
-            GI(!(*x)->isValid(), !(*x)->isLocked());
+            GI(!(*l)->isValid(), !(*l)->isLocked());
         }
         // handle case end
     }
