@@ -331,12 +331,12 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     {
         Line **l = setEnd -1;
 
-        // print data to figure out tmp
-        std::cout << "\n Starting findLine2Replace: \n";
-        std::cout << "line:*line, isValid, isLocked, theSet, setEnd \n";
-
         // start at 2nd to last for NXLRU
         if (policy == NXLRU) {
+            
+            // print data to figure out tmp
+            std::cout << "\n Starting findLine2Replace: \n";
+            std::cout << "line:*line, isValid, isLocked, theSet, setEnd \n";
 
             // handle cases start
             // last line is a hit
@@ -376,7 +376,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
             GI(!(*l)->isValid(), !(*l)->isLocked());
 
             //print out data
-            if (policy != NXLRU) std::cout << l << ":" << *l << ", " << (*l)->isValid() << ", " << (*l)->isLocked() << ", " << theSet << ", " << setEnd << " \n";
+            if (policy == NXLRU) std::cout << l << ":" << *l << ", " << (*l)->isValid() << ", " << (*l)->isLocked() << ", " << theSet << ", " << setEnd << " \n";
             
             l--;
         }
@@ -424,12 +424,12 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
             Line **prev = l - 1;
             *l = *prev;;
             l = prev;
-            if (policy != NXLRU) std::cout << "**prev:" << l - 1 << " *prev:" << *prev << " prev:" << prev << "\n";
+            if (policy == NXLRU) std::cout << "**prev:" << l - 1 << " *prev:" << *prev << " prev:" << prev << "\n";
             //if (policy == NXLRU) std::cout << " l:" << l " \n"; 
         }
         *theSet = tmp;
     }
-    if (policy != NXLRU) std::cout << "return T: " << tmp << "\n";
+    if (policy == NXLRU) std::cout << "return T: " << tmp << "\n";
     return tmp;
 }
 
