@@ -326,11 +326,13 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     Line **lineFree=0; // Order of preference, invalid, locked
     Line **setEnd = theSet + assoc;
 
+    // some custom vars
+    bool pbool = (policy == NXLRU);
+
     // Start in reverse order so that get the youngest invalid possible,
     // and the oldest isLocked possible (lineFree)
     {
         Line **l = setEnd -1;
-        bool pbool = (policy == NXLRU);
 
         if (pbool) {
             // print data to figure out tmp
