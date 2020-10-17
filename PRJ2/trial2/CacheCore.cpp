@@ -381,7 +381,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     I(lineFree);
     GI(!ignoreLocked, !(*lineFree)->isValid() || !(*lineFree)->isLocked());
 
-    if (lineFree == theSet)
+    if (lineFree == theSet) {
         //std::cout << "Return lineFree! "<< policy << "\n";
         if (nxLine && policy == NXLRU) { // maybe this never happens?
             std::cout << "NXLRU taken! \n";
@@ -390,7 +390,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         } else {
             return *lineFree;
         }
-
+    }
     // No matter what is the policy, move lineHit to the *theSet. This
     // increases locality
     Line *tmp = *lineFree;
