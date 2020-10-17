@@ -325,12 +325,12 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     Line **lineHit=0;
     Line **lineFree=0; // Order of preference, invalid, locked
     Line **setEnd = theSet + assoc;
-    Line **nlineFree=0; // add one more line for NXLRU
 
     // some custom vars
-    bool pbool = (policy == NXLRU);
-    int c = 0;
-    int found = 0;
+    bool pbool = (policy == NXLRU); // used to toggle debug prints
+    int c = 0; // used to count invalid cases
+    Line **nlineFree=0; // add one more line for NXLRU
+    int found = 0; // used to toggle for next free line
 
     // Start in reverse order so that get the youngest invalid possible,
     // and the oldest isLocked possible (lineFree)
@@ -347,6 +347,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
             // find the first line free
             if ((*l)->getTag() == tag) {
                 lineHit = l;
+                std::cout << "line break!!! \n";
                 break;
             }
             if (!(*l)->isValid()) {
