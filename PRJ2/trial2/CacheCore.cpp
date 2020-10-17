@@ -361,7 +361,6 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
             }
             // If line is invalid, isLocked must be false
             GI(!(*l)->isValid(), !(*l)->isLocked());
-            }
 
             //print out data
             if (pbool) std::cout << l << ":" << *l << ", " << (*l)->isValid() << ", " << (*l)->isLocked() << ", " << theSet << ", " << setEnd << " \n";
