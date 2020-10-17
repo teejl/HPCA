@@ -371,8 +371,6 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         return 0;
     }
 
-    std::cout << "done. \n";
-
     /*if (lineFree == 0) { // ignore LOCKED IS NEVER TRUE
         std::cout << "lineFree == 0 policy logic is here .... \n";
         I(ignoreLocked);
@@ -409,6 +407,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     GI(!ignoreLocked, !(*lineFree)->isValid() || !(*lineFree)->isLocked());
 
     if (lineFree == theSet)
+        std::cout << *lineFree << " done (linefree)! \n";
         return *lineFree; // Hit in the first possition
 
     // No matter what is the policy, move lineHit to the *theSet. This
@@ -420,11 +419,11 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
             Line **prev = l - 1;
             *l = *prev;;
             l = prev;
-            std::cout << l << " " << prev << " " << *l << " " << *prev;
+            std::cout << "Thinking: "<< l << " " << prev << " " << *l << " " << *prev << " \n";
         }
         *theSet = tmp;
     }
-    std::cout << tmp << " \n";
+    std::cout << tmp << " done (tmp) \n";
     return tmp;
 }
 
