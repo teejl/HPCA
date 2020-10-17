@@ -373,7 +373,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         }
 
         // handle last line in set
-        Line **l = setEnd -1;
+        **l = setEnd -1;
         if (policy == NXLRU && !lineHit) {
             if (!(*l)->isValid()) {
                 lineFree = l;
