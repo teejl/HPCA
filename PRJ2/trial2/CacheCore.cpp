@@ -340,7 +340,6 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
 
         // if (policy == NXLRU) l--;
         while(l >= theSet) {
-            c=c+1; // increase counter
             if ((*l)->getTag() == tag) { // exact match
                 lineHit = l;
             }
@@ -421,8 +420,12 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         }
         *theSet = tmp;
     }
-
-    return tmp;
+    if (policy == LRU) {
+        return tmp;
+    }
+    else {
+        return tmp-1;
+    }
 }
 
 /*********************************************************
