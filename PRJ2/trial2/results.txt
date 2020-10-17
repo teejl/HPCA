@@ -18,6 +18,7 @@ Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ...
 Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
    0  IL1 0.0   0.03% ( 0.0%, 0.0%) 250.93%  0.01GB/s :  MemoryBus 0 MB/s : 
 ~~~~~  Default  ~~~~~
+
 ~~~~~  L1NXLRU  ~~~~~
 # Bench : /home/cs6290/sesc/sesc.opt -f L1NXLRU -c /home/cs6290/sesc/confs/cmp4-noc-L1NXLRU.conf -iInput/input.256 -ofmm.out -efmm.err fmm.mipseb -p 1 
 # File  : /home/cs6290/sesc/apps/Splash2/fmm/sesc_fmm.mipseb.L1NXLRU :       Sat Oct 17 18:11:37 2020
@@ -36,3 +37,22 @@ Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ...
 Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
    0  IL1 0.0   0.03% ( 0.0%, 0.0%) 250.93%  0.01GB/s :  MemoryBus 0 MB/s : 
 ~~~~~  L1NXLRU  ~~~~~
+
+~~~~~  SmallL1  ~~~~~
+# Bench : /home/cs6290/sesc/sesc.opt -f SmallL1 -c /home/cs6290/sesc/confs/cmp4-noc-small-l1.conf -iInput/input.256 -ofmm.out -efmm.err fmm.mipseb -p 1 
+# File  : /home/cs6290/sesc/apps/Splash2/fmm/sesc_fmm.mipseb.SmallL1 :       Tue Oct 13 22:18:12 2020
+      Exe Speed        Exe MHz         Exe Time         Sim Time (1000MHz)
+    185.700 KIPS      0.3512 MHz      74.010 secs      25.991 msec
+Proc  Avg.Time BPType       Total          RAS           BPred          BTB            BTAC
+   0   37.393  Hybrid       95.65% ( 99.99% of   4.02%)  95.47% ( 98.91% of  66.05%)   0.00% 
+           nInst     BJ    Load   Store      INT      FP  : LD Forward , Replay : Worst Unit (clk)
+   0    13743660   7.55%  16.25%   4.50%  20.65%  51.05%  :      4.17%    5317 inst/repl  :  LDSTIssueX 2.46 
+Proc  IPC        Cycles  Busy   LDQ   STQ  IWin   ROB  Regs Ports   TLB  maxBr MisBr Br4Clk  Other
+   0  0.53     25990768  26.4   0.0   0.2  63.8   5.0   0.0   0.0   0.0   0.0    3.8    0.1    0.5 
+################################################################################
+Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
+   0  DL1 0.2  18.37% (17.6%, 0.8%) 121.72%  1.57GB/s :  MemoryBus 0 MB/s : 
+################################################################################
+Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
+   0  IL1 0.0   0.03% ( 0.0%, 0.0%) 250.93%  0.01GB/s :  MemoryBus 0 MB/s : 
+~~~~~  SmallL1  ~~~~~
