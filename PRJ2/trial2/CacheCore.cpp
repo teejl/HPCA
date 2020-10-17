@@ -326,39 +326,49 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     Line **lineFree=0; // Order of preference, invalid, locked
     Line **setEnd = theSet + assoc;
 
+    std::cout << "\n Starting findLine2Replace: \n";
+
     // Start in reverse order so that get the youngest invalid possible,
     // and the oldest isLocked possible (lineFree)
     {
+        std::cout << "Running first loop, ";
         Line **l = setEnd -1;
         while(l >= theSet) {
             if ((*l)->getTag() == tag) {
+                std::cout << "Found tag!, " << l << ", ";
                 lineHit = l;
                 break;
             }
             if (!(*l)->isValid()) {
+                std::cout << "Line is Invalid, " << l << ", ";
                 lineFree = l;
             } else if (lineFree == 0 && !(*l)->isLocked()) {
+                std::cout << "Line is Not Locked and lineFree==0, " << l << ", ";
                 lineFree = l;
             }
             // If line is invalid, isLocked must be false
             GI(!(*l)->isValid(), !(*l)->isLocked());
+            std::cout << "loop to next line, " << l << ", "; 
             l--;
         }
     }
     GI(lineFree, !(*lineFree)->isValid() || !(*lineFree)->isLocked());
 
     if (lineHit)
+        std::cout << "return *lineHit:" << *lineHit << "\n";
         return *lineHit;
 
     I(lineHit==0);
 
     if(lineFree == 0 && !ignoreLocked)
+        std::cout << "return 0 \n";
         return 0;
 
     I(lineFree);
     GI(!ignoreLocked, !(*lineFree)->isValid() || !(*lineFree)->isLocked());
 
     if (lineFree == theSet) { // this had 0 impact
+        std::cout << "lineFree == theSet, return *lineFree:" << *lineFree; 
         //std::cout << "Return lineFree! "<< policy << "\n";
         //std::cout << "\n" << "linefree: " << v << ":" << vl << "\n";
         if (policy == NXLRU) { // maybe this never happens?
@@ -373,6 +383,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     // increases locality
     Line *tmp = *lineFree;
     {
+        std::cout << "running tmp, "
         Line **l = lineFree;
         while(l > theSet) {
             Line **prev = l - 1;
@@ -381,8 +392,9 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         }
         *theSet = tmp;
     }
+    std::cout << "returning tmp:" << tmp;
     if (policy == NXLRU) { // can add some counter parameters here
-        std::cout << "NXLRU taken! \n";
+        //std::cout << "NXLRU taken! \n";
         //std::cout << tmp << " \n";
         return tmp;
     } else {
