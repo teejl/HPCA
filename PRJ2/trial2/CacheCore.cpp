@@ -327,7 +327,8 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     Line **setEnd = theSet + assoc;
 
     // some custom vars
-    bool pbool = (policy == NXLRU);
+    bool pbool = false; //(policy == NXLRU);
+    int c = 0;
 
     // Start in reverse order so that get the youngest invalid possible,
     // and the oldest isLocked possible (lineFree)
@@ -357,6 +358,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
                 } else if (lineFree == 0 && !(*l)->isLocked()) {
                     lineFree = l;
                 }
+            if ((*l)->isLocked()) c++;
             }
             // handle cases end
         
@@ -382,7 +384,9 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
 
             //print out data
             if (pbool) std::cout << l << ":" << *l << ", " << (*l)->isValid() << ", " << (*l)->isLocked() << ", " << theSet << ", " << setEnd << " \n";
-            
+            if (policy == NXLRU) {
+                if ((*l)->isLocked()) c++;
+            }
             l--;
         }
 
@@ -435,6 +439,9 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         *theSet = tmp;
     }
     if (pbool) std::cout << "return T: " << tmp << "\n";
+    if (c > 2) {
+        std::cout << "hit!!! \n";
+    }
     return tmp;
 }
 
