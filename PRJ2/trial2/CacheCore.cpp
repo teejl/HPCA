@@ -327,6 +327,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     Line **setEnd = theSet + assoc;
 
     std::cout << "\n Starting findLine2Replace: \n";
+    std::cout << "line:*line, isValid, isLocked, lineFree:*linFree, lineHit, theSet, setEnd \n";
 
     // Start in reverse order so that get the youngest invalid possible,
     // and the oldest isLocked possible (lineFree)
@@ -344,6 +345,8 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
             }
             // If line is invalid, isLocked must be false
             GI(!(*l)->isValid(), !(*l)->isLocked());
+            std::cout << l << ":" << *l << ", " << (*l)->isValid() << ", " << (*l)->isLocked() << ", " 
+            << lineFree << ":" << *lineFree << ", " << lineHit << ", " << theSet << ", " << setEnd << " \n";
             l--;
         }
     }
