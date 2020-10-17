@@ -336,7 +336,6 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     // and the oldest isLocked possible (lineFree)
     {
         Line **l = setEnd -1;
-
         if (pbool) {
             // print data to figure out tmp
             std::cout << "\n Starting findLine2Replace: \n";
@@ -351,6 +350,9 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
                 break;
             }
             if (!(*l)->isValid()) {
+                if (found > 0){
+                    nlineFree = l;
+                }
                 lineFree = l;
                 found++;
             } else if (lineFree == 0 && !(*l)->isLocked()) {
@@ -360,21 +362,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
             // If line is invalid, isLocked must be false
             GI(!(*l)->isValid(), !(*l)->isLocked());
             }
-            // proceed to find the next lineFree
-            if (found > 0) {
-                if ((*l)->getTag() == tag) {
-                    lineHit = l;
-                    break;
-                }
-                if (!(*l)->isValid()) {
-                    nlineFree = l;
-                } else if (lineFree == 0 && !(*l)->isLocked()) {
-                    nlineFree = l;
-                }
-                // If line is invalid, isLocked must be false
-                GI(!(*l)->isValid(), !(*l)->isLocked());
-                }
-            }
+            
             //print out data
             if (pbool) std::cout << l << ":" << *l << ", " << (*l)->isValid() << ", " << (*l)->isLocked() << ", " << theSet << ", " << setEnd << " \n";
             if (policy == NXLRU) {
