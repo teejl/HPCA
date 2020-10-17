@@ -334,12 +334,18 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     {
         Line **l = setEnd -1;
         // handle cases start
+        // last line is a hit
         if ((*l)->getTag() == tag) {
             lineHit = l;
             return *lineHit;
         }
+        // only 1 line available
         if (l == theSet) {
-            lineFree = l;
+            if (!(*l)->isValid()) {
+                lineFree = l;
+            } else if (lineFree == 0 && !(*l)->isLocked()) {
+                lineFree = l;
+            }
         }
         // handle cases end
 
