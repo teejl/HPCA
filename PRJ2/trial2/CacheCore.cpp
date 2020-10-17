@@ -385,6 +385,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     Line *tmp = *lineFree;
     {
         Line **l = lineFree;
+        **nxLine = l - 1;
         while(l > theSet) {
             Line **prev = l - 1;
             std::cout << *l << ":" << l << " " << *prev << ":" << prev << "\n";
@@ -398,8 +399,8 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         //std::cout << v << ":" << vl << "\n";
         //std::cout << *lineFree << " \n";
         std::cout << tmp << " \n";
-        return tmp;
-        //return *nxLine;
+        //return tmp;
+        return *nxLine;
     } else {
         std::cout << tmp << " \n";
         return tmp;
