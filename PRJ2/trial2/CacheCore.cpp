@@ -331,10 +331,12 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     {
         Line **l = setEnd -1;
 
+        // print data to figure out tmp
+        std::cout << "\n Starting findLine2Replace: \n";
+        std::cout << "line:*line, isValid, isLocked, theSet, setEnd \n";
+
         // start at 2nd to last for NXLRU
         if (policy == NXLRU) {
-            std::cout << "\n Starting findLine2Replace: \n";
-            std::cout << "line:*line, isValid, isLocked, theSet, setEnd \n";
 
             // handle cases start
             // last line is a hit
@@ -372,9 +374,10 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
             }
             // If line is invalid, isLocked must be false
             GI(!(*l)->isValid(), !(*l)->isLocked());
-            //std::cout << l << ":" << *l << ", " << (*l)->isValid() << ", " << (*l)->isLocked() << ", " 
-            //<< lineFree << ":" << *lineFree << ", " << lineHit << ", " << theSet << ", " << setEnd << " \n";
-            if (policy == NXLRU) std::cout << l << ":" << *l << ", " << (*l)->isValid() << ", " << (*l)->isLocked() << ", " << theSet << ", " << setEnd << " \n";
+
+            //print out data
+            if (policy != NXLRU) std::cout << l << ":" << *l << ", " << (*l)->isValid() << ", " << (*l)->isLocked() << ", " << theSet << ", " << setEnd << " \n";
+            
             l--;
         }
 
@@ -408,7 +411,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     GI(!ignoreLocked, !(*lineFree)->isValid() || !(*lineFree)->isLocked());
 
     if (lineFree == theSet) { 
-        if (policy == NXLRU) std::cout << "return LF: " << *lineFree;
+        //if (policy == NXLRU) std::cout << "return LF: " << *lineFree;
         return *lineFree;
     }
     
@@ -416,17 +419,17 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     Line *tmp = *lineFree;
     {
         Line **l = lineFree;
-        if (policy == NXLRU) l++;
+        //if (policy == NXLRU) l++;
         while(l > theSet) {
             Line **prev = l - 1;
             *l = *prev;;
             l = prev;
-            if (policy == NXLRU) std::cout << "**prev:" << l - 1 << " *prev:" << *prev << " prev:" << prev << "\n";
+            if (policy != NXLRU) std::cout << "**prev:" << l - 1 << " *prev:" << *prev << " prev:" << prev << "\n";
             //if (policy == NXLRU) std::cout << " l:" << l " \n"; 
         }
         *theSet = tmp;
     }
-    if (policy == NXLRU) std::cout << "return T: " << tmp << "\n";
+    if (policy != NXLRU) std::cout << "return T: " << tmp << "\n";
     return tmp;
 }
 
