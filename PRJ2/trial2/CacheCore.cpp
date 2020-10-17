@@ -350,15 +350,17 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
                 //std::cout << "line break!!! \n";
                 if (found > 1) break;
             }
-            if (!(*l)->isValid()) {
-                if (found > 0){
-                    nlineFree = l;
-                }
+            if (!(*l)->isValid()) { //takes care of all 1s on isValid
+                //if (found > 0){
+                    //nlineFree = l;
+                //}
                 lineFree = l;
-                found++;
-            } else if (lineFree == 0 && !(*l)->isLocked()) {
+                //found++;
+            } else if (lineFree == 0 && !(*l)->isLocked()) { // set line free to first unlocked
                 lineFree = l;
-                found++;
+                //found++;
+            } else if (!(*l)->isLocked()){ // set next line free to next unlocked
+                nlineFree = l;
             }
             // If line is invalid, isLocked must be false
             GI(!(*l)->isValid(), !(*l)->isLocked());
