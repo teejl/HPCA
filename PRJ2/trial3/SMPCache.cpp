@@ -466,7 +466,9 @@ void SMPCache::doRead(MemRequest *mreq)
     vm.push_back(calcTag(addr));
     std::cout << "\n Vector begin to end: ";
     for (auto i = vm.begin(); i != vm.end(); ++i) // output vector
-        std::cout << *i << " "; 
+        if i<=4 {
+            std::cout << *i << " "; 
+        }
     // update the vector pretend cache
     // make sure this is in doWrite and doREad
 
