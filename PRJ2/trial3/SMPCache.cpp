@@ -528,6 +528,15 @@ void SMPCache::doWriteAgain(MemRequest *mreq) {
     IJ(l && l->canBeWritten());
     if(l && l->canBeWritten()) {
         writeHit.inc();
+        // compMisses are the unique sets of tags that enter the cache? TJL
+        // set <int, greater <int> > cm; // added above already
+        int size = cm.size();
+        cm.insert(calcTag(addr)); 
+        if (size == cm.size()) {
+            compMiss.inc();
+            std::cout << cm.size() << "\t";
+        }
+    // end of compMisses
 #ifdef SESC_ENERGY
         wrEnergy[0]->inc();
 #endif
@@ -552,6 +561,15 @@ void SMPCache::doWrite(MemRequest *mreq)
 
     if (l && l->canBeWritten()) {
         writeHit.inc();
+        // compMisses are the unique sets of tags that enter the cache? TJL
+        // set <int, greater <int> > cm; // added above already
+        int size = cm.size();
+        cm.insert(calcTag(addr)); 
+        if (size == cm.size()) {
+            compMiss.inc();
+            std::cout << cm.size() << "\t";
+        }
+        // end of compMisses
 
 #ifdef SESC_ENERGY
         wrEnergy[0]->inc();
@@ -587,16 +605,6 @@ void SMPCache::doWrite(MemRequest *mreq)
     }
 
     writeMiss.inc();
-
-    // compMisses are the unique sets of tags that enter the cache? TJL
-    // set <int, greater <int> > cm; // added above already
-    int size = cm.size();
-    cm.insert(calcTag(addr)); 
-    if (size == cm.size()) {
-        compMiss.inc();
-        std::cout << cm.size() << "\t";
-    }
-    // end of compMisses
 
     // cap Miss TJL
     capMiss.inc();
