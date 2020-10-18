@@ -596,6 +596,16 @@ void SMPCache::doWrite(MemRequest *mreq)
         DEBUGPRINT(" Locked %x ... try again\n", addr);
         //printf(" Locked %x ... try again %lld\n", addr, globalClock);
         writeRetry.inc();
+        // compMisses are the unique sets of tags that enter the cache? TJL
+        // set <int, greater <int> > cm; // added above already
+        int size = cm.size();
+        cm.insert(calcTag(addr));
+        //std::cout << "Tag: " << calcTag(addr) << "\n";
+        if (size != cm.size()) {
+            compMiss.inc();
+            std::cout << cm.size() << "wr\t";
+        }
+        // end of compMisses
         mreq->mutateWriteToRead();
         Time_t nextTry = nextSlot();
         if (nextTry == globalClock)
