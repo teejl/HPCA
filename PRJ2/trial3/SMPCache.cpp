@@ -39,6 +39,7 @@ Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 using namespace std;
 set<long int> cm;
 set<long int> cm2;
+set<long int> cm3;
 
 #if (defined DEBUG_LEAK)
 Time_t Directory::lastClock = 0;
@@ -1754,6 +1755,16 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
     PAddr rpl_addr = 0;
     I(cache->findLineDebug(addr) == 0);
     Line *l = cache->findLine2Replace(addr);
+    // compMisses are the unique sets of tags that enter the cache? TJL
+    // set <int, greater <int> > cm; // added above already
+    int size = cm3.size();
+    cm3.insert(calcTag(addr));
+    //std::cout << "Tag: " << calcTag(addr) << "\n";
+    if (size != cm3.size()) {
+        confMiss.inc();
+        std::cout << cm3.size() << "fl\t";
+    }
+    // end of compMisses
 
     if(!l) {
         // need to schedule allocate line for next cycle
