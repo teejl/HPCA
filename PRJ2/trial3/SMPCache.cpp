@@ -1704,6 +1704,10 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
 
     rpl_addr = cache->calcAddr4Tag(l->getTag());
     lineFill.inc();
+    // added for testing;
+    compMiss.inc();
+    capMiss.inc();
+    confMiss.inc();
 
     nextSlot(); // have to do an access to check which line is free
 
