@@ -530,6 +530,15 @@ void SMPCache::doWriteAgain(MemRequest *mreq) {
     IJ(l && l->canBeWritten());
     if(l && l->canBeWritten()) {
         writeHit.inc();
+        // compMisses are the unique sets of tags that enter the cache? TJL
+        // set <int, greater <int> > cm; // added above already
+        const bool is_in = cm.find(calcTag(addr)) != cm.end();
+        if (!is_in) {
+            cm.insert(calcTag(addr));
+            compMiss.inc();
+            std::cout << cm.size() << "\t";
+        }
+        // end of compMisses
 #ifdef SESC_ENERGY
         wrEnergy[0]->inc();
 #endif
@@ -554,6 +563,15 @@ void SMPCache::doWrite(MemRequest *mreq)
 
     if (l && l->canBeWritten()) {
         writeHit.inc();
+        // compMisses are the unique sets of tags that enter the cache? TJL
+        // set <int, greater <int> > cm; // added above already
+        const bool is_in = cm.find(calcTag(addr)) != cm.end();
+        if (!is_in) {
+            cm.insert(calcTag(addr));
+            compMiss.inc();
+            std::cout << cm.size() << "\t";
+        }
+        // end of compMisses
 
 #ifdef SESC_ENERGY
         wrEnergy[0]->inc();
@@ -1887,15 +1905,6 @@ SMPCache::Line *SMPCache::getLine(PAddr addr)
 void SMPCache::writeLine(PAddr addr) {
     Line *l = cache->writeLine(addr);
     IJ(l);
-    // compMisses are the unique sets of tags that enter the cache? TJL
-    // set <int, greater <int> > cm; // added above already
-    const bool is_in = cm.find(calcTag(addr)) != cm.end();
-    if (!is_in) {
-        cm.insert(calcTag(addr));
-        compMiss.inc();
-        std::cout << cm.size() << "\t";
-    }
-    // end of compMisses
 }
 
 void SMPCache::invalidateLine(PAddr addr, CallbackBase *cb, bool writeBack)
