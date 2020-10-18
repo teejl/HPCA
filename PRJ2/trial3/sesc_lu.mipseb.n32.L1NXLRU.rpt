@@ -211,7 +211,7 @@ Occ       =1
 [techParam]
 frequency =1.000000e+09
 #END Configuration used. Extracted from "/home/cs6290/sesc/confs/cmp4-noc-L1NXLRU.conf":
-OSSim:beginTime=Sat Oct 17 18:09:08 2020
+OSSim:beginTime=Sat Oct 17 21:23:30 2020
 
 OSSim:bench=/home/cs6290/sesc/sesc.opt -f n32.L1NXLRU.rpt -c /home/cs6290/sesc/confs/cmp4-noc-L1NXLRU.conf -olu.out -elu.err lu.mipseb -n32 -p1 
 OSSim:benchName=lu.mipseb
@@ -223,7 +223,7 @@ Proc(1):clockTicks=0
 Proc(2):clockTicks=0
 Proc(3):clockTicks=0
 OSSim:reportName=Final
-OSSim:msecs=    1.11:nCPUs=4:nCycles=553220
+OSSim:msecs=    1.10:nCPUs=4:nCycles=553220
 OSSim:pseudoreset=0
 BEGIN GStats::report Final
 Read_U=0
@@ -240,7 +240,7 @@ Write_bS=0
 Write_bE=0
 Write_bS_H=0
 Write_bE_H=0
-P(0)_DL1:readHit=46997
+P(0)_DL1:readHit=93994
 P(0)_DL1:writeHit=28984
 P(0)_DL1:readMiss=3828
 P(0)_DL1:writeMiss=964
@@ -419,7 +419,7 @@ P(0)_DL1_MSHR_avgWritesPerLineComb:v=0:n=70617
 P(0)_DL1_MSHR:nOnlyWrites=0
 P(0)_DL1_MSHR:nRetiredEntries=70617
 P(0)_DL1_MSHR:nRetiredEntriesWritten=0
-P(0)_IL1:readHit=167369
+P(0)_IL1:readHit=334738
 P(0)_IL1:writeHit=0
 P(0)_IL1:readMiss=762
 P(0)_IL1:writeMiss=0
@@ -1377,5 +1377,5 @@ BPred(3)_Hybrid:nMiss=0
 BPred(3)_BTB:nHit=0
 BPred(3)_BTB:nMiss=0
 END GStats::report Final
-OSSim:endTime=Sat Oct 17 18:09:09 2020
+OSSim:endTime=Sat Oct 17 21:23:31 2020
 
