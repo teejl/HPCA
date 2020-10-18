@@ -448,6 +448,20 @@ void SMPCache::doRead(MemRequest *mreq)
         DEBUGPRINT("[%s] read %x miss at %lld\n",getSymbolicName(), addr,  globalClock );
     }
 
+    //if(addr==0x7e9ee000 || addr==0x7e9ee02c) sdprint=true;
+    //if(globalClock>220000000) sdprint=true;
+    //sdprint = true;
+
+    if (l && l->canBeRead()) {
+        readHit.inc();
+#ifdef SESC_ENERGY
+        rdEnergy[0]->inc();
+#endif
+        outsReq->retire(addr);
+        mreq->goUp(hitDelay);
+        return;
+    }
+
     // compMisses are the unique sets of tags that enter the cache? TJL
     // set <int, greater <int> > cm; // added above already
     int size = cm.size();
@@ -462,20 +476,6 @@ void SMPCache::doRead(MemRequest *mreq)
     // conf Miss
     confMiss.inc();
     //std::cout << "l: " << l << " \n";
-
-    //if(addr==0x7e9ee000 || addr==0x7e9ee02c) sdprint=true;
-    //if(globalClock>220000000) sdprint=true;
-    //sdprint = true;
-
-    if (l && l->canBeRead()) {
-        readHit.inc();
-#ifdef SESC_ENERGY
-        rdEnergy[0]->inc();
-#endif
-        outsReq->retire(addr);
-        mreq->goUp(hitDelay);
-        return;
-    }
 
     if (l && l->isLocked()) {
         readRetry.inc();
