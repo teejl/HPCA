@@ -1719,6 +1719,15 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
 
     rpl_addr = cache->calcAddr4Tag(l->getTag());
     lineFill.inc();
+    // compMisses are the unique sets of tags that enter the cache? TJL
+    // set <int, greater <int> > cm; // added above already
+    int size = cm.size();
+    cm.insert(calcTag(addr)); 
+    if (size != cm.size()) {
+        compMiss.inc();
+        std::cout << cm.size() << "\t";
+    }
+    // end of compMisses
 
     nextSlot(); // have to do an access to check which line is free
 
