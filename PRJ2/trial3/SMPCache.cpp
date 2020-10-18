@@ -1890,8 +1890,7 @@ void SMPCache::writeLine(PAddr addr) {
     // compMisses are the unique sets of tags that enter the cache? TJL
     // set <int, greater <int> > cm; // added above already
     const bool is_in = cm.find(element) != cm.end();
-    if (!is_in){
-    {
+    if (!is_in) {
         cm.insert(calcTag(addr));
         compMiss.inc();
         std::cout << cm.size() << "\t";
