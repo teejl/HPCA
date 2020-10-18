@@ -448,7 +448,7 @@ void SMPCache::doRead(MemRequest *mreq)
     // is_in = cm.find(calcTag(addr)) != cm.end();
     if (cm.find(calcTag(addr)) == cm.end()) {
         cm.insert(calcTag(addr));
-        confMiss.inc();
+        compMiss.inc();
     }
     // end of compMisses
     // cap Miss TJL
