@@ -464,8 +464,9 @@ void SMPCache::doRead(MemRequest *mreq)
 
     // LRU REPLACEMENT ALGORITHM
     vm.push_back(calcTag(addr));
+    std::cout << "\n";
     std::cout << "Vector begin to end: ";
-    for (auto i = vm.begin(); i != vm.end(); ++i) // output vector
+    for (auto i = vm.begin(); i != 4; ++i) // output vector
         std::cout << *i << " "; 
     // update the vector pretend cache
     // make sure this is in doWrite and doREad
