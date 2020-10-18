@@ -595,6 +595,33 @@ void SMPCache::doWrite(MemRequest *mreq)
     sendWrite(mreq);
 }
 
+// added extra misses here
+// compMiss
+void SMPCache::doComp(MemRequest *mreq)
+{
+    PAddr addr = mreq->getPAddr();
+    Line *l = cache->writeLine(addr);
+
+    compMiss.inc();
+}
+// capMiss
+void SMPCache::doCap(MemRequest *mreq)
+{
+    PAddr addr = mreq->getPAddr();
+    Line *l = cache->writeLine(addr);
+
+    capMiss.inc();
+}
+//confMiss
+void SMPCache::doConf(MemRequest *mreq)
+{
+    PAddr addr = mreq->getPAddr();
+    Line *l = cache->writeLine(addr);
+
+    confMiss.inc();
+}
+// end of misses here
+
 void SMPCache::sendWrite(MemRequest* mreq)
 {
     protocol->write(mreq);
