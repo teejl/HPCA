@@ -464,12 +464,9 @@ void SMPCache::doRead(MemRequest *mreq)
 
     // LRU REPLACEMENT ALGORITHM
     vm.insert(vm.begin(), calcTag(addr));
-    std::cout << "\n Update vector for TAG: " << calcTag(addr) << " Cache numbers: " << cache->getNumLines();
-    std::cout << "\n Vector begin to end: ";
+    //std::cout << "\n Update vector for TAG: " << calcTag(addr) << " Cache numbers: " << cache->getNumLines();
+    //std::cout << "\n Vector begin to end: ";
     // need to update vector !!
-    if (find(vm.begin(), vm.end(), calcTag(addr)) != vm.end()) { // if it is found in vector then print out
-        //std::cout << "Found Element: " << calcTag(addr) << " ";
-    }
     // init vars
     vector <long int> tmpv; // temporary vector
     int c = 1; // counter
@@ -491,8 +488,8 @@ void SMPCache::doRead(MemRequest *mreq)
     vm = tmpv;
 
     // output updated vector
-    for (auto i = vm.begin(); i != vm.end(); ++i)
-        std::cout << *i << " ";
+    // for (auto i = vm.begin(); i != vm.end(); ++i)
+        // std::cout << *i << " ";
     // update the vector pretend cache
     // make sure this is in doWrite and doREad
 
@@ -604,11 +601,49 @@ void SMPCache::doWrite(MemRequest *mreq)
     // is_in = cm.find(calcTag(addr)) != cm.end();
     if (cm.find(calcTag(addr)) == cm.end()) {
         cm.insert(calcTag(addr));
-        compMiss.inc();  
-    } else if (false) {
+        compMiss.inc();
+    } else if (find(vm.begin(), vm.end(), calcTag(addr)) != vm.end()) { // in vector and miss
+        // determine if it is an actual miss
         capMiss.inc();
+    } else { // not in vector and miss
+        // cache->getNumLines() 
+        // how many lines are in cache 
+        // how many elements in cache
+        // vector_logic();
+
+        // determine if it is an actual miss
+        confMiss.inc();
     }
-    // end of compMisses
+
+    // LRU REPLACEMENT ALGORITHM
+    vm.insert(vm.begin(), calcTag(addr));
+    //std::cout << "\n Update vector for TAG: " << calcTag(addr) << " Cache numbers: " << cache->getNumLines();
+    //std::cout << "\n Vector begin to end: ";
+    // need to update vector !!
+    // init vars
+    vector <long int> tmpv; // temporary vector
+    int c = 1; // counter
+
+    // loop through original vector and update tmpv vector
+    for (auto i = vm.begin(); i != vm.end(); ++i) {
+        // std::cout << *i << " ";
+        // updated tmp vector with criteria
+        if (c < cache->getNumLines() && *i != calcTag(addr)) {
+            tmpv.insert(tmpv.begin(), *i);
+            c++;
+        } else if ( c >= cache->getNumLines() ) {
+            break;
+        }
+    }
+
+    // push element to top and reset vm vector to tmpv vector
+    tmpv.insert(tmpv.begin(), calcTag(addr));
+    vm = tmpv;
+
+    // output updated vector
+    // for (auto i = vm.begin(); i != vm.end(); ++i)
+        // std::cout << *i << " ";
+    // update the vector pretend cache
 
 
     if(!(l && l->canBeWritten())) {
