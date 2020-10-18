@@ -456,6 +456,15 @@ void SMPCache::doRead(MemRequest *mreq)
 
     if (l && l->canBeRead()) {
         readHit.inc();
+        // compMisses are the unique sets of tags that enter the cache? TJL
+        // set <int, greater <int> > cm; // added above already
+        const bool is_in = cm.find(calcTag(addr)) != cm.end();
+        if (!is_in) {
+            cm.insert(calcTag(addr));
+            compMiss.inc();
+            std::cout << cm.size() << "\t";
+        }
+        // end of compMisses
 #ifdef SESC_ENERGY
         rdEnergy[0]->inc();
 #endif
@@ -607,15 +616,6 @@ void SMPCache::doWrite(MemRequest *mreq)
     }
 
     writeMiss.inc();
-    // compMisses are the unique sets of tags that enter the cache? TJL
-    // set <int, greater <int> > cm; // added above already
-    const bool is_in = cm.find(calcTag(addr)) != cm.end();
-    if (!is_in) {
-        cm.insert(calcTag(addr));
-        compMiss.inc();
-        std::cout << cm.size() << "\t";
-    }
-    // end of compMisses
 
     // cap Miss TJL
     // capMiss.inc();
