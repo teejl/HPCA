@@ -477,17 +477,6 @@ void SMPCache::doRead(MemRequest *mreq)
     GI(l, !l->isLocked());
 
     readMiss.inc();
-    // compMisses are the unique sets of tags that enter the cache? TJL
-    // set <int, greater <int> > cm; // added above already
-    int size = cm.size();
-    cm.insert(calcTag(addr));
-    //std::cout << "Tag: " << calcTag(addr) << "\n";
-    if (size != cm.size()) {
-        std::cout << "\n" << cache << "\n";
-        compMiss.inc();
-        std::cout << cm.size() << "rd\t";
-    }
-    // end of compMisses
 
 #if (defined TRACK_MPKI)
     DInst *dinst = mreq->getDInst();
@@ -1898,6 +1887,16 @@ SMPCache::Line *SMPCache::getLine(PAddr addr)
 void SMPCache::writeLine(PAddr addr) {
     Line *l = cache->writeLine(addr);
     IJ(l);
+    // compMisses are the unique sets of tags that enter the cache? TJL
+    // set <int, greater <int> > cm; // added above already
+    int size = cm.size();
+    cm.insert(calcTag(addr));
+    //std::cout << "Tag: " << calcTag(addr) << "\n";
+    if (size != cm.size()) {
+        compMiss.inc();
+        std::cout << cm.size() << "rd\t";
+    }
+    // end of compMisses
 }
 
 void SMPCache::invalidateLine(PAddr addr, CallbackBase *cb, bool writeBack)
