@@ -447,7 +447,7 @@ void SMPCache::doRead(MemRequest *mreq)
     compMiss.inc();
     capMiss.inc();
     confMiss.inc();
-    std::cout << "l:*l " << l << ":" << *l << " \n";
+    std::cout << "l: " << l << " \n";
 
     //if(addr==0x7e9ee000 || addr==0x7e9ee02c) sdprint=true;
     //if(globalClock>220000000) sdprint=true;
