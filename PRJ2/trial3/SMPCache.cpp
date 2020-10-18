@@ -479,8 +479,10 @@ void SMPCache::doRead(MemRequest *mreq)
         // updated tmp vector with criteria
         if (c < 3 && *i != calcTag(addr)) {
             tmpv.push_back(*i);
+            c++;
+        } else if ( c >= 3 ) {
+            break;
         }
-        c++;
     }
 
     // push element to top and reset vm vector to tmpv vector
