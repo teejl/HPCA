@@ -444,6 +444,7 @@ void SMPCache::doRead(MemRequest *mreq)
 
     if (l && l->canBeRead()) {
         readHit.inc();
+        readHit.inc();
 #ifdef SESC_ENERGY
         rdEnergy[0]->inc();
 #endif
