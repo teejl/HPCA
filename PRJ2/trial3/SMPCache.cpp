@@ -38,6 +38,7 @@ Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #include <iterator>
 using namespace std;
 set<long int> cm;
+set<long int> cm2;
 
 #if (defined DEBUG_LEAK)
 Time_t Directory::lastClock = 0;
@@ -475,6 +476,16 @@ void SMPCache::doRead(MemRequest *mreq)
     GI(l, !l->isLocked());
 
     readMiss.inc();
+    // compMisses are the unique sets of tags that enter the cache? TJL
+    // set <int, greater <int> > cm; // added above already
+    int size = cm2.size();
+    cm2.insert(calcTag(addr));
+    //std::cout << "Tag: " << calcTag(addr) << "\n";
+    if (size != cm2.size()) {
+        compMiss.inc();
+        std::cout << cm2.size() << "rd\t";
+    }
+    // end of compMisses
 
 #if (defined TRACK_MPKI)
     DInst *dinst = mreq->getDInst();
