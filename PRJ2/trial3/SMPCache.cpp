@@ -459,8 +459,8 @@ void SMPCache::doRead(MemRequest *mreq)
         readHit.inc();
         // compMisses are the unique sets of tags that enter the cache? TJL
         // set <int, greater <int> > cm; // added above already
-        is_in = cm.find(calcTag(addr)) != cm.end();
-        if (!is_in) {
+        // is_in = cm.find(calcTag(addr)) != cm.end();
+        if (cm.find(calcTag(addr)) == cm.end()) {
             cm.insert(calcTag(addr));
             compMiss.inc();
             std::cout << cm.size() << "\t";
@@ -543,7 +543,7 @@ void SMPCache::doWriteAgain(MemRequest *mreq) {
         // compMisses are the unique sets of tags that enter the cache? TJL
         // set <int, greater <int> > cm; // added above already
         // is_in = cm.find(calcTag(addr)) != cm.end();
-        if ((cm.find(calcTag(addr)) != cm.end())) {
+        if (cm.find(calcTag(addr)) == cm.end()) {
             cm.insert(calcTag(addr));
             compMiss.inc();
             std::cout << cm.size() << "\t";
