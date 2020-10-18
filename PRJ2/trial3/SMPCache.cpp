@@ -515,7 +515,8 @@ void SMPCache::write(MemRequest *mreq)
     // compMisses are the unique sets of tags that enter the cache? TJL
     // set <int, greater <int> > cm; // added above already
     int size = cm.size();
-    cm.insert(calcTag(addr)); 
+    cm.insert(calcTag(addr));
+    std::cout << "Tag: " << calcTag(addr) << "\t";
     if (size != cm.size()) {
         compMiss.inc();
         std::cout << cm.size() << "wr\t";
@@ -600,9 +601,9 @@ void SMPCache::doWrite(MemRequest *mreq)
     writeMiss.inc();
 
     // cap Miss TJL
-    capMiss.inc();
+    // capMiss.inc();
     // conf Miss
-    confMiss.inc();
+    // confMiss.inc();
     //std::cout << "l: " << l << " \n";
 
 
