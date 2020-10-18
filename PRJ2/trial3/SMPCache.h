@@ -97,7 +97,10 @@ protected:
 
     GStatsCntr invalDirty;
     GStatsCntr allocDirty;
-
+    // added stats here TJL
+    GStatsCntr compMiss;
+    GStatsCntr capMiss;
+    GStatsCntr confMiss;
 #ifdef SESC_ENERGY
     static unsigned cacheID;
     unsigned myID;

@@ -82,9 +82,6 @@ unsigned SMPCache::cacheID = 0;
 
 SMPCache::SMPCache(SMemorySystem *dms, const char *section, const char *name)
     : MemObj(section, name)
-    , compMiss("%s:compMiss", name)
-    , capMiss("%s:capMiss", name)
-    , confMiss("%s:confMiss", name)
     , readHit("%s:readHit", name)
     , writeHit("%s:writeHit", name)
     , readMiss("%s:readMiss", name)
@@ -98,6 +95,9 @@ SMPCache::SMPCache(SMemorySystem *dms, const char *section, const char *name)
     , writeRetry("%s:writeRetry", name)
     , invalDirty("%s:invalDirty", name)
     , allocDirty("%s:allocDirty", name)
+    , compMiss("%s:compMiss", name)
+    , capMiss("%s:capMiss", name)
+    , confMiss("%s:confMiss", name)
 {
     MemObj *lowerLevel = NULL;
     //printf("%d\n", dms->getPID());
