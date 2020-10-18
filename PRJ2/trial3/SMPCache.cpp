@@ -469,7 +469,9 @@ void SMPCache::doRead(MemRequest *mreq)
     // need to update vector !!
     if (find(vm.begin(), vm.end(), calcTag(addr)) != vm.end()) { // if it is found then print out
         std::cout << calcTag(addr) << " ";
+        tmpv.push_back(calcTag(addr));
     }
+    vm = tmpv;
     // for (auto i = vm.begin(); i != vm.end(); ++i) // output vector
         // std::cout << *i << " ";
     // update the vector pretend cache
