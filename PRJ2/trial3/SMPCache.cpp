@@ -465,27 +465,26 @@ void SMPCache::doRead(MemRequest *mreq)
     }
 
     // [LRU REPLACEMENT ALGORITHM]
-    vm.insert(vm.begin(), calcTag(addr));
+    // vm.insert(vm.begin(), calcTag(addr));
     //std::cout << "\n Update vector for TAG: " << calcTag(addr) << " Cache numbers: " << cache->getNumLines();
     //std::cout << "\n Vector begin to end: ";
     // need to update vector !!
     // init vars
     vector <long int> tmpv; // temporary vector
-    int c = 1; // counter
+    int c = 0; // counter
     // loop through original vector and update tmpv vector
     for (auto i = vm.begin(); i != vm.end(); ++i) {
         // std::cout << *i << " ";
         // updated tmp vector with criteria
-        if (c < cache->getNumLines() && *i != calcTag(addr)) {
+        if (c <= cache->getNumLines() && *i != calcTag(addr)) {
             tmpv.insert(tmpv.begin(), *i);
             c++;
-        } else if ( c >= cache->getNumLines() ) {
+        } else if ( c > cache->getNumLines() ) {
             break;
         }
     }
     // push element to top and reset vm vector to tmpv vector
     tmpv.insert(tmpv.begin(), calcTag(addr));
-    vm = tmpv;
     // output updated vector
     // for (auto i = vm.begin(); i != vm.end(); ++i)
         // std::cout << *i << " ";
@@ -502,6 +501,7 @@ void SMPCache::doRead(MemRequest *mreq)
 
     if (l && l->canBeRead()) {
         readHit.inc();
+        vm = tmpv;
 
 #ifdef SESC_ENERGY
         rdEnergy[0]->inc();
@@ -524,6 +524,7 @@ void SMPCache::doRead(MemRequest *mreq)
     GI(l, !l->isLocked());
 
     readMiss.inc();
+    vm = tmpv;
 
 #if (defined TRACK_MPKI)
     DInst *dinst = mreq->getDInst();
@@ -636,7 +637,6 @@ void SMPCache::doWrite(MemRequest *mreq)
     }
     // push element to top and reset vm vector to tmpv vector
     tmpv.insert(tmpv.begin(), calcTag(addr));
-    vm = tmpv;
     // output updated vector
     // for (auto i = vm.begin(); i != vm.end(); ++i)
         // std::cout << *i << " ";
@@ -651,6 +651,7 @@ void SMPCache::doWrite(MemRequest *mreq)
 
     if (l && l->canBeWritten()) {
         writeHit.inc();
+        vm = tmpv;
 
 #ifdef SESC_ENERGY
         wrEnergy[0]->inc();
@@ -686,6 +687,7 @@ void SMPCache::doWrite(MemRequest *mreq)
     }
 
     writeMiss.inc();
+    vm = tmpv;
 
 
 #ifdef SESC_ENERGY
