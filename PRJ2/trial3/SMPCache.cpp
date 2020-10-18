@@ -449,7 +449,7 @@ void SMPCache::doRead(MemRequest *mreq)
     if (cm.find(calcTag(addr)) == cm.end()) {
         cm.insert(calcTag(addr));
         compMiss.inc();
-    } else if (find(vm.begin(), vm.end(), calcTag(addr)) != vm.end()) && !(l && l->canBeRead()) && !(l->isLocked())) { // in vector and miss
+    } else if ((find(vm.begin(), vm.end(), calcTag(addr)) != vm.end()) && !(l && l->canBeRead() && l->isLocked())) { // in vector and miss
         // determine if it is an actual miss
         capMiss.inc();
     } else if (
@@ -601,7 +601,7 @@ void SMPCache::doWrite(MemRequest *mreq)
     if (cm.find(calcTag(addr)) == cm.end()) {
         cm.insert(calcTag(addr));
         compMiss.inc();
-    } else if (find(vm.begin(), vm.end(), calcTag(addr)) != vm.end()) && !(l && l->canBeWritten()) && !(l->isLocked())) { // in vector and miss
+    } else if ((find(vm.begin(), vm.end(), calcTag(addr)) != vm.end()) && !(l && l->canBeWritten() && l->isLocked())) { // in vector and miss
         // determine if it is an actual miss
         capMiss.inc();
     } else if (
