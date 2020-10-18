@@ -462,21 +462,6 @@ void SMPCache::doRead(MemRequest *mreq)
         return;
     }
 
-    // compMisses are the unique sets of tags that enter the cache? TJL
-    // set <int, greater <int> > cm; // added above already
-    int size = cm.size();
-    cm.insert(calcTag(addr)); 
-    if (size == cm.size()) {
-        compMiss.inc();
-    }
-    // end of compMisses
-
-    // cap Miss TJL
-    capMiss.inc();
-    // conf Miss
-    confMiss.inc();
-    //std::cout << "l: " << l << " \n";
-
     if (l && l->isLocked()) {
         readRetry.inc();
         //DEBUGPRINT("[%s] read locked %x miss at %lld\n",getSymbolicName(), addr,  globalClock );
@@ -612,6 +597,22 @@ void SMPCache::doWrite(MemRequest *mreq)
     }
 
     writeMiss.inc();
+
+    // compMisses are the unique sets of tags that enter the cache? TJL
+    // set <int, greater <int> > cm; // added above already
+    int size = cm.size();
+    cm.insert(calcTag(addr)); 
+    if (size == cm.size()) {
+        compMiss.inc();
+    }
+    // end of compMisses
+
+    // cap Miss TJL
+    capMiss.inc();
+    // conf Miss
+    confMiss.inc();
+    //std::cout << "l: " << l << " \n";
+
 
 #ifdef SESC_ENERGY
     wrEnergy[1]->inc();
