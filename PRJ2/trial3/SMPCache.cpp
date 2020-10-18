@@ -465,15 +465,24 @@ void SMPCache::doRead(MemRequest *mreq)
     // LRU REPLACEMENT ALGORITHM
     vm.push_back(calcTag(addr));
     std::cout << "\n Vector begin to end: ";
-    vector <long int> tmpv;
     // need to update vector !!
     if (find(vm.begin(), vm.end(), calcTag(addr)) != vm.end()) { // if it is found then print out
-        std::cout << calcTag(addr) << " ";
-        tmpv.push_back(calcTag(addr));
+        std::cout << "Found Element: " << calcTag(addr) << " ";
     }
-    vm = tmpv;
-    // for (auto i = vm.begin(); i != vm.end(); ++i) // output vector
+    // updated temp vector to correct elements
+    vector <long int> tmpv; // temporary vector
+    int c = 0; // counter
+    // reset vector 
+    for (auto i = vm.begin(); i != vm.end(); ++i) // output vector
         // std::cout << *i << " ";
+        if (c < 4 && *i != calcTag(addr)) {
+            tmp.push_back(*i);
+        }
+        c++;
+    tmpv.push_back(calcTag(addr)); // push element to top
+    vm = tmpv;
+    for (auto i = vm.begin(); i != vm.end(); ++i) // output updated vector
+        std::cout << *i << " ";
     // update the vector pretend cache
     // make sure this is in doWrite and doREad
 
