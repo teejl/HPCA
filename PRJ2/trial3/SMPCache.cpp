@@ -1895,6 +1895,7 @@ void SMPCache::writeLine(PAddr addr) {
     if (size != cm.size()) {
         compMiss.inc();
         std::cout << cm.size() << "rd\t";
+        std::cout << "\n" << cm << "\n";
     }
     // end of compMisses
 }
