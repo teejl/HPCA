@@ -457,15 +457,7 @@ void SMPCache::doRead(MemRequest *mreq)
 
     if (l && l->canBeRead()) {
         readHit.inc();
-        // compMisses are the unique sets of tags that enter the cache? TJL
-        // set <int, greater <int> > cm; // added above already
-        // is_in = cm.find(calcTag(addr)) != cm.end();
-        if (cm.find(calcTag(mreq->getPAddr())) == cm.end()) {
-            cm.insert(calcTag(mreq->getPAddr()));
-            compMiss.inc();
-            std::cout << cm.size() << "rd\t";
-        }
-        // end of compMisses
+
 #ifdef SESC_ENERGY
         rdEnergy[0]->inc();
 #endif
@@ -483,6 +475,16 @@ void SMPCache::doRead(MemRequest *mreq)
         doReadCB::scheduleAbs(nextTry, this, mreq);
         return;
     }
+
+        // compMisses are the unique sets of tags that enter the cache? TJL
+        // set <int, greater <int> > cm; // added above already
+        // is_in = cm.find(calcTag(addr)) != cm.end();
+        if (cm.find(calcTag(addr)) == cm.end()) {
+            cm.insert(calcTag(addr));
+            compMiss.inc();
+            std::cout << cm.size() << "rd\t";
+        }
+        // end of compMisses
 
     GI(l, !l->isLocked());
 
@@ -543,8 +545,8 @@ void SMPCache::doWriteAgain(MemRequest *mreq) {
         // compMisses are the unique sets of tags that enter the cache? TJL
         // set <int, greater <int> > cm; // added above already
         // is_in = cm.find(calcTag(addr)) != cm.end();
-        if (cm.find(calcTag(mreq->getPAddr())) == cm.end()) {
-            cm.insert(calcTag(mreq->getPAddr()));
+        if (cm.find(calcTag(addr)) == cm.end()) {
+            cm.insert(calcTag(addr));
             compMiss.inc();
             std::cout << cm.size() << "wr\t";
         }
@@ -576,8 +578,8 @@ void SMPCache::doWrite(MemRequest *mreq)
         // compMisses are the unique sets of tags that enter the cache? TJL
         // set <int, greater <int> > cm; // added above already
         // const bool is_in = cm.find(calcTag(addr)) != cm.end();
-        if (cm.find(calcTag(mreq->getPAddr())) == cm.end()) {
-            cm.insert(calcTag(mreq->getPAddr()));
+        if (cm.find(calcTag(addr)) == cm.end()) {
+            cm.insert(calcTag(addr));
             compMiss.inc();
             std::cout << cm.size() << "wr2\t";
         }
