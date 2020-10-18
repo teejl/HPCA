@@ -459,15 +459,15 @@ void SMPCache::doRead(MemRequest *mreq)
     // need to update vector !!
     // init vars
     vector <long int> tmpv; // temporary vector
-    int c = 0; // counter
+    int c = 1; // counter
     // loop through original vector and update tmpv vector
     for (auto i = vm.begin(); i != vm.end(); ++i) {
         // std::cout << *i << " ";
         // updated tmp vector with criteria
-        if (c <= cache->getNumLines() && *i != calcTag(addr)) {
+        if (c < cache->getNumLines() && *i != calcTag(addr)) {
             tmpv.insert(tmpv.begin(), *i);
             c++;
-        } else if ( c > cache->getNumLines() ) {
+        } else if ( c >= cache->getNumLines() ) {
             break;
         }
     }
@@ -616,15 +616,15 @@ void SMPCache::doWrite(MemRequest *mreq)
     // need to update vector !!
     // init vars
     vector <long int> tmpv; // temporary vector
-    int c = 0; // counter
+    int c = 1; // counter
     // loop through original vector and update tmpv vector
     for (auto i = vm.begin(); i != vm.end(); ++i) {
         // std::cout << *i << " ";
         // updated tmp vector with criteria
-        if (c <= cache->getNumLines() && *i != calcTag(addr)) {
+        if (c < cache->getNumLines() && *i != calcTag(addr)) {
             tmpv.insert(tmpv.begin(), *i);
             c++;
-        } else if ( c > cache->getNumLines() ) {
+        } else if ( c >= cache->getNumLines() ) {
             break;
         }
     }
