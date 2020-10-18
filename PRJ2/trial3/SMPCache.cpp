@@ -519,6 +519,7 @@ void SMPCache::write(MemRequest *mreq)
     if (size != cm.size()) {
         compMiss.inc();
         std::cout << cm.size() << "wr\t";
+        std::cout << "Tag: " << calcTag(addr) << ", Addr: " << addr << "\t";
     }
     // end of compMisses
 
@@ -535,15 +536,6 @@ void SMPCache::write(MemRequest *mreq)
 void SMPCache::doWriteAgain(MemRequest *mreq) {
     PAddr addr = mreq->getPAddr();
     Line *l = cache->writeLine(addr);
-    // compMisses are the unique sets of tags that enter the cache? TJL
-    // set <int, greater <int> > cm; // added above already
-    int size = cm.size();
-    cm.insert(calcTag(addr)); 
-    if (size != cm.size()) {
-        compMiss.inc();
-        std::cout << cm.size() << "wl\t";
-    }
-    // end of compMisses
     IJ(l && l->canBeWritten());
     if(l && l->canBeWritten()) {
         writeHit.inc();
@@ -563,15 +555,6 @@ void SMPCache::doWrite(MemRequest *mreq)
 {
     PAddr addr = mreq->getPAddr();
     Line *l = cache->writeLine(addr);
-    // compMisses are the unique sets of tags that enter the cache? TJL
-    // set <int, greater <int> > cm; // added above already
-    int size = cm.size();
-    cm.insert(calcTag(addr)); 
-    if (size != cm.size()) {
-        compMiss.inc();
-        std::cout << cm.size() << "wl\t";
-    }
-    // end of compMisses
 
     if(!(l && l->canBeWritten())) {
         DEBUGPRINT("[%s] write %x (%x) miss at %lld [state %x]\n",
@@ -1911,15 +1894,6 @@ SMPCache::Line *SMPCache::getLine(PAddr addr)
 
 void SMPCache::writeLine(PAddr addr) {
     Line *l = cache->writeLine(addr);
-    // compMisses are the unique sets of tags that enter the cache? TJL
-    // set <int, greater <int> > cm; // added above already
-    int size = cm.size();
-    cm.insert(calcTag(addr)); 
-    if (size != cm.size()) {
-        compMiss.inc();
-        std::cout << cm.size() << "wl\t";
-    }
-    // end of compMisses
     IJ(l);
 }
 
