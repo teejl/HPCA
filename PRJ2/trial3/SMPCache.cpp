@@ -1894,8 +1894,7 @@ void SMPCache::writeLine(PAddr addr) {
     //std::cout << "Tag: " << calcTag(addr) << "\n";
     if (size != cm.size()) {
         compMiss.inc();
-        std::cout << cm.size() << "rd\t";
-        std::cout << "\n" << cm << "\n";
+        std::cout << cm.size() << "\t";
     }
     // end of compMisses
 }
