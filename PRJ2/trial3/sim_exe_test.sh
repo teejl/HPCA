@@ -64,7 +64,7 @@ echo "by TeeJ"
 #testing cmp4-noc.conf Default
 init
 simulate cmp4-noc-SML1.conf n32.Default.rpt
-simulate cmp4-noc-L1NXLRU.conf n32.L1NXLRU.rpt
+#simulate cmp4-noc-L1NXLRU.conf n32.L1NXLRU.rpt
 #simulate cmp4-noc-dmap-l1.conf DMapL1
 #simulate cmp4-noc-5cyc-l1.conf 5CycL1
 #simulate cmp4-noc-9cyc-l1.conf 9CycL1
