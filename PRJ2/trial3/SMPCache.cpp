@@ -520,6 +520,7 @@ void SMPCache::write(MemRequest *mreq)
     if (size != cm.size()) {
         compMiss.inc();
         std::cout << cm.size() << "wr\t";
+        std::cout << " " << mreq << " \n";
     }
     // end of compMisses
 
