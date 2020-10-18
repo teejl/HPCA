@@ -112,6 +112,8 @@ SMPCache::SMPCache(SMemorySystem *dms, const char *section, const char *name)
     MemObj *lowerLevel = NULL;
     //printf("%d\n", dms->getPID());
 
+    set<long int> cm;
+
     I(dms);
     lowerLevel = dms->declareMemoryObj(section, "lowerLevel");
 
