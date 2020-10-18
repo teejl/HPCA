@@ -82,6 +82,9 @@ unsigned SMPCache::cacheID = 0;
 
 SMPCache::SMPCache(SMemorySystem *dms, const char *section, const char *name)
     : MemObj(section, name)
+    , compMiss("%s:compMiss", name)
+    , capMiss("%s:capMiss", name)
+    , confMiss("%s:confMiss", name)
     , readHit("%s:readHit", name)
     , writeHit("%s:writeHit", name)
     , readMiss("%s:readMiss", name)
@@ -443,7 +446,6 @@ void SMPCache::doRead(MemRequest *mreq)
     //sdprint = true;
 
     if (l && l->canBeRead()) {
-        readHit.inc();
         readHit.inc();
 #ifdef SESC_ENERGY
         rdEnergy[0]->inc();
