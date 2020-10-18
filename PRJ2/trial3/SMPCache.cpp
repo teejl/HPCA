@@ -449,7 +449,10 @@ void SMPCache::doRead(MemRequest *mreq)
     if (cm.find(calcTag(addr)) == cm.end()) {
         cm.insert(calcTag(addr));
         compMiss.inc();
-    } else if (false) { // not in vector and miss
+    } else if (find(vm.begin(), vm.end(), calcTag(addr)) != vm.end()) { // in vector and miss
+        // determine if it is an actual miss
+        capMiss.inc();
+    } else { // not in vector and miss
         // cache->getNumLines() 
         // how many lines are in cache 
         // how many elements in cache
@@ -457,17 +460,14 @@ void SMPCache::doRead(MemRequest *mreq)
 
         // determine if it is an actual miss
         confMiss.inc();
-    } else { // in vector and miss
-        // determine if it is an actual miss
-        capMiss.inc();
     }
 
     // LRU REPLACEMENT ALGORITHM
     vm.insert(vm.begin(), calcTag(addr));
-    std::cout << "\n" << calcTag(addr);
+    std::cout << "\n Update vector for TAG: " << calcTag(addr) << " Cache numbers: " << cache->getNumLines();
     std::cout << "\n Vector begin to end: ";
     // need to update vector !!
-    if (find(vm.begin(), vm.end(), calcTag(addr)) != vm.end()) { // if it is found then print out
+    if (find(vm.begin(), vm.end(), calcTag(addr)) != vm.end()) { // if it is found in vector then print out
         //std::cout << "Found Element: " << calcTag(addr) << " ";
     }
     // init vars
