@@ -31,6 +31,10 @@ Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #include "MSHR.h"
 #include "Port.h"
 
+// added
+#include <set>
+using namespace std;
+
 #ifdef SESC_ENERGY
 #include "GEnergy.h"
 #endif
@@ -101,6 +105,9 @@ protected:
     GStatsCntr compMiss;
     GStatsCntr capMiss;
     GStatsCntr confMiss;
+    // add set here
+    set<long int> cm;
+    
 #ifdef SESC_ENERGY
     static unsigned cacheID;
     unsigned myID;

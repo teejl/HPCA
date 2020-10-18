@@ -34,10 +34,6 @@ Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #include <iostream>
 
 // include sets
-#include <set>
-#include <iterator>
-using namespace std;
-set<long int> cm;
 set<long int> cm2;
 set<long int> cm3;
 bool is_in;
@@ -111,8 +107,6 @@ SMPCache::SMPCache(SMemorySystem *dms, const char *section, const char *name)
 {
     MemObj *lowerLevel = NULL;
     //printf("%d\n", dms->getPID());
-
-    set<long int> cm;
 
     I(dms);
     lowerLevel = dms->declareMemoryObj(section, "lowerLevel");
