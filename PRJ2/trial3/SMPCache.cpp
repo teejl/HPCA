@@ -476,16 +476,6 @@ void SMPCache::doRead(MemRequest *mreq)
         return;
     }
 
-        // compMisses are the unique sets of tags that enter the cache? TJL
-        // set <int, greater <int> > cm; // added above already
-        // is_in = cm.find(calcTag(addr)) != cm.end();
-        if (cm.find(calcTag(addr)) == cm.end()) {
-            cm.insert(calcTag(addr));
-            compMiss.inc();
-            std::cout << cm.size() << "rd\t";
-        }
-        // end of compMisses
-
     GI(l, !l->isLocked());
 
     readMiss.inc();
@@ -575,6 +565,16 @@ void SMPCache::doWrite(MemRequest *mreq)
 
     if (l && l->canBeWritten()) {
         writeHit.inc();
+        // compMisses are the unique sets of tags that enter the cache? TJL
+        // set <int, greater <int> > cm; // added above already
+        // is_in = cm.find(calcTag(addr)) != cm.end();
+        if (cm.find(calcTag(addr)) == cm.end()) {
+            cm.insert(calcTag(addr));
+            compMiss.inc();
+            std::cout << cm.size() << "rd\t";
+        }
+        // end of compMisses
+
 
 #ifdef SESC_ENERGY
         wrEnergy[0]->inc();
@@ -607,15 +607,6 @@ void SMPCache::doWrite(MemRequest *mreq)
     // doWrite in L2 is executed after line is invalidated
     if(!l && mreq->getMemOperation() == MemWrite) {
         mreq->mutateWriteToRead();
-        // compMisses are the unique sets of tags that enter the cache? TJL
-        // set <int, greater <int> > cm; // added above already
-        // const bool is_in = cm.find(calcTag(addr)) != cm.end();
-        if (cm.find(calcTag(addr)) == cm.end()) {
-            cm.insert(calcTag(addr));
-            compMiss.inc();
-            std::cout << cm.size() << "wr2\t";
-        }
-        // end of compMisses
     }
 
     writeMiss.inc();
