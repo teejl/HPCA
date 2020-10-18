@@ -482,7 +482,7 @@ void SMPCache::doRead(MemRequest *mreq)
     cm2.insert(calcTag(addr));
     //std::cout << "Tag: " << calcTag(addr) << "\n";
     if (size != cm2.size()) {
-        compMiss.inc();
+        capMiss.inc();
         std::cout << cm2.size() << "rd\t";
     }
     // end of compMisses
