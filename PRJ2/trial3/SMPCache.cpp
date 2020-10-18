@@ -474,19 +474,22 @@ void SMPCache::doRead(MemRequest *mreq)
 
     GI(l, !l->isLocked());
 
-    // added for part 3 TJL
+    // ~~~~~~~~ start of add TJL ~~~~~~~~
+
     // compMisses are the unique sets of tags that enter the cache?
-    // empty set container 
     // set <int, greater <int> > cm; // added above already
     int size = cm.size();
     cm.insert(addr); 
-    //if (size == cm.size()) {
-        //compMiss.inc();
-    //}
+    if (size == cm.size()) {
+        compMiss.inc();
+    }
     // end of compMisses
+    // cap Miss
     capMiss.inc();
+    // conf Miss
     confMiss.inc();
     //std::cout << "l: " << l << " \n";
+    // ~~~~~~~~ end of add TJL ~~~~~~~~
     readMiss.inc();
 
 #if (defined TRACK_MPKI)
