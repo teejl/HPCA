@@ -211,7 +211,7 @@ Occ       =1
 [techParam]
 frequency =1.000000e+09
 #END Configuration used. Extracted from "/home/cs6290/sesc/confs/cmp4-noc-SML1.conf":
-OSSim:beginTime=Sat Oct 17 21:23:29 2020
+OSSim:beginTime=Sat Oct 17 21:45:54 2020
 
 OSSim:bench=/home/cs6290/sesc/sesc.opt -f n32.Default.rpt -c /home/cs6290/sesc/confs/cmp4-noc-SML1.conf -olu.out -elu.err lu.mipseb -n32 -p1 
 OSSim:benchName=lu.mipseb
@@ -223,7 +223,7 @@ Proc(1):clockTicks=0
 Proc(2):clockTicks=0
 Proc(3):clockTicks=0
 OSSim:reportName=Final
-OSSim:msecs=    1.01:nCPUs=4:nCycles=536819
+OSSim:msecs=    1.06:nCPUs=4:nCycles=536819
 OSSim:pseudoreset=0
 BEGIN GStats::report Final
 Read_U=0
@@ -240,7 +240,7 @@ Write_bS=0
 Write_bE=0
 Write_bS_H=0
 Write_bE_H=0
-P(0)_DL1:readHit=95492
+P(0)_DL1:readHit=47746
 P(0)_DL1:writeHit=29460
 P(0)_DL1:readMiss=3092
 P(0)_DL1:writeMiss=488
@@ -253,6 +253,9 @@ P(0)_DL1:readRetry=357
 P(0)_DL1:writeRetry=146
 P(0)_DL1:invalDirty=0
 P(0)_DL1:allocDirty=2127
+P(0)_DL1:compMiss=3580
+P(0)_DL1:capMiss=3580
+P(0)_DL1:confMiss=3580
 P(0)_RTR_CTRLmsgCntHist(1)=2154
 P(0)_RTR_CTRLmsgCntHist(2)=1845
 P(0)_RTR_CTRLmsgCntHist(3)=972
@@ -419,7 +422,7 @@ P(0)_DL1_MSHR_avgWritesPerLineComb:v=0:n=72474
 P(0)_DL1_MSHR:nOnlyWrites=0
 P(0)_DL1_MSHR:nRetiredEntries=72474
 P(0)_DL1_MSHR:nRetiredEntriesWritten=0
-P(0)_IL1:readHit=334738
+P(0)_IL1:readHit=167369
 P(0)_IL1:writeHit=0
 P(0)_IL1:readMiss=762
 P(0)_IL1:writeMiss=0
@@ -432,6 +435,9 @@ P(0)_IL1:readRetry=0
 P(0)_IL1:writeRetry=0
 P(0)_IL1:invalDirty=0
 P(0)_IL1:allocDirty=0
+P(0)_IL1:compMiss=762
+P(0)_IL1:capMiss=762
+P(0)_IL1:confMiss=762
 P(0)_IL1_occ:v=0.0244063:n=169874
 P(0)_IL1_MSHR:nUse=168131
 P(0)_IL1_MSHR:nUseReads=168131
@@ -669,6 +675,9 @@ P(1)_DL1:readRetry=0
 P(1)_DL1:writeRetry=0
 P(1)_DL1:invalDirty=0
 P(1)_DL1:allocDirty=0
+P(1)_DL1:compMiss=0
+P(1)_DL1:capMiss=0
+P(1)_DL1:confMiss=0
 P(1)_RTR_CTRLmsgCntHist(2)=1087
 P(1)_RTR_CTRLmsgCntHist_MaxKey=2
 P(1)_RTR_CTRLmsgCntHist_Avg=2.000000
@@ -770,6 +779,9 @@ P(1)_IL1:readRetry=0
 P(1)_IL1:writeRetry=0
 P(1)_IL1:invalDirty=0
 P(1)_IL1:allocDirty=0
+P(1)_IL1:compMiss=0
+P(1)_IL1:capMiss=0
+P(1)_IL1:confMiss=0
 P(1)_IL1_occ:v=0:n=0
 P(1)_IL1_MSHR:nUse=0
 P(1)_IL1_MSHR:nUseReads=0
@@ -909,6 +921,9 @@ P(2)_DL1:readRetry=0
 P(2)_DL1:writeRetry=0
 P(2)_DL1:invalDirty=0
 P(2)_DL1:allocDirty=0
+P(2)_DL1:compMiss=0
+P(2)_DL1:capMiss=0
+P(2)_DL1:confMiss=0
 P(2)_RTR_CTRLmsgCntHist(2)=1014
 P(2)_RTR_CTRLmsgCntHist_MaxKey=2
 P(2)_RTR_CTRLmsgCntHist_Avg=2.000000
@@ -1010,6 +1025,9 @@ P(2)_IL1:readRetry=0
 P(2)_IL1:writeRetry=0
 P(2)_IL1:invalDirty=0
 P(2)_IL1:allocDirty=0
+P(2)_IL1:compMiss=0
+P(2)_IL1:capMiss=0
+P(2)_IL1:confMiss=0
 P(2)_IL1_occ:v=0:n=0
 P(2)_IL1_MSHR:nUse=0
 P(2)_IL1_MSHR:nUseReads=0
@@ -1149,6 +1167,9 @@ P(3)_DL1:readRetry=0
 P(3)_DL1:writeRetry=0
 P(3)_DL1:invalDirty=0
 P(3)_DL1:allocDirty=0
+P(3)_DL1:compMiss=0
+P(3)_DL1:capMiss=0
+P(3)_DL1:confMiss=0
 P(3)_RTR_CTRLmsgCntHist(3)=1100
 P(3)_RTR_CTRLmsgCntHist_MaxKey=3
 P(3)_RTR_CTRLmsgCntHist_Avg=3.000000
@@ -1250,6 +1271,9 @@ P(3)_IL1:readRetry=0
 P(3)_IL1:writeRetry=0
 P(3)_IL1:invalDirty=0
 P(3)_IL1:allocDirty=0
+P(3)_IL1:compMiss=0
+P(3)_IL1:capMiss=0
+P(3)_IL1:confMiss=0
 P(3)_IL1_occ:v=0:n=0
 P(3)_IL1_MSHR:nUse=0
 P(3)_IL1_MSHR:nUseReads=0
@@ -1377,5 +1401,5 @@ BPred(3)_Hybrid:nMiss=0
 BPred(3)_BTB:nHit=0
 BPred(3)_BTB:nMiss=0
 END GStats::report Final
-OSSim:endTime=Sat Oct 17 21:23:30 2020
+OSSim:endTime=Sat Oct 17 21:45:55 2020
 
