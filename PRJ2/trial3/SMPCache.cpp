@@ -463,7 +463,7 @@ void SMPCache::doRead(MemRequest *mreq)
     }
 
     // LRU REPLACEMENT ALGORITHM
-    vm.insert(calcTag(addr));
+    vm.insert(vm.begin(), calcTag(addr));
     std::cout << "\n Vector begin to end: ";
     // need to update vector !!
     if (find(vm.begin(), vm.end(), calcTag(addr)) != vm.end()) { // if it is found then print out
@@ -478,7 +478,7 @@ void SMPCache::doRead(MemRequest *mreq)
         // std::cout << *i << " ";
         // updated tmp vector with criteria
         if (c < 3 && *i != calcTag(addr)) {
-            tmpv.insert(*i);
+            tmpv.insert(tmpv.begin(), *i);
             c++;
         } else if ( c >= 3 ) {
             break;
@@ -486,7 +486,7 @@ void SMPCache::doRead(MemRequest *mreq)
     }
 
     // push element to top and reset vm vector to tmpv vector
-    tmpv.insert(calcTag(addr));
+    tmpv.insert(tmpv.begin(), calcTag(addr));
     vm = tmpv;
 
     // output updated vector
