@@ -465,7 +465,7 @@ void SMPCache::doRead(MemRequest *mreq)
         // std::cout << *i << " ";
         // updated tmp vector with criteria
         if (c < cache->getNumLines() && *i != calcTag(addr)) {
-            tmpv.insert(tmpv.begin(), *i);
+            tmpv.insert(tmpv.end(), *i);
             c++;
         } else if ( c >= cache->getNumLines() ) {
             break;
@@ -622,7 +622,7 @@ void SMPCache::doWrite(MemRequest *mreq)
         // std::cout << *i << " ";
         // updated tmp vector with criteria
         if (c < cache->getNumLines() && *i != calcTag(addr)) {
-            tmpv.insert(tmpv.begin(), *i);
+            tmpv.insert(tmpv.end(), *i);
             c++;
         } else if ( c >= cache->getNumLines() ) {
             break;
