@@ -33,6 +33,12 @@ Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #include <iomanip>
 #include <iostream>
 
+// include sets
+#include <set>
+#include <iterator>
+using namespace std;
+set <int, greater <int> > cm;
+
 #if (defined DEBUG_LEAK)
 Time_t Directory::lastClock = 0;
 uint64_t Directory::totCnt = 0;
@@ -469,7 +475,15 @@ void SMPCache::doRead(MemRequest *mreq)
     GI(l, !l->isLocked());
 
     // added for part 3 TJL
-    compMiss.inc();
+    // compMisses are the unique sets of tags that enter the cache?
+    // empty set container 
+    // set <int, greater <int> > cm; // added above already
+    int size = cm.size();
+    cm.insert(l); 
+    if (size == cm.size()) {
+        compMiss.inc();
+    }
+    // end of compMisses
     capMiss.inc();
     confMiss.inc();
     //std::cout << "l: " << l << " \n";
