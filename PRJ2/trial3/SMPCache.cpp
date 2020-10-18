@@ -512,6 +512,16 @@ void SMPCache::write(MemRequest *mreq)
 {
     PAddr addr = mreq->getPAddr();
 
+    // compMisses are the unique sets of tags that enter the cache? TJL
+    // set <int, greater <int> > cm; // added above already
+    int size = cm.size();
+    cm.insert(calcTag(addr)); 
+    if (size != cm.size()) {
+        compMiss.inc();
+        std::cout << cm.size() << "wr\t";
+    }
+    // end of compMisses
+
     if (!outsReq->issue(addr)) {
         outsReq->addEntry(addr, doWriteCB::create(this, mreq),
                           doWriteCB::create(this, mreq));
@@ -1701,15 +1711,6 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
     PAddr rpl_addr = 0;
     I(cache->findLineDebug(addr) == 0);
     Line *l = cache->findLine2Replace(addr);
-    // compMisses are the unique sets of tags that enter the cache? TJL
-    // set <int, greater <int> > cm; // added above already
-    int size = cm.size();
-    cm.insert(calcTag(addr)); 
-    if (size != cm.size()) {
-        compMiss.inc();
-        std::cout << cm.size() << "flt \t";
-    }
-    // end of compMisses
 
     if(!l) {
         // need to schedule allocate line for next cycle
