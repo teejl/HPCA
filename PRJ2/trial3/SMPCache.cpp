@@ -477,7 +477,7 @@ void SMPCache::doRead(MemRequest *mreq)
     for (auto i = vm.begin(); i != vm.end(); ++i) {
         // std::cout << *i << " ";
         // updated tmp vector with criteria
-        if (c < 4 && *i != calcTag(addr)) {
+        if (c < 3 && *i != calcTag(addr)) {
             tmpv.push_back(*i);
         }
         c++;
