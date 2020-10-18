@@ -442,13 +442,6 @@ void SMPCache::doRead(MemRequest *mreq)
         DEBUGPRINT("[%s] read %x miss at %lld\n",getSymbolicName(), addr,  globalClock );
     }
 
-
-    // added for part 3 TJL
-    compMiss.inc();
-    capMiss.inc();
-    confMiss.inc();
-    //std::cout << "l: " << l << " \n";
-
     //if(addr==0x7e9ee000 || addr==0x7e9ee02c) sdprint=true;
     //if(globalClock>220000000) sdprint=true;
     //sdprint = true;
@@ -475,6 +468,11 @@ void SMPCache::doRead(MemRequest *mreq)
 
     GI(l, !l->isLocked());
 
+    // added for part 3 TJL
+    compMiss.inc();
+    capMiss.inc();
+    confMiss.inc();
+    //std::cout << "l: " << l << " \n";
     readMiss.inc();
 
 #if (defined TRACK_MPKI)
