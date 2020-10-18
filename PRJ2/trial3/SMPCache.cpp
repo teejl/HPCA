@@ -34,9 +34,9 @@ Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #include <iostream>
 
 // include sets
-set<long int> cm2;
-set<long int> cm3;
-bool is_in;
+//set<long int> cm2;
+//set<long int> cm3;
+//bool is_in;
 
 #if (defined DEBUG_LEAK)
 Time_t Directory::lastClock = 0;
@@ -449,13 +449,26 @@ void SMPCache::doRead(MemRequest *mreq)
     if (cm.find(calcTag(addr)) == cm.end()) {
         cm.insert(calcTag(addr));
         compMiss.inc();
+    } else if (false) { // not in vector and miss
+        // cache->getNumLines() 
+        // how many lines are in cache 
+        // how many elements in cache
+        // vector_logic();
+
+        // determine if it is an actual miss
+        confMiss.inc();
+    } else { // in vector and miss
+        // determine if it is an actual miss
+        capMiss.inc();
     }
-    // end of compMisses
-    // cap Miss TJL
-    // capMiss.inc();
-    // conf Miss
-    // confMiss.inc();
-    //std::cout << "l: " << l << " \n";
+
+    // LRU REPLACEMENT ALGORITHM
+    vm.push_back(calcTag(addr));
+    std::cout << "Vector begin to end: ";
+    for (auto i = g1.begin(); i != g1.end(); ++i) // output vector
+        std::cout << *i << " "; 
+    // update the vector pretend cache
+    // make sure this is in doWrite and doREad
 
 
     if(!((l && l->canBeRead()))) {
@@ -565,8 +578,9 @@ void SMPCache::doWrite(MemRequest *mreq)
     // is_in = cm.find(calcTag(addr)) != cm.end();
     if (cm.find(calcTag(addr)) == cm.end()) {
         cm.insert(calcTag(addr));
-        compMiss.inc();
-        // std::cout << cm.size() << "wr\t";
+        compMiss.inc();  
+    } else if (false) {
+        capMiss.inc();
     }
     // end of compMisses
 
