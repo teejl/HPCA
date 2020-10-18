@@ -448,6 +448,21 @@ void SMPCache::doRead(MemRequest *mreq)
         DEBUGPRINT("[%s] read %x miss at %lld\n",getSymbolicName(), addr,  globalClock );
     }
 
+    // compMisses are the unique sets of tags that enter the cache? TJL
+    // set <int, greater <int> > cm; // added above already
+    int size = cm.size();
+    cm.insert(addr); 
+    if (size == cm.size()) {
+        compMiss.inc();
+    }
+    // end of compMisses
+
+    // cap Miss TJL
+    capMiss.inc();
+    // conf Miss
+    confMiss.inc();
+    //std::cout << "l: " << l << " \n";
+
     //if(addr==0x7e9ee000 || addr==0x7e9ee02c) sdprint=true;
     //if(globalClock>220000000) sdprint=true;
     //sdprint = true;
@@ -474,22 +489,6 @@ void SMPCache::doRead(MemRequest *mreq)
 
     GI(l, !l->isLocked());
 
-    // ~~~~~~~~ start of add TJL ~~~~~~~~
-
-    // compMisses are the unique sets of tags that enter the cache?
-    // set <int, greater <int> > cm; // added above already
-    int size = cm.size();
-    cm.insert(addr); 
-    if (size == cm.size()) {
-        compMiss.inc();
-    }
-    // end of compMisses
-    // cap Miss
-    capMiss.inc();
-    // conf Miss
-    confMiss.inc();
-    //std::cout << "l: " << l << " \n";
-    // ~~~~~~~~ end of add TJL ~~~~~~~~
     readMiss.inc();
 
 #if (defined TRACK_MPKI)
