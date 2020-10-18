@@ -475,6 +475,15 @@ void SMPCache::doRead(MemRequest *mreq)
     GI(l, !l->isLocked());
 
     readMiss.inc();
+    // compMisses are the unique sets of tags that enter the cache? TJL
+    // set <int, greater <int> > cm; // added above already
+    int size = cm.size();
+    cm.insert(calcTag(addr)); 
+    if (size != cm.size()) {
+        compMiss.inc();
+        std::cout << cm.size() << "\t";
+    }
+    // end of compMisses
 
 #if (defined TRACK_MPKI)
     DInst *dinst = mreq->getDInst();
@@ -526,16 +535,6 @@ void SMPCache::doWriteAgain(MemRequest *mreq) {
     PAddr addr = mreq->getPAddr();
     Line *l = cache->writeLine(addr);
     IJ(l && l->canBeWritten());
-    // compMisses are the unique sets of tags that enter the cache? TJL
-    // set <int, greater <int> > cm; // added above already
-    int size = cm.size();
-    cm.insert(calcTag(addr)); 
-    if (size != cm.size()) {
-        compMiss.inc();
-        std::cout << cm.size() << "\t";
-    }
-    // end of compMisses
-
     if(l && l->canBeWritten()) {
         writeHit.inc();
 #ifdef SESC_ENERGY
