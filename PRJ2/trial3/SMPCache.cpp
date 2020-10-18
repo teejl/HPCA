@@ -512,17 +512,6 @@ void SMPCache::write(MemRequest *mreq)
 {
     PAddr addr = mreq->getPAddr();
 
-    // compMisses are the unique sets of tags that enter the cache? TJL
-    // set <int, greater <int> > cm; // added above already
-    int size = cm.size();
-    cm.insert(calcTag(addr));
-    //std::cout << "Tag: " << calcTag(addr) << "\n";
-    if (size != cm.size()) {
-        compMiss.inc();
-        std::cout << cm.size() << "wr\t";
-    }
-    // end of compMisses
-
     if (!outsReq->issue(addr)) {
         outsReq->addEntry(addr, doWriteCB::create(this, mreq),
                           doWriteCB::create(this, mreq));
@@ -536,6 +525,16 @@ void SMPCache::write(MemRequest *mreq)
 void SMPCache::doWriteAgain(MemRequest *mreq) {
     PAddr addr = mreq->getPAddr();
     Line *l = cache->writeLine(addr);
+    // compMisses are the unique sets of tags that enter the cache? TJL
+    // set <int, greater <int> > cm; // added above already
+    int size = cm.size();
+    cm.insert(calcTag(addr));
+    //std::cout << "Tag: " << calcTag(addr) << "\n";
+    if (size != cm.size()) {
+        compMiss.inc();
+        std::cout << cm.size() << "wr\t";
+    }
+    // end of compMisses
     IJ(l && l->canBeWritten());
     if(l && l->canBeWritten()) {
         writeHit.inc();
@@ -555,6 +554,16 @@ void SMPCache::doWrite(MemRequest *mreq)
 {
     PAddr addr = mreq->getPAddr();
     Line *l = cache->writeLine(addr);
+    // compMisses are the unique sets of tags that enter the cache? TJL
+    // set <int, greater <int> > cm; // added above already
+    int size = cm.size();
+    cm.insert(calcTag(addr));
+    //std::cout << "Tag: " << calcTag(addr) << "\n";
+    if (size != cm.size()) {
+        compMiss.inc();
+        std::cout << cm.size() << "wr\t";
+    }
+    // end of compMisses
 
     if(!(l && l->canBeWritten())) {
         DEBUGPRINT("[%s] write %x (%x) miss at %lld [state %x]\n",
@@ -1894,6 +1903,16 @@ SMPCache::Line *SMPCache::getLine(PAddr addr)
 
 void SMPCache::writeLine(PAddr addr) {
     Line *l = cache->writeLine(addr);
+    // compMisses are the unique sets of tags that enter the cache? TJL
+    // set <int, greater <int> > cm; // added above already
+    int size = cm.size();
+    cm.insert(calcTag(addr));
+    //std::cout << "Tag: " << calcTag(addr) << "\n";
+    if (size != cm.size()) {
+        compMiss.inc();
+        std::cout << cm.size() << "wr\t";
+    }
+    // end of compMisses
     IJ(l);
 }
 
