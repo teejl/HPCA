@@ -469,19 +469,26 @@ void SMPCache::doRead(MemRequest *mreq)
     if (find(vm.begin(), vm.end(), calcTag(addr)) != vm.end()) { // if it is found then print out
         std::cout << "Found Element: " << calcTag(addr) << " ";
     }
-    // updated temp vector to correct elements
+    // init vars
     vector <long int> tmpv; // temporary vector
     int c = 0; // counter
-    // reset vector 
-    for (auto i = vm.begin(); i != vm.end(); ++i) // output vector
+
+    // loop through original vector and update tmpv vector
+    for (auto i = vm.begin(); i != vm.end(); ++i) {
         // std::cout << *i << " ";
+        // updated tmp vector with criteria
         if (c < 4 && *i != calcTag(addr)) {
-            tmp.push_back(*i);
+            tmpv.push_back(*i);
         }
         c++;
-    tmpv.push_back(calcTag(addr)); // push element to top
+    }
+
+    // push element to top and reset vm vector to tmpv vector
+    tmpv.push_back(calcTag(addr));
     vm = tmpv;
-    for (auto i = vm.begin(); i != vm.end(); ++i) // output updated vector
+
+    // output updated vector
+    for (auto i = vm.begin(); i != vm.end(); ++i)
         std::cout << *i << " ";
     // update the vector pretend cache
     // make sure this is in doWrite and doREad
