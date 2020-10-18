@@ -37,7 +37,7 @@ Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #include <set>
 #include <iterator>
 using namespace std;
-set<int> cm;
+set<long int> cm;
 
 #if (defined DEBUG_LEAK)
 Time_t Directory::lastClock = 0;
