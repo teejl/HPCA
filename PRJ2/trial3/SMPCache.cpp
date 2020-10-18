@@ -553,16 +553,6 @@ void SMPCache::doWrite(MemRequest *mreq)
     if (l && l->canBeWritten()) {
         writeHit.inc();
 
-        // compMisses are the unique number of tags that have been written TJL
-        // set <int, greater <int> > cm; // added above already
-        int size = cm.size();
-        cm.insert(calcTag(addr)); 
-        if (size == cm.size()) {
-            compMiss.inc();
-            std::cout << cm.size() << "\t";
-        }
-        // end of compMisses
-
 #ifdef SESC_ENERGY
         wrEnergy[0]->inc();
 #endif
@@ -604,6 +594,7 @@ void SMPCache::doWrite(MemRequest *mreq)
     cm.insert(calcTag(addr)); 
     if (size == cm.size()) {
         compMiss.inc();
+        std::cout << cm.size() << "\t";
     }
     // end of compMisses
 
