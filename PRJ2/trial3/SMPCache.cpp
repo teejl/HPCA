@@ -616,7 +616,7 @@ void SMPCache::doWrite(MemRequest *mreq)
     }
 
     // [LRU REPLACEMENT ALGORITHM]
-    vm.insert(vm.begin(), calcTag(addr));
+    // vm.insert(vm.begin(), calcTag(addr));
     //std::cout << "\n Update vector for TAG: " << calcTag(addr) << " Cache numbers: " << cache->getNumLines();
     //std::cout << "\n Vector begin to end: ";
     // need to update vector !!
