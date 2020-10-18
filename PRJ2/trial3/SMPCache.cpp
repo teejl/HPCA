@@ -479,7 +479,7 @@ void SMPCache::doRead(MemRequest *mreq)
     readMiss.inc();
     // compMisses are the unique sets of tags that enter the cache? TJL
     // set <int, greater <int> > cm; // added above already
-    int size = cm2.size();
+    int size2 = cm2.size();
     cm2.insert(calcTag(addr));
     //std::cout << "Tag: " << calcTag(addr) << "\n";
     if (size != cm2.size()) {
@@ -490,7 +490,7 @@ void SMPCache::doRead(MemRequest *mreq)
 
     // compMisses are the unique sets of tags that enter the cache? TJL
     // set <int, greater <int> > cm; // added above already
-    int size = cm.size();
+    int size3 = cm.size();
     cm.insert(calcTag(addr));
     //std::cout << "Tag: " << calcTag(addr) << "\n";
     if (size != cm.size()) {
