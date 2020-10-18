@@ -519,8 +519,8 @@ void SMPCache::write(MemRequest *mreq)
     //std::cout << "Tag: " << calcTag(addr) << "\n";
     if (size != cm.size()) {
         compMiss.inc();
-        std::cout << cm.size() << "wr\t";
-        std::cout << "Tag: " << calcTag(addr);
+        std::cout << cm.size() << "wr ";
+        std::cout << "Tag: " << calcTag(addr) << "\t";
     }
     // end of compMisses
 
