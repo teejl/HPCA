@@ -611,8 +611,8 @@ void SMPCache::doWrite(MemRequest *mreq)
 
     // [LRU REPLACEMENT ALGORITHM]
     // vm.insert(vm.begin(), calcTag(addr));
-    //std::cout << "\n Update vector for TAG: " << calcTag(addr) << " Cache numbers: " << cache->getNumLines();
-    //std::cout << "\n Vector begin to end: ";
+    std::cout << "\n Update vector for TAG: " << calcTag(addr) << " Cache numbers: " << cache->getNumLines();
+    std::cout << "\n Vector begin to end: ";
     // need to update vector !!
     // init vars
     vector <long int> tmpv; // temporary vector
@@ -631,8 +631,6 @@ void SMPCache::doWrite(MemRequest *mreq)
     // push element to top and reset vm vector to tmpv vector
     tmpv.insert(tmpv.begin(), calcTag(addr));
     // output updated vector
-    // for (auto i = vm.begin(); i != vm.end(); ++i)
-        // std::cout << *i << " ";
     // update the vector pretend cache
 
 
@@ -645,6 +643,8 @@ void SMPCache::doWrite(MemRequest *mreq)
     if (l && l->canBeWritten()) {
         writeHit.inc();
         vm = tmpv;
+        for (auto i = vm.begin(); i != vm.end(); ++i)
+            std::cout << *i << " ";
 
 #ifdef SESC_ENERGY
         wrEnergy[0]->inc();
@@ -698,6 +698,8 @@ void SMPCache::doWrite(MemRequest *mreq)
 
     writeMiss.inc();
     vm = tmpv;
+    for (auto i = vm.begin(); i != vm.end(); ++i)
+        std::cout << *i << " ";
 
 
 #ifdef SESC_ENERGY
