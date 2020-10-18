@@ -37,7 +37,7 @@ Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #include <set>
 #include <iterator>
 using namespace std;
-set <int, greater <int> > cm;
+std::set<int> cm;
 
 #if (defined DEBUG_LEAK)
 Time_t Directory::lastClock = 0;
@@ -516,7 +516,7 @@ void SMPCache::write(MemRequest *mreq)
     // set <int, greater <int> > cm; // added above already
     int size = cm.size();
     cm.insert(calcTag(addr));
-    std::cout << "Tag: " << calcTag(addr) << "\n";
+    //std::cout << "Tag: " << calcTag(addr) << "\n";
     if (size != cm.size()) {
         compMiss.inc();
         std::cout << cm.size() << "wr\t";
