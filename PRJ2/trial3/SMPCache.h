@@ -140,6 +140,10 @@ protected:
     void concludeWriteBack(Time_t initialTime);
     void sendRead(MemRequest* mreq);
     void sendWrite(MemRequest* mreq);
+    // added TJL
+    void doComp(MemRequest *mreq);
+    void doCap(MemRequest *mreq);
+    void doConf(MemRequest *mreq);
 
     typedef CallbackMember1<SMPCache, MemRequest *,
             &SMPCache::doRead> doReadCB;
