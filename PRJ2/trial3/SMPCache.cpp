@@ -449,13 +449,12 @@ void SMPCache::doRead(MemRequest *mreq)
     if (cm.find(calcTag(addr)) == cm.end()) {
         cm.insert(calcTag(addr));
         compMiss.inc();
-    } else if ((find(vm.begin(), vm.end(), calcTag(addr)) != vm.end()) && !(l && l->canBeRead() && l->isLocked())) { // in vector and miss
+    } else if ((find(vm.begin(), vm.end(), calcTag(addr)) != vm.end()) && !(l && l->canBeRead())) { // in vector and miss
         // determine if it is an actual miss
+        // && l->isLocked()
         capMiss.inc();
-    } else if (
-        !(l && l->canBeRead()) 
-        && !(l->isLocked())
-        ) { // not in vector and miss
+    } else if (!(l && l->canBeRead()) ) { // not in vector and miss
+        // && !(l->isLocked()
         // cache->getNumLines() 
         // how many lines are in cache 
         // how many elements in cache
@@ -601,13 +600,12 @@ void SMPCache::doWrite(MemRequest *mreq)
     if (cm.find(calcTag(addr)) == cm.end()) {
         cm.insert(calcTag(addr));
         compMiss.inc();
-    } else if ((find(vm.begin(), vm.end(), calcTag(addr)) != vm.end()) && !(l && l->canBeWritten() && l->isLocked())) { // in vector and miss
+    } else if ((find(vm.begin(), vm.end(), calcTag(addr)) != vm.end()) && !(l && l->canBeWritten())) { // in vector and miss
         // determine if it is an actual miss
+        // && l->isLocked()
         capMiss.inc();
-    } else if (
-        !(l && l->canBeWritten()) 
-        && !(l->isLocked())
-        ) { // not in vector and miss
+    } else if (!(l && l->canBeWritten()) ) { // not in vector and miss
+        // && !(l->isLocked()
         // cache->getNumLines() 
         // how many lines are in cache 
         // how many elements in cache
