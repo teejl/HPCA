@@ -446,10 +446,26 @@ void SMPCache::doRead(MemRequest *mreq)
     // compMisses are the unique sets of tags that enter the cache? TJL
     // set <int, greater <int> > cm; // added above already
     // is_in = cm.find(calcTag(addr)) != cm.end();
-    dummy = cm.find(calcTag(addr)) == cm.end();
     if (cm.find(calcTag(addr)) == cm.end()) {
         cm.insert(calcTag(addr));
-        compMiss.inc();
+        if (!l->isLocked()) {
+            compMiss.inc();
+        }
+    } else if ((find(vm.begin(), vm.end(), calcTag(addr)) != vm.end()) && !(l && l->canBeRead())) { // in vector and miss
+        // determine if it is an actual miss
+        // && l->isLocked()
+        if (!l->isLocked()) {
+            capMiss.inc();
+        }
+    } else if (!(l && l->canBeRead()) ) { // not in vector and miss
+        // && !(l->isLocked()
+        // cache->getNumLines() 
+        // how many lines are in cache 
+        // how many elements in cache
+        // vector_logic();
+
+        // determine if it is an actual miss
+        confMiss.inc();
     }
 
     // [LRU REPLACEMENT ALGORITHM]
@@ -510,23 +526,6 @@ void SMPCache::doRead(MemRequest *mreq)
     }
 
     GI(l, !l->isLocked());
-
-    // TJL CODE HERE
-    if (dummy) {
-    } else if ((find(vm.begin(), vm.end(), calcTag(addr)) == vm.end())) { // in vector and miss
-        // determine if it is an actual miss
-        // && l->isLocked()
-        capMiss.inc();
-    } else { // not in vector and miss
-        // && !(l->isLocked()
-        // cache->getNumLines() 
-        // how many lines are in cache 
-        // how many elements in cache
-        // vector_logic();
-
-        // determine if it is an actual miss
-        confMiss.inc();
-    }
 
     readMiss.inc();
     vm = tmpv;
@@ -679,7 +678,6 @@ void SMPCache::doWrite(MemRequest *mreq)
         mreq->mutateWriteToRead();
     }
 
-    // TJL CODE HERE
     if (dummy) {
     } else if ((find(vm.begin(), vm.end(), calcTag(addr)) == vm.end())) { // in vector and miss
         // determine if it is an actual miss

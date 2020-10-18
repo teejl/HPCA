@@ -107,6 +107,7 @@ protected:
     GStatsCntr confMiss;
     set<long int> cm;
     vector<long int> vm;
+    bool dummy;
 
 #ifdef SESC_ENERGY
     static unsigned cacheID;
