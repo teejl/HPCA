@@ -448,11 +448,15 @@ void SMPCache::doRead(MemRequest *mreq)
     // is_in = cm.find(calcTag(addr)) != cm.end();
     if (cm.find(calcTag(addr)) == cm.end()) {
         cm.insert(calcTag(addr));
-        compMiss.inc();
+        if (!l->isLocked()) {
+            compMiss.inc();
+        }
     } else if ((find(vm.begin(), vm.end(), calcTag(addr)) != vm.end()) && !(l && l->canBeRead())) { // in vector and miss
         // determine if it is an actual miss
         // && l->isLocked()
-        capMiss.inc();
+        if (!l->isLocked()) {
+            capMiss.inc();
+        }
     } else if (!(l && l->canBeRead()) ) { // not in vector and miss
         // && !(l->isLocked()
         // cache->getNumLines() 
@@ -604,7 +608,9 @@ void SMPCache::doWrite(MemRequest *mreq)
     } else if ((find(vm.begin(), vm.end(), calcTag(addr)) != vm.end()) && !(l && l->canBeWritten())) { // in vector and miss
         // determine if it is an actual miss
         // && l->isLocked()
+        if (!l->isLocked()) {
         capMiss.inc();
+        }
     } else if (!(l && l->canBeWritten()) ) { // not in vector and miss
         // && !(l->isLocked()
         // cache->getNumLines() 
@@ -613,7 +619,9 @@ void SMPCache::doWrite(MemRequest *mreq)
         // vector_logic();
 
         // determine if it is an actual miss
+        if (!l->isLocked()) {
         confMiss.inc();
+        }
     }
 
     // [LRU REPLACEMENT ALGORITHM]
