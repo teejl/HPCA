@@ -472,16 +472,16 @@ void SMPCache::doRead(MemRequest *mreq)
     }
     // init vars
     vector <long int> tmpv; // temporary vector
-    int c = 0; // counter
+    int c = 1; // counter
 
     // loop through original vector and update tmpv vector
     for (auto i = vm.begin(); i != vm.end(); ++i) {
         // std::cout << *i << " ";
         // updated tmp vector with criteria
-        if (c < 3 && *i != calcTag(addr)) {
+        if (c < cache->getNumLines() && *i != calcTag(addr)) {
             tmpv.insert(tmpv.begin(), *i);
             c++;
-        } else if ( c >= 3 ) {
+        } else if ( c >= cache->getNumLines() ) {
             break;
         }
     }
