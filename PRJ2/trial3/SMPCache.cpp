@@ -479,18 +479,7 @@ void SMPCache::doRead(MemRequest *mreq)
     readMiss.inc();
     // compMisses are the unique sets of tags that enter the cache? TJL
     // set <int, greater <int> > cm; // added above already
-    int size2 = cm2.size();
-    cm2.insert(calcTag(addr));
-    //std::cout << "Tag: " << calcTag(addr) << "\n";
-    if (size != cm2.size()) {
-        capMiss.inc();
-        std::cout << cm2.size() << "rd\t";
-    }
-    // end of compMisses
-
-    // compMisses are the unique sets of tags that enter the cache? TJL
-    // set <int, greater <int> > cm; // added above already
-    int size3 = cm.size();
+    int size = cm.size();
     cm.insert(calcTag(addr));
     //std::cout << "Tag: " << calcTag(addr) << "\n";
     if (size != cm.size()) {
@@ -1766,16 +1755,6 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
     PAddr rpl_addr = 0;
     I(cache->findLineDebug(addr) == 0);
     Line *l = cache->findLine2Replace(addr);
-    // compMisses are the unique sets of tags that enter the cache? TJL
-    // set <int, greater <int> > cm; // added above already
-    int size = cm3.size();
-    cm3.insert(calcTag(addr));
-    //std::cout << "Tag: " << calcTag(addr) << "\n";
-    if (size != cm3.size()) {
-        confMiss.inc();
-        std::cout << cm3.size() << "fl\t";
-    }
-    // end of compMisses
 
     if(!l) {
         // need to schedule allocate line for next cycle
