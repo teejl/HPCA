@@ -528,16 +528,6 @@ void SMPCache::write(MemRequest *mreq)
         outsReq->addEntry(addr, doWriteCB::create(this, mreq),
                           doWriteCB::create(this, mreq));
         writeHalfMiss.inc();
-        // compMisses are the unique sets of tags that enter the cache? TJL
-        // set <int, greater <int> > cm; // added above already
-        int size = cm.size();
-        cm.insert(calcTag(addr));
-        //std::cout << "Tag: " << calcTag(addr) << "\n";
-        if (size != cm.size()) {
-            compMiss.inc();
-            std::cout << cm.size() << "wr\t";
-        }
-        // end of compMisses
         return;
     }
 
@@ -550,16 +540,6 @@ void SMPCache::doWriteAgain(MemRequest *mreq) {
     IJ(l && l->canBeWritten());
     if(l && l->canBeWritten()) {
         writeHit.inc();
-        // compMisses are the unique sets of tags that enter the cache? TJL
-        // set <int, greater <int> > cm; // added above already
-        int size = cm.size();
-        cm.insert(calcTag(addr));
-        //std::cout << "Tag: " << calcTag(addr) << "\n";
-        if (size != cm.size()) {
-            compMiss.inc();
-            std::cout << cm.size() << "wr\t";
-        }
-        // end of compMisses
 #ifdef SESC_ENERGY
         wrEnergy[0]->inc();
 #endif
@@ -584,16 +564,6 @@ void SMPCache::doWrite(MemRequest *mreq)
 
     if (l && l->canBeWritten()) {
         writeHit.inc();
-        // compMisses are the unique sets of tags that enter the cache? TJL
-        // set <int, greater <int> > cm; // added above already
-        int size = cm.size();
-        cm.insert(calcTag(addr));
-        //std::cout << "Tag: " << calcTag(addr) << "\n";
-        if (size != cm.size()) {
-            compMiss.inc();
-            std::cout << cm.size() << "wr\t";
-        }
-        // end of compMisses
 
 #ifdef SESC_ENERGY
         wrEnergy[0]->inc();
@@ -608,16 +578,6 @@ void SMPCache::doWrite(MemRequest *mreq)
         DEBUGPRINT(" Locked %x ... try again\n", addr);
         //printf(" Locked %x ... try again %lld\n", addr, globalClock);
         writeRetry.inc();
-        // compMisses are the unique sets of tags that enter the cache? TJL
-        // set <int, greater <int> > cm; // added above already
-        int size = cm.size();
-        cm.insert(calcTag(addr));
-        //std::cout << "Tag: " << calcTag(addr) << "\n";
-        if (size != cm.size()) {
-            compMiss.inc();
-            std::cout << cm.size() << "wr\t";
-        }
-        // end of compMisses
         mreq->mutateWriteToRead();
         Time_t nextTry = nextSlot();
         if (nextTry == globalClock)
@@ -682,16 +642,7 @@ void SMPCache::doWriteBack(PAddr addr)
     // FIXME: right now we are assuming cache line sizes are same in every cache
 
     writeBack.inc();
-    // compMisses are the unique sets of tags that enter the cache? TJL
-    // set <int, greater <int> > cm; // added above already
-    int size = cm.size();
-    cm.insert(calcTag(addr));
-    //std::cout << "Tag: " << calcTag(addr) << "\n";
-    if (size != cm.size()) {
-        compMiss.inc();
-        std::cout << cm.size() << "wr\t";
-    }
-    // end of compMisses
+
 // protocol->sendWriteBack(addr, /*concludeWriteBackCB::create(this, globalClock)*/ NULL);
 }
 
