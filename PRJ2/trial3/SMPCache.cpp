@@ -449,10 +449,17 @@ void SMPCache::doRead(MemRequest *mreq)
     if (cm.find(calcTag(addr)) == cm.end()) {
         cm.insert(calcTag(addr));
         compMiss.inc();
-    } else if ((find(vm.begin(), vm.end(), calcTag(addr)) != vm.end()) && !(l && l->canBeRead()) && !(l->isLocked())) { // in vector and miss
+    } else if (
+        (find(vm.begin(), vm.end(), calcTag(addr)) != vm.end()) 
+        && !(l && l->canBeRead()) 
+        && !(l->isLocked())
+        )) { // in vector and miss
         // determine if it is an actual miss
         capMiss.inc();
-    } else if (!(l && l->canBeRead()) && !(l->isLocked())) { // not in vector and miss
+    } else if (
+        !(l && l->canBeRead()) 
+        && !(l->isLocked())
+        ) { // not in vector and miss
         // cache->getNumLines() 
         // how many lines are in cache 
         // how many elements in cache
@@ -461,6 +468,7 @@ void SMPCache::doRead(MemRequest *mreq)
         // determine if it is an actual miss
         confMiss.inc();
     }
+
     // [LRU REPLACEMENT ALGORITHM]
     vm.insert(vm.begin(), calcTag(addr));
     //std::cout << "\n Update vector for TAG: " << calcTag(addr) << " Cache numbers: " << cache->getNumLines();
@@ -597,10 +605,17 @@ void SMPCache::doWrite(MemRequest *mreq)
     if (cm.find(calcTag(addr)) == cm.end()) {
         cm.insert(calcTag(addr));
         compMiss.inc();
-    } else if ((find(vm.begin(), vm.end(), calcTag(addr)) != vm.end()) && !(l && l->canBeWritten()) && !(l->isLocked())) { // in vector and miss
+    } else if (
+        (find(vm.begin(), vm.end(), calcTag(addr)) != vm.end()) 
+        && !(l && l->canBeWritten()) 
+        && !(l->isLocked())
+        )) { // in vector and miss
         // determine if it is an actual miss
         capMiss.inc();
-    } else if (!(l && l->canBeWritten()) && !(l->isLocked())) { // not in vector and miss
+    } else if (
+        !(l && l->canBeWritten()) 
+        && !(l->isLocked())
+        ) { // not in vector and miss
         // cache->getNumLines() 
         // how many lines are in cache 
         // how many elements in cache
@@ -609,6 +624,7 @@ void SMPCache::doWrite(MemRequest *mreq)
         // determine if it is an actual miss
         confMiss.inc();
     }
+
     // [LRU REPLACEMENT ALGORITHM]
     vm.insert(vm.begin(), calcTag(addr));
     //std::cout << "\n Update vector for TAG: " << calcTag(addr) << " Cache numbers: " << cache->getNumLines();
