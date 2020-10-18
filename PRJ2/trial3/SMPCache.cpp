@@ -31,6 +31,7 @@ Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #include "SMPRouter.h"
 
 #include <iomanip>
+#include <iostream>
 
 #if (defined DEBUG_LEAK)
 Time_t Directory::lastClock = 0;
@@ -440,6 +441,13 @@ void SMPCache::doRead(MemRequest *mreq)
     if(!((l && l->canBeRead()))) {
         DEBUGPRINT("[%s] read %x miss at %lld\n",getSymbolicName(), addr,  globalClock );
     }
+
+
+    // added for part 3 TJL
+    compMiss.inc();
+    capMiss.inc();
+    confMiss.inc();
+    std::cout << "l:*l " << l << ":" << *l << " \n";
 
     //if(addr==0x7e9ee000 || addr==0x7e9ee02c) sdprint=true;
     //if(globalClock>220000000) sdprint=true;
@@ -1677,11 +1685,6 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
 
     rpl_addr = cache->calcAddr4Tag(l->getTag());
     lineFill.inc();
-
-    // added for part 3 TJL
-    compMiss.inc();
-    capMiss.inc();
-    confMiss.inc();
 
     nextSlot(); // have to do an access to check which line is free
 
