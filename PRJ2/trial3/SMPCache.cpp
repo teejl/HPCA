@@ -449,10 +449,10 @@ void SMPCache::doRead(MemRequest *mreq)
     if (cm.find(calcTag(addr)) == cm.end()) {
         cm.insert(calcTag(addr));
         compMiss.inc();
-    } else if ((find(vm.begin(), vm.end(), calcTag(addr)) != vm.end()) && !(l && l->canBeWritten())) { // in vector and miss
+    } else if ((find(vm.begin(), vm.end(), calcTag(addr)) != vm.end()) && !(l && l->canBeRead())) { // in vector and miss
         // determine if it is an actual miss
         capMiss.inc();
-    } else if (!(l && l->canBeWritten())) { // not in vector and miss
+    } else if (!(l && l->canBeRead())) { // not in vector and miss
         // cache->getNumLines() 
         // how many lines are in cache 
         // how many elements in cache
@@ -461,8 +461,7 @@ void SMPCache::doRead(MemRequest *mreq)
         // determine if it is an actual miss
         confMiss.inc();
     }
-
-    // LRU REPLACEMENT ALGORITHM
+    // [LRU REPLACEMENT ALGORITHM]
     vm.insert(vm.begin(), calcTag(addr));
     //std::cout << "\n Update vector for TAG: " << calcTag(addr) << " Cache numbers: " << cache->getNumLines();
     //std::cout << "\n Vector begin to end: ";
@@ -470,7 +469,6 @@ void SMPCache::doRead(MemRequest *mreq)
     // init vars
     vector <long int> tmpv; // temporary vector
     int c = 1; // counter
-
     // loop through original vector and update tmpv vector
     for (auto i = vm.begin(); i != vm.end(); ++i) {
         // std::cout << *i << " ";
@@ -482,11 +480,9 @@ void SMPCache::doRead(MemRequest *mreq)
             break;
         }
     }
-
     // push element to top and reset vm vector to tmpv vector
     tmpv.insert(tmpv.begin(), calcTag(addr));
     vm = tmpv;
-
     // output updated vector
     // for (auto i = vm.begin(); i != vm.end(); ++i)
         // std::cout << *i << " ";
