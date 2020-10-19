@@ -1,10 +1,10 @@
 Simulation executing...
 
-~~~~~  Default  ~~~~~
-# Bench : /home/cs6290/sesc/sesc.opt -f Default -c /home/cs6290/sesc/confs/cmp4-noc.conf -iInput/input.256 -ofmm.out -efmm.err fmm.mipseb -p 1 
-# File  : /home/cs6290/sesc/apps/Splash2/fmm/sesc_fmm.mipseb.Default :       Sat Oct 17 18:10:19 2020
+~~~~~  DefLRU  ~~~~~
+# Bench : /home/cs6290/sesc/sesc.opt -f DefLRU -c /home/cs6290/sesc/confs/cmp4-noc-DefLRU.conf -iInput/input.256 -ofmm.out -efmm.err fmm.mipseb -p 1 
+# File  : /home/cs6290/sesc/apps/Splash2/fmm/sesc_fmm.mipseb.DefLRU :       Sun Oct 18 20:13:53 2020
       Exe Speed        Exe MHz         Exe Time         Sim Time (1000MHz)
-    512.823 KIPS      0.5914 MHz      26.800 secs      15.850 msec
+    226.943 KIPS      0.2617 MHz      60.560 secs      15.850 msec
 Proc  Avg.Time BPType       Total          RAS           BPred          BTB            BTAC
    0   25.942  Hybrid       95.65% ( 99.99% of   4.02%)  95.47% ( 98.91% of  66.05%)   0.00% 
            nInst     BJ    Load   Store      INT      FP  : LD Forward , Replay : Worst Unit (clk)
@@ -17,32 +17,12 @@ Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ...
 ################################################################################
 Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
    0  IL1 0.0   0.03% ( 0.0%, 0.0%) 250.93%  0.01GB/s :  MemoryBus 0 MB/s : 
-~~~~~  Default  ~~~~~
-
-~~~~~  L1NXLRU  ~~~~~
-# Bench : /home/cs6290/sesc/sesc.opt -f L1NXLRU -c /home/cs6290/sesc/confs/cmp4-noc-L1NXLRU.conf -iInput/input.256 -ofmm.out -efmm.err fmm.mipseb -p 1 
-# File  : /home/cs6290/sesc/apps/Splash2/fmm/sesc_fmm.mipseb.L1NXLRU :       Sat Oct 17 18:11:37 2020
+~~~~~  DefLRU  ~~~~~
+~~~~~  SmallLRU  ~~~~~
+# Bench : /home/cs6290/sesc/sesc.opt -f SmallLRU -c /home/cs6290/sesc/confs/cmp4-noc-SmallLRU.conf -iInput/input.256 -ofmm.out -efmm.err fmm.mipseb -p 1 
+# File  : /home/cs6290/sesc/apps/Splash2/fmm/sesc_fmm.mipseb.SmallLRU :       Sun Oct 18 20:15:33 2020
       Exe Speed        Exe MHz         Exe Time         Sim Time (1000MHz)
-    176.223 KIPS      0.3409 MHz      77.990 secs      26.588 msec
-Proc  Avg.Time BPType       Total          RAS           BPred          BTB            BTAC
-   0   38.491  Hybrid       95.65% ( 99.99% of   4.02%)  95.47% ( 98.91% of  66.05%)   0.00% 
-           nInst     BJ    Load   Store      INT      FP  : LD Forward , Replay : Worst Unit (clk)
-   0    13743660   7.55%  16.25%   4.50%  20.65%  51.05%  :      4.20%    4838 inst/repl  :  LDSTIssueX 2.45 
-Proc  IPC        Cycles  Busy   LDQ   STQ  IWin   ROB  Regs Ports   TLB  maxBr MisBr Br4Clk  Other
-   0  0.52     26587770  25.8   0.0   0.2  64.0   5.5   0.0   0.0   0.0   0.0    3.8    0.1    0.5 
-################################################################################
-Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
-   0  DL1 0.2  19.26% (18.3%, 1.0%) 123.76%  1.64GB/s :  MemoryBus 0 MB/s : 
-################################################################################
-Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
-   0  IL1 0.0   0.03% ( 0.0%, 0.0%) 250.93%  0.01GB/s :  MemoryBus 0 MB/s : 
-~~~~~  L1NXLRU  ~~~~~
-
-~~~~~  SmallL1  ~~~~~
-# Bench : /home/cs6290/sesc/sesc.opt -f SmallL1 -c /home/cs6290/sesc/confs/cmp4-noc-small-l1.conf -iInput/input.256 -ofmm.out -efmm.err fmm.mipseb -p 1 
-# File  : /home/cs6290/sesc/apps/Splash2/fmm/sesc_fmm.mipseb.SmallL1 :       Tue Oct 13 22:18:12 2020
-      Exe Speed        Exe MHz         Exe Time         Sim Time (1000MHz)
-    185.700 KIPS      0.3512 MHz      74.010 secs      25.991 msec
+    137.657 KIPS      0.2603 MHz      99.840 secs      25.991 msec
 Proc  Avg.Time BPType       Total          RAS           BPred          BTB            BTAC
    0   37.393  Hybrid       95.65% ( 99.99% of   4.02%)  95.47% ( 98.91% of  66.05%)   0.00% 
            nInst     BJ    Load   Store      INT      FP  : LD Forward , Replay : Worst Unit (clk)
@@ -55,4 +35,40 @@ Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ...
 ################################################################################
 Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
    0  IL1 0.0   0.03% ( 0.0%, 0.0%) 250.93%  0.01GB/s :  MemoryBus 0 MB/s : 
-~~~~~  SmallL1  ~~~~~
+~~~~~  SmallLRU  ~~~~~
+~~~~~  DefDM  ~~~~~
+# Bench : /home/cs6290/sesc/sesc.opt -f DefDM -c /home/cs6290/sesc/confs/cmp4-noc-DefDM.conf -iInput/input.256 -ofmm.out -efmm.err fmm.mipseb -p 1 
+# File  : /home/cs6290/sesc/apps/Splash2/fmm/sesc_fmm.mipseb.DefDM :       Sun Oct 18 20:16:35 2020
+      Exe Speed        Exe MHz         Exe Time         Sim Time (1000MHz)
+    223.184 KIPS      0.2637 MHz      61.580 secs      16.236 msec
+Proc  Avg.Time BPType       Total          RAS           BPred          BTB            BTAC
+   0   26.593  Hybrid       95.65% ( 99.99% of   4.02%)  95.47% ( 98.91% of  66.05%)   0.00% 
+           nInst     BJ    Load   Store      INT      FP  : LD Forward , Replay : Worst Unit (clk)
+   0    13743660   7.55%  16.25%   4.50%  20.65%  51.05%  :      4.00%    3294 inst/repl  :  LDSTIssueX 2.72 
+Proc  IPC        Cycles  Busy   LDQ   STQ  IWin   ROB  Regs Ports   TLB  maxBr MisBr Br4Clk  Other
+   0  0.85     16235997  42.3   0.0   0.3  46.8   4.5   0.0   0.0   0.0   0.0    4.9    0.2    0.9 
+################################################################################
+Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
+   0  DL1 0.0   1.61% ( 1.3%, 0.3%) 101.71%  0.18GB/s :  MemoryBus 0 MB/s : 
+################################################################################
+Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
+   0  IL1 0.0   0.03% ( 0.0%, 0.0%) 250.93%  0.01GB/s :  MemoryBus 0 MB/s : 
+~~~~~  DefDM  ~~~~~
+~~~~~  DefNXLRU  ~~~~~
+# Bench : /home/cs6290/sesc/sesc.opt -f DefNXLRU -c /home/cs6290/sesc/confs/cmp4-noc-DefNXLRU.conf -iInput/input.256 -ofmm.out -efmm.err fmm.mipseb -p 1 
+# File  : /home/cs6290/sesc/apps/Splash2/fmm/sesc_fmm.mipseb.DefNXLRU :       Sun Oct 18 20:17:36 2020
+      Exe Speed        Exe MHz         Exe Time         Sim Time (1000MHz)
+    223.838 KIPS      0.2616 MHz      61.400 secs      16.065 msec
+Proc  Avg.Time BPType       Total          RAS           BPred          BTB            BTAC
+   0   26.294  Hybrid       95.65% ( 99.99% of   4.02%)  95.47% ( 98.91% of  66.05%)   0.00% 
+           nInst     BJ    Load   Store      INT      FP  : LD Forward , Replay : Worst Unit (clk)
+   0    13743660   7.55%  16.25%   4.50%  20.65%  51.05%  :      3.98%    3329 inst/repl  :  LDSTIssueX 2.74 
+Proc  IPC        Cycles  Busy   LDQ   STQ  IWin   ROB  Regs Ports   TLB  maxBr MisBr Br4Clk  Other
+   0  0.86     16064571  42.8   0.0   0.3  46.7   4.2   0.0   0.0   0.0   0.0    4.9    0.2    0.9 
+################################################################################
+Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
+   0  DL1 0.0   1.39% ( 1.2%, 0.2%) 101.55%  0.16GB/s :  MemoryBus 0 MB/s : 
+################################################################################
+Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
+   0  IL1 0.0   0.03% ( 0.0%, 0.0%) 250.93%  0.01GB/s :  MemoryBus 0 MB/s : 
+~~~~~  DefNXLRU  ~~~~~
