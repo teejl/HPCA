@@ -63,8 +63,10 @@ echo "I will be simulating a processor with this script. PRJ2."
 echo "by TeeJ"
 #testing cmp4-noc.conf Default
 init
-simulate cmp4-noc.conf Default
-simulate cmp4-noc-L1NXLRU.conf L1NXLRU
+simulate cmp4-noc-DefLRU.conf DefLRU
+simulate cmp4-noc-SmallLRU.conf SmallLRU
+simulate cmp4-noc-DefDM.conf DefDM
+simulate cmp4-noc-DefNXLRU.conf DefNXLRU
 #simulate cmp4-noc-dmap-l1.conf DMapL1
 #simulate cmp4-noc-5cyc-l1.conf 5CycL1
 #simulate cmp4-noc-9cyc-l1.conf 9CycL1
