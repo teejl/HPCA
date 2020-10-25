@@ -1,5 +1,8 @@
 function init 
 {
+  # set the current directory
+  cwd="$PWD"
+
   # clear results.txt
   echo "Simulation executing..." > "$cwd"/results.txt
   echo "" >> results.txt
