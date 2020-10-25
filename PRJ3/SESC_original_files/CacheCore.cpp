@@ -30,7 +30,6 @@ Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #include <stdarg.h>
 #include <string.h>
 #include <strings.h>
-#include <iostream>
 
 #include "CacheCore.h"
 #include "SescConf.h"
@@ -38,7 +37,6 @@ Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 #define k_RANDOM     "RANDOM"
 #define k_LRU        "LRU"
-#define k_NXLRU      "NXLRU"
 
 //
 // Class CacheGeneric, the combinational logic of Cache
@@ -189,7 +187,7 @@ CacheGeneric<State, Addr_t, Energy> *CacheGeneric<State, Addr_t, Energy>::create
             SescConf->isPower2(section, size) &&
             SescConf->isPower2(section, bsize) &&
             SescConf->isPower2(section, assoc) &&
-            SescConf->isInList(section, repl, k_RANDOM, k_LRU, k_NXLRU)) {
+            SescConf->isInList(section, repl, k_RANDOM, k_LRU)) {
 
         cache = create(s, a, b, u, pStr, sk);
     } else {
@@ -232,8 +230,6 @@ CacheAssoc<State, Addr_t, Energy>::CacheAssoc(int32_t size, int32_t assoc, int32
         policy = RANDOM;
     else if (strcasecmp(pStr, k_LRU)    == 0)
         policy = LRU;
-    else if (strcasecmp(pStr, k_NXLRU)    == 0)
-        policy = NXLRU;
     else {
         MSG("Invalid cache policy [%s]",pStr);
         exit(0);
@@ -326,123 +322,74 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     Line **lineFree=0; // Order of preference, invalid, locked
     Line **setEnd = theSet + assoc;
 
-    // some custom vars
-    bool pbool = (policy == NXLRU);
-    int c = 0;
-
     // Start in reverse order so that get the youngest invalid possible,
     // and the oldest isLocked possible (lineFree)
     {
         Line **l = setEnd -1;
-
-        if (pbool) {
-            // print data to figure out tmp
-            std::cout << "\n Starting findLine2Replace: \n";
-            std::cout << "line:*line, isValid, isLocked, theSet, setEnd \n";
-        }
-
-        // start at 2nd to last for NXLRU
-        if (policy == NXLRU) {
-
-            // handle cases start
-            // last line is a hit
-            if ((*l)->getTag() == tag) {
-                lineHit = l;
-                GI(lineFree, !(*lineFree)->isValid() || !(*lineFree)->isLocked());
-                return *lineHit;
-            }
-            // only 1 line available
-            if (l == theSet) {
-                if (!(*l)->isValid()) {
-                    lineFree = l;
-                } else if (lineFree == 0 && !(*l)->isLocked()) {
-                    lineFree = l;
-                }
-            if ((*l)->isLocked()) c++;
-            }
-            // handle cases end
-        
-            //std::cout << l << ":" << *l << ", " << (*l)->isValid() << ", " << (*l)->isLocked() << ", " 
-            //<< lineFree << ":" << *lineFree << ", " << lineHit << ", " << theSet << ", " << setEnd << " \n";
-            if (pbool) std::cout << l << ":" << *l << ", " << (*l)->isValid() << ", " << (*l)->isLocked() << ", " << theSet << ", " << setEnd << " \n";
-            l--;
-        }
-
-        // loop to find LRU free line
         while(l >= theSet) {
             if ((*l)->getTag() == tag) {
                 lineHit = l;
                 break;
             }
-            if (!(*l)->isValid()) {
+            if (!(*l)->isValid())
                 lineFree = l;
-            } else if (lineFree == 0 && !(*l)->isLocked()) {
+            else if (lineFree == 0 && !(*l)->isLocked())
                 lineFree = l;
-            }
+
             // If line is invalid, isLocked must be false
             GI(!(*l)->isValid(), !(*l)->isLocked());
-
-            //print out data
-            if (pbool) std::cout << l << ":" << *l << ", " << (*l)->isValid() << ", " << (*l)->isLocked() << ", " << theSet << ", " << setEnd << " \n";
-            if (policy == NXLRU) {
-                if ((*l)->isLocked()) c++;
-            }
             l--;
         }
-
-        // handle last line in set
-        Line **x = setEnd -1;
-        if (policy == NXLRU && !lineHit) {
-            if (!(*x)->isValid()) {
-                lineFree = x;
-            } else if (lineFree == 0 && !(*x)->isLocked()) {
-                lineFree = x;
-            }
-            GI(!(*x)->isValid(), !(*x)->isLocked());
-        }
-        // handle case end
     }
     GI(lineFree, !(*lineFree)->isValid() || !(*lineFree)->isLocked());
 
-    if (lineHit) {
-        // std::cout << "return LH: " << *lineHit;
+    if (lineHit)
         return *lineHit;
-    }
 
     I(lineHit==0);
 
-    if(lineFree == 0 && !ignoreLocked) {
-        // std::cout << "return 0: 0";
+    if(lineFree == 0 && !ignoreLocked)
         return 0;
+
+    if (lineFree == 0) {
+        I(ignoreLocked);
+        if (policy == RANDOM) {
+            lineFree = &theSet[irand];
+            irand = (irand + 1) & maskAssoc;
+        } else {
+            I(policy == LRU);
+            // Get the oldest line possible
+            lineFree = setEnd-1;
+        }
+    } else if(ignoreLocked) {
+        if (policy == RANDOM && (*lineFree)->isValid()) {
+            lineFree = &theSet[irand];
+            irand = (irand + 1) & maskAssoc;
+        } else {
+            //      I(policy == LRU);
+            // Do nothing. lineFree is the oldest
+        }
     }
 
     I(lineFree);
     GI(!ignoreLocked, !(*lineFree)->isValid() || !(*lineFree)->isLocked());
 
-    if (lineFree == theSet) { 
-        if (policy == NXLRU) std::cout << "return LF: " << *lineFree;
-        return *lineFree;
-    }
-    
-    // move most recently taken line to the top
+    if (lineFree == theSet)
+        return *lineFree; // Hit in the first possition
+
+    // No matter what is the policy, move lineHit to the *theSet. This
+    // increases locality
     Line *tmp = *lineFree;
     {
         Line **l = lineFree;
-        //if (policy == NXLRU) l++;
         while(l > theSet) {
             Line **prev = l - 1;
             *l = *prev;;
             l = prev;
-            if (pbool) std::cout << "**prev:" << l - 1 << " *prev:" << *prev << " prev:" << prev << " tmp:" << tmp << " lineFree:" <<  lineFree << "\n";
-            if (pbool) std::cout << " l:" << l << " \n"; 
         }
         *theSet = tmp;
     }
-    if (pbool) std::cout << "return T: " << tmp << "\n";
-    if (c >= 2) {
-        std::cout << "hit!!! \n";
-        std::cout << "return T: " << tmp << "\n";
-    }
+
     return tmp;
 }
 

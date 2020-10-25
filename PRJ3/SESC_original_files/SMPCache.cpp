@@ -31,12 +31,6 @@ Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #include "SMPRouter.h"
 
 #include <iomanip>
-#include <iostream>
-
-// include sets
-//set<long int> cm2;
-//set<long int> cm3;
-//bool is_in;
 
 #if (defined DEBUG_LEAK)
 Time_t Directory::lastClock = 0;
@@ -101,9 +95,6 @@ SMPCache::SMPCache(SMemorySystem *dms, const char *section, const char *name)
     , writeRetry("%s:writeRetry", name)
     , invalDirty("%s:invalDirty", name)
     , allocDirty("%s:allocDirty", name)
-    , compMiss("%s:compMiss", name)
-    , capMiss("%s:capMiss", name)
-    , confMiss("%s:confMiss", name)
 {
     MemObj *lowerLevel = NULL;
     //printf("%d\n", dms->getPID());
@@ -443,58 +434,6 @@ void SMPCache::doRead(MemRequest *mreq)
     PAddr addr = mreq->getPAddr();
     Line *l = cache->readLine(addr);
 
-    // compMisses are the unique sets of tags that enter the cache? TJL
-    // set <int, greater <int> > cm; // added above already
-    // is_in = cm.find(calcTag(addr)) != cm.end();
-    if (cm.find(calcTag(addr)) == cm.end()) {
-        cm.insert(calcTag(addr));
-        if (!l->isLocked()) {
-            compMiss.inc();
-        }
-    } else if ((find(vm.begin(), vm.end(), calcTag(addr)) != vm.end()) && !(l && l->canBeRead())) { // in vector and miss
-        // determine if it is an actual miss
-        // && l->isLocked()
-        if (!l->isLocked()) {
-            capMiss.inc();
-        }
-    } else if (!(l && l->canBeRead()) ) { // not in vector and miss
-        // && !(l->isLocked()
-        // cache->getNumLines() 
-        // how many lines are in cache 
-        // how many elements in cache
-        // vector_logic();
-
-        // determine if it is an actual miss
-        confMiss.inc();
-    }
-
-    // [LRU REPLACEMENT ALGORITHM]
-    // vm.insert(vm.begin(), calcTag(addr));
-    //std::cout << "\n Update vector for TAG: " << calcTag(addr) << " Cache numbers: " << cache->getNumLines();
-    //std::cout << "\n Vector begin to end: ";
-    // need to update vector !!
-    // init vars
-    vector <long int> tmpv; // temporary vector
-    int c = 0; // counter
-    // loop through original vector and update tmpv vector
-    for (auto i = vm.begin(); i != vm.end(); ++i) {
-        // std::cout << *i << " ";
-        // updated tmp vector with criteria
-        if (c <= cache->getNumLines() && *i != calcTag(addr)) {
-            tmpv.insert(tmpv.begin(), *i);
-            c++;
-        } else if ( c > cache->getNumLines() ) {
-            break;
-        }
-    }
-    // push element to top and reset vm vector to tmpv vector
-    tmpv.insert(tmpv.begin(), calcTag(addr));
-    // output updated vector
-    // for (auto i = vm.begin(); i != vm.end(); ++i)
-        // std::cout << *i << " ";
-    // update the vector pretend cache
-
-
     if(!((l && l->canBeRead()))) {
         DEBUGPRINT("[%s] read %x miss at %lld\n",getSymbolicName(), addr,  globalClock );
     }
@@ -505,8 +444,6 @@ void SMPCache::doRead(MemRequest *mreq)
 
     if (l && l->canBeRead()) {
         readHit.inc();
-        vm = tmpv;
-
 #ifdef SESC_ENERGY
         rdEnergy[0]->inc();
 #endif
@@ -528,7 +465,6 @@ void SMPCache::doRead(MemRequest *mreq)
     GI(l, !l->isLocked());
 
     readMiss.inc();
-    vm = tmpv;
 
 #if (defined TRACK_MPKI)
     DInst *dinst = mreq->getDInst();
@@ -599,43 +535,6 @@ void SMPCache::doWrite(MemRequest *mreq)
     PAddr addr = mreq->getPAddr();
     Line *l = cache->writeLine(addr);
 
-    // compMisses are the unique sets of tags that enter the cache? TJL
-    // set <int, greater <int> > cm; // added above already
-    // is_in = cm.find(calcTag(addr)) != cm.end();
-    dummy = cm.find(calcTag(addr)) == cm.end();
-    if (cm.find(calcTag(addr)) == cm.end()) {
-        cm.insert(calcTag(addr));
-        compMiss.inc();
-    }
-
-    // [LRU REPLACEMENT ALGORITHM]
-    // vm.insert(vm.begin(), calcTag(addr));
-    //std::cout << "\n Update vector for TAG: " << calcTag(addr) << " Cache numbers: " << cache->getNumLines();
-    //std::cout << "\n Vector begin to end: ";
-    // need to update vector !!
-    // init vars
-    vector <long int> tmpv; // temporary vector
-    int c = 0; // counter
-    // loop through original vector and update tmpv vector
-    for (auto i = vm.begin(); i != vm.end(); ++i) {
-        // std::cout << *i << " ";
-        // updated tmp vector with criteria
-        if (c <= cache->getNumLines() && *i != calcTag(addr)) {
-            tmpv.insert(tmpv.begin(), *i);
-            c++;
-        } else if ( c > cache->getNumLines() ) {
-            break;
-        }
-    }
-    // push element to top and reset vm vector to tmpv vector
-    tmpv.insert(tmpv.begin(), calcTag(addr));
-    // output updated vector
-    // for (auto i = vm.begin(); i != vm.end(); ++i)
-        // std::cout << *i << " ";
-    // update the vector pretend cache
-
-
-
     if(!(l && l->canBeWritten())) {
         DEBUGPRINT("[%s] write %x (%x) miss at %lld [state %x]\n",
                    getSymbolicName(), addr, calcTag(addr), globalClock, (l?l->getState():-1) );
@@ -643,8 +542,6 @@ void SMPCache::doWrite(MemRequest *mreq)
 
     if (l && l->canBeWritten()) {
         writeHit.inc();
-        vm = tmpv;
-
 #ifdef SESC_ENERGY
         wrEnergy[0]->inc();
 #endif
@@ -678,25 +575,7 @@ void SMPCache::doWrite(MemRequest *mreq)
         mreq->mutateWriteToRead();
     }
 
-    if (dummy) {
-    } else if ((find(vm.begin(), vm.end(), calcTag(addr)) == vm.end())) { // in vector and miss
-        // determine if it is an actual miss
-        // && l->isLocked()
-        capMiss.inc();
-    } else { // not in vector and miss
-        // && !(l->isLocked()
-        // cache->getNumLines() 
-        // how many lines are in cache 
-        // how many elements in cache
-        // vector_logic();
-
-        // determine if it is an actual miss
-        confMiss.inc();
-    }
-
     writeMiss.inc();
-    vm = tmpv;
-
 
 #ifdef SESC_ENERGY
     wrEnergy[1]->inc();
@@ -723,7 +602,6 @@ void SMPCache::doWriteBack(PAddr addr)
     // FIXME: right now we are assuming cache line sizes are same in every cache
 
     writeBack.inc();
-
 // protocol->sendWriteBack(addr, /*concludeWriteBackCB::create(this, globalClock)*/ NULL);
 }
 
