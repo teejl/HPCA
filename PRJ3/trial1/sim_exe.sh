@@ -29,7 +29,7 @@ function simulate
   # remove output, run simulation, and copy it to the trail folder
   rm ~/sesc/apps/Splash2/fmm/"sesc_fmm.mipseb.${2}"
   cp ~/Repos/HPCA/PRJ2/trial1/"${1}" ~/sesc/confs/
-  ~/sesc/sesc.opt -f $2 -c ~/sesc/confs/"${1}" -iInput/input.256 -ofmm.out -efmm.err fmm.mipseb -p 1
+  ~/sesc/sesc.opt -f $2 -c ~/sesc/confs/"${1}" -olu.out -elu.err lu.mipseb -n256 –p2
   rm ~/Repos/HPCA/PRJ2/trial1/"sesc_fmm.mipseb.${2}"
   cp ~/sesc/apps/Splash2/fmm/"sesc_fmm.mipseb.${2}" ~/Repos/HPCA/PRJ2/trial1/
   
