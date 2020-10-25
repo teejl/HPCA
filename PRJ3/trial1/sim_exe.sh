@@ -32,7 +32,7 @@ function simulate
   # remove output, run simulation, and copy it to the trail folder
   rm ~/sesc/apps/Splash2/lu/"sesc_lu.mipseb.${2}"
   cp "$cwd"/"${1}" ~/sesc/confs/
-  ~/sesc/sesc.opt -f"$2" -c ~/sesc/confs/"${1}" -olu.out -elu.err lu.mipseb -n256 –p"$3"
+  ~/sesc/sesc.opt -f"$2" -c ~/sesc/confs/"${1}" -olu.out -elu.err lu.mipseb -n32 –p"$3"
   rm "$cwd"/"sesc_lu.mipseb.${2}"
   cp ~/sesc/apps/Splash2/lu/"sesc_lu.mipseb.${2}" "$cwd"/
 
@@ -63,7 +63,7 @@ echo "~~~~ Starting Simulation ~~~~"
 echo "I will be simulating a processor with this script. PRJ3."
 echo "by TeeJ"
 init # initialize files for running simulation
-#simulate cmp16-noc.conf Ap1 1 # simulate for Ap1
-#simulate cmp16-noc.conf Ap4 4 # simulate for Ap4
+simulate cmp16-noc.conf Ap1 1 # simulate for Ap1
+simulate cmp16-noc.conf Ap4 4 # simulate for Ap4
 simulate cmp16-noc.conf Ap16 16 # simulate for Ap16
 echo "~~~~ Finishing Simulation ~~~~"
