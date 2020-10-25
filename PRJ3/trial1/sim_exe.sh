@@ -31,16 +31,16 @@ function simulate
   cp ~/Repos/HPCA/PRJ2/trial1/"${1}" ~/sesc/confs/
   ~/sesc/sesc.opt -f $2 -c ~/sesc/confs/"${1}" -olu.out -elu.err lu.mipseb -n256 –p2
   rm ~/Repos/HPCA/PRJ2/trial1/"sesc_fmm.mipseb.${2}"
-  cp ~/sesc/apps/Splash2/fmm/"sesc_fmm.mipseb.${2}" ~/Repos/HPCA/PRJ2/trial1/
+  cp ~/sesc/apps/Splash2/lu/"sesc_lu.mipseb.${2}" ~/Repos/HPCA/PRJ2/trial3/
   
   # copy over error files and print them out
   echo " ~~~~~~ ERRORS ~~~~~~"
-  cp ~/sesc/apps/Splash2/fmm/fmm.err ~/Repos/HPCA/PRJ2/trial1/
-  cat ~/sesc/apps/Splash2/fmm/fmm.err
+  cp ~/sesc/apps/Splash2/lu/lu.err ~/Repos/HPCA/PRJ2/trial3/
+  cat ~/sesc/apps/Splash2/lu/lu.err
   echo ""
   echo " ~~~~~~  OUT   ~~~~~~"
-  cp ~/sesc/apps/Splash2/fmm/fmm.out ~/Repos/HPCA/PRJ2/trial1/
-  cat ~/sesc/apps/Splash2/fmm/fmm.out
+  cp ~/sesc/apps/Splash2/lu/lu.out ~/Repos/HPCA/PRJ2/trial3/
+  cat ~/sesc/apps/Splash2/lu/lu.out
   echo " ~~~~~~~~~~~~~~~~~~~~"
 
   # get report statistics
