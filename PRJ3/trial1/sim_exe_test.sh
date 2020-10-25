@@ -1,7 +1,7 @@
 function init 
 {
   # clear results_test.txt
-  echo "Simulation executing..." > ~/Repos/HPCA/PRJ3/trial1/results_test.txt
+  echo "Simulation executing..." > "$cwd"/results_test.txt
   echo "" >> results_test.txt
 
   # resetting the configuration files
@@ -9,10 +9,10 @@ function init
   rm ~/sesc/src/libsuc/CacheCore.h
   rm ~/sesc/src/libcmp/SMPCache.cpp
   rm ~/sesc/src/libcmp/SMPCache.h
-  cp ~/Repos/HPCA/PRJ3/trial1/CacheCore.cpp ~/sesc/src/libsuc/
-  cp ~/Repos/HPCA/PRJ3/trial1/CacheCore.h ~/sesc/src/libsuc/
-  cp ~/Repos/HPCA/PRJ3/trial1/SMPCache.cpp ~/sesc/src/libcmp/
-  cp ~/Repos/HPCA/PRJ3/trial1/SMPCache.h ~/sesc/src/libcmp/
+  cp "$cwd"/CacheCore.cpp ~/sesc/src/libsuc/
+  cp "$cwd"/CacheCore.h ~/sesc/src/libsuc/
+  cp "$cwd"/SMPCache.cpp ~/sesc/src/libcmp/
+  cp "$cwd"/SMPCache.h ~/sesc/src/libcmp/
 
   # build out simulator and simulation
   cd ~/sesc/
@@ -24,13 +24,13 @@ function init
 function simulate
 {
   # run simulation for default case
-  echo "~~~~~  ${2}  ~~~~~" >> ~/Repos/HPCA/PRJ3/trial1/results_test.txt
+  echo "~~~~~  ${2}  ~~~~~" >> "$cwd"/results_test.txt
 
   # remove output, run simulation, and copy it to the trail folder
   rm ~/sesc/apps/Splash2/lu/"sesc_lu.mipseb.${2}"
-  cp ~/Repos/HPCA/PRJ3/trial1/"${1}" ~/sesc/confs/
+  cp "$cwd"/"${1}" ~/sesc/confs/
   ~/sesc/sesc.opt -f $2 -c ~/sesc/confs/"${1}" -olu.out -elu.err lu.mipseb -n256 –p"$3"
-  rm ~/Repos/HPCA/PRJ3/trial1/"sesc_lu.mipseb.${2}"
+  rm "$cwd"/"sesc_lu.mipseb.${2}"
   cp ~/sesc/apps/Splash2/lu/"sesc_lu.mipseb.${2}" ~/Repos/HPCA/PRJ3/trial3/
 
   #~/sesc/sesc.opt -fAp1 -c ~/sesc/confs/cmp16-noc.conf -olu.out -elu.err lu.mipseb -n256 -p1
@@ -39,19 +39,19 @@ function simulate
   
   # copy over error files and print them out
   echo " ~~~~~~ ERRORS ~~~~~~"
-  cp ~/sesc/apps/Splash2/lu/lu.err ~/Repos/HPCA/PRJ3/trial3/
+  cp ~/sesc/apps/Splash2/lu/lu.err "$cwd"/
   cat ~/sesc/apps/Splash2/lu/lu.err
   echo ""
   echo " ~~~~~~  OUT   ~~~~~~"
-  cp ~/sesc/apps/Splash2/lu/lu.out ~/Repos/HPCA/PRJ3/trial3/
+  cp ~/sesc/apps/Splash2/lu/lu.out "$cwd"/
   cat ~/sesc/apps/Splash2/lu/lu.out
   echo " ~~~~~~~~~~~~~~~~~~~~"
 
   # get report statistics
-  ~/sesc/scripts/report.pl ~/sesc/apps/Splash2/lu/"sesc_lu.mipseb.${2}" >> ~/Repos/HPCA/PRJ3/trial1/results_test.txt
+  ~/sesc/scripts/report.pl ~/sesc/apps/Splash2/lu/"sesc_lu.mipseb.${2}" >> "$cwd"/results_test.txt
   
   # output results_test
-  echo "~~~~~  ${2}  ~~~~~"  >> ~/Repos/HPCA/PRJ3/trial1/results_test.txt
+  echo "~~~~~  ${2}  ~~~~~"  >> "$cwd"/results_test.txt
   echo ""
 
 }
@@ -61,6 +61,8 @@ function testing
     echo "${1}"
     echo $2
 }
+
+cwd="$PWD"
 
 echo "~~~~ Starting Simulation ~~~~"
 echo "I will be simulating a processor with this script. PRJ3."
