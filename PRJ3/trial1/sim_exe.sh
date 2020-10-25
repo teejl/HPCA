@@ -17,7 +17,7 @@ function init
   # build out simulator and simulation
   cd ~/sesc/
   make
-  cd ~/sesc/apps/Splash2/fmm
+  cd ~/sesc/apps/Splash2/lu
   make
 }
 
@@ -27,10 +27,10 @@ function simulate
   echo "~~~~~  ${2}  ~~~~~" >> ~/Repos/HPCA/PRJ2/trial1/results.txt
 
   # remove output, run simulation, and copy it to the trail folder
-  rm ~/sesc/apps/Splash2/fmm/"sesc_fmm.mipseb.${2}"
+  rm ~/sesc/apps/Splash2/lu/"sesc_lu.mipseb.${2}"
   cp ~/Repos/HPCA/PRJ2/trial1/"${1}" ~/sesc/confs/
   ~/sesc/sesc.opt -f $2 -c ~/sesc/confs/"${1}" -olu.out -elu.err lu.mipseb -n256 –p2
-  rm ~/Repos/HPCA/PRJ2/trial1/"sesc_fmm.mipseb.${2}"
+  rm ~/Repos/HPCA/PRJ2/trial1/"sesc_lu.mipseb.${2}"
   cp ~/sesc/apps/Splash2/lu/"sesc_lu.mipseb.${2}" ~/Repos/HPCA/PRJ2/trial3/
   
   # copy over error files and print them out
@@ -44,7 +44,7 @@ function simulate
   echo " ~~~~~~~~~~~~~~~~~~~~"
 
   # get report statistics
-  ~/sesc/scripts/report.pl ~/sesc/apps/Splash2/fmm/"sesc_fmm.mipseb.${2}" >> ~/Repos/HPCA/PRJ2/trial1/results.txt
+  ~/sesc/scripts/report.pl ~/sesc/apps/Splash2/lu/"sesc_lu.mipseb.${2}" >> ~/Repos/HPCA/PRJ2/trial1/results.txt
   
   # output results
   echo "~~~~~  ${2}  ~~~~~"  >> ~/Repos/HPCA/PRJ2/trial1/results.txt
