@@ -32,7 +32,7 @@ function simulate
   # remove output, run simulation, and copy it to the trail folder
   rm ~/sesc/apps/Splash2/lu/"sesc_lu.mipseb.${2}"
   cp "$cwd"/"${1}" ~/sesc/confs/
-  ~/sesc/sesc.opt -f"$2" -c ~/sesc/confs/"${1}" -olu.out -elu.err lu.mipseb -n32 –p"$3"
+  ~/sesc/sesc.opt -f"$2" -c ~/sesc/confs/"${1}" -olu.out -elu.err lu.mipseb -n32 -p"$3"
   rm "$cwd"/"sesc_lu.mipseb.${2}"
   cp ~/sesc/apps/Splash2/lu/"sesc_lu.mipseb.${2}" "$cwd"/
 
