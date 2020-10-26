@@ -1,58 +1,56 @@
 Simulation executing...
 
 ~~~~~  Ap1  ~~~~~
-# Bench : /home/cs6290/sesc/sesc.opt -f Ap1 -c /home/cs6290/sesc/confs/cmp16-noc.conf -olu.out -elu.err lu.mipseb -n256 –p1 
-# File  : /home/cs6290/sesc/apps/Splash2/lu/sesc_lu.mipseb.Ap1 :       Sun Oct 25 18:54:47 2020
+# Bench : /home/cs6290/sesc/sesc.opt -fAp1 -c /home/cs6290/sesc/confs/cmp16-noc.conf -olu.out -elu.err lu.mipseb -n32 –p1 
+# File  : /home/cs6290/sesc/apps/Splash2/lu/sesc_lu.mipseb.Ap1 :       Sun Oct 25 19:42:58 2020
       Exe Speed        Exe MHz         Exe Time         Sim Time (1000MHz)
-    158.848 KIPS      0.1177 MHz     480.020 secs      56.509 msec
+    116.295 KIPS      0.1714 MHz       2.780 secs       0.477 msec
 Proc  Avg.Time BPType       Total          RAS           BPred          BTB            BTAC
-   0   13.586  hybrid       94.72% (100.00% of   2.74%)  94.57% ( 99.98% of  81.85%)   0.00% 
+   0   58.877  hybrid       91.12% ( 99.89% of  11.35%)  90.00% ( 95.82% of  57.81%)   0.00% 
            nInst     BJ    Load   Store      INT      FP  : LD Forward , Replay : Worst Unit (clk)
-   0    76250032   9.44%  18.07%   8.59%  49.00%  14.88%  :      3.35%    1150 inst/repl  :  ALUIssueX 2.62 
+   0      323301   9.48%  18.00%   9.25%  55.70%   7.58%  :     12.63%     302 inst/repl  :  ALUIssueX 2.80 
 Proc  IPC        Cycles  Busy   LDQ   STQ  IWin   ROB  Regs Ports   TLB  maxBr MisBr Br4Clk  Other
-   0  1.35     56508729  67.5   0.0   0.0   0.0  19.4   0.0   0.0   0.0   0.0    8.9    1.4    2.9 
+   0  0.68       476629  33.9   0.0   0.0   0.1  17.5   0.0   0.0   0.0   0.0   46.9    0.1    1.6 
 ################################################################################
 Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
-   0  DL1 0.0   0.51% ( 0.5%, 0.0%) 99.29%  0.12GB/s :  MemoryBus 0 MB/s : 
+   0  DL1 0.0   0.42% ( 0.1%, 0.3%) 92.52%  0.05GB/s :  MemoryBus 0 MB/s : 
 ################################################################################
 Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
-   0  IL1 0.0   0.00% ( 0.0%, 0.0%) 200.55%  0.00GB/s :  MemoryBus 0 MB/s : 
+   0  IL1 0.0   0.45% ( 0.4%, 0.0%) 192.14%  0.10GB/s :  MemoryBus 0 MB/s : 
 ~~~~~  Ap1  ~~~~~
-
 ~~~~~  Ap4  ~~~~~
-# Bench : /home/cs6290/sesc/sesc.opt -f Ap4 -c /home/cs6290/sesc/confs/cmp16-noc.conf -olu.out -elu.err lu.mipseb -n256 –p4 
-# File  : /home/cs6290/sesc/apps/Splash2/lu/sesc_lu.mipseb.Ap4 :       Sun Oct 25 19:02:39 2020
+# Bench : /home/cs6290/sesc/sesc.opt -fAp4 -c /home/cs6290/sesc/confs/cmp16-noc.conf -olu.out -elu.err lu.mipseb -n32 –p4 
+# File  : /home/cs6290/sesc/apps/Splash2/lu/sesc_lu.mipseb.Ap4 :       Sun Oct 25 19:43:01 2020
       Exe Speed        Exe MHz         Exe Time         Sim Time (1000MHz)
-    161.417 KIPS      0.1196 MHz     472.380 secs      56.509 msec
+    118.425 KIPS      0.1746 MHz       2.730 secs       0.477 msec
 Proc  Avg.Time BPType       Total          RAS           BPred          BTB            BTAC
-   0   13.586  hybrid       94.72% (100.00% of   2.74%)  94.57% ( 99.98% of  81.85%)   0.00% 
+   0   58.877  hybrid       91.12% ( 99.89% of  11.35%)  90.00% ( 95.82% of  57.81%)   0.00% 
            nInst     BJ    Load   Store      INT      FP  : LD Forward , Replay : Worst Unit (clk)
-   0    76250032   9.44%  18.07%   8.59%  49.00%  14.88%  :      3.35%    1150 inst/repl  :  ALUIssueX 2.62 
+   0      323301   9.48%  18.00%   9.25%  55.70%   7.58%  :     12.63%     302 inst/repl  :  ALUIssueX 2.80 
 Proc  IPC        Cycles  Busy   LDQ   STQ  IWin   ROB  Regs Ports   TLB  maxBr MisBr Br4Clk  Other
-   0  1.35     56508729  67.5   0.0   0.0   0.0  19.4   0.0   0.0   0.0   0.0    8.9    1.4    2.9 
+   0  0.68       476629  33.9   0.0   0.0   0.1  17.5   0.0   0.0   0.0   0.0   46.9    0.1    1.6 
 ################################################################################
 Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
-   0  DL1 0.0   0.51% ( 0.5%, 0.0%) 99.29%  0.12GB/s :  MemoryBus 0 MB/s : 
+   0  DL1 0.0   0.42% ( 0.1%, 0.3%) 92.52%  0.05GB/s :  MemoryBus 0 MB/s : 
 ################################################################################
 Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
-   0  IL1 0.0   0.00% ( 0.0%, 0.0%) 200.55%  0.00GB/s :  MemoryBus 0 MB/s : 
+   0  IL1 0.0   0.45% ( 0.4%, 0.0%) 192.14%  0.10GB/s :  MemoryBus 0 MB/s : 
 ~~~~~  Ap4  ~~~~~
-
 ~~~~~  Ap16  ~~~~~
-# Bench : /home/cs6290/sesc/sesc.opt -f Ap16 -c /home/cs6290/sesc/confs/cmp16-noc.conf -olu.out -elu.err lu.mipseb -n256 –p16 
-# File  : /home/cs6290/sesc/apps/Splash2/lu/sesc_lu.mipseb.Ap16 :       Sun Oct 25 19:10:38 2020
+# Bench : /home/cs6290/sesc/sesc.opt -fAp16 -c /home/cs6290/sesc/confs/cmp16-noc.conf -olu.out -elu.err lu.mipseb -n32 –p16 
+# File  : /home/cs6290/sesc/apps/Splash2/lu/sesc_lu.mipseb.Ap16 :       Sun Oct 25 19:43:04 2020
       Exe Speed        Exe MHz         Exe Time         Sim Time (1000MHz)
-    159.306 KIPS      0.1181 MHz     478.640 secs      56.509 msec
+    117.564 KIPS      0.1733 MHz       2.750 secs       0.477 msec
 Proc  Avg.Time BPType       Total          RAS           BPred          BTB            BTAC
-   0   13.587  hybrid       94.72% (100.00% of   2.74%)  94.57% ( 99.98% of  81.85%)   0.00% 
+   0   58.755  hybrid       91.10% ( 99.89% of  11.35%)  89.98% ( 95.82% of  57.79%)   0.00% 
            nInst     BJ    Load   Store      INT      FP  : LD Forward , Replay : Worst Unit (clk)
-   0    76250036   9.44%  18.07%   8.59%  49.00%  14.88%  :      3.35%    1150 inst/repl  :  ALUIssueX 2.62 
+   0      323300   9.48%  18.00%   9.25%  55.70%   7.58%  :     12.63%     302 inst/repl  :  ALUIssueX 2.80 
 Proc  IPC        Cycles  Busy   LDQ   STQ  IWin   ROB  Regs Ports   TLB  maxBr MisBr Br4Clk  Other
-   0  1.35     56508750  67.5   0.0   0.0   0.0  19.4   0.0   0.0   0.0   0.0    8.9    1.4    2.9 
+   0  0.68       476698  33.9   0.0   0.0   0.1  17.5   0.0   0.0   0.0   0.0   46.9    0.1    1.6 
 ################################################################################
 Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
-   0  DL1 0.0   0.51% ( 0.5%, 0.0%) 99.29%  0.12GB/s :  MemoryBus 0 MB/s : 
+   0  DL1 0.0   0.42% ( 0.1%, 0.3%) 92.52%  0.05GB/s :  MemoryBus 0 MB/s : 
 ################################################################################
 Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
-   0  IL1 0.0   0.00% ( 0.0%, 0.0%) 200.55%  0.00GB/s :  MemoryBus 0 MB/s : 
+   0  IL1 0.0   0.45% ( 0.4%, 0.0%) 192.14%  0.10GB/s :  MemoryBus 0 MB/s : 
 ~~~~~  Ap16  ~~~~~
