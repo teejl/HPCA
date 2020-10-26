@@ -1,7 +1,7 @@
 
 Blocked Dense LU Factorization
-     32 by 32 Matrix
-     1 Processors
+     256 by 256 Matrix
+     16 Processors
      16 by 16 Element Blocks
 
 
@@ -11,11 +11,9 @@ Blocked Dense LU Factorization
     0             0             0             0             0             0
 
                             TIMING INFORMATION
-Start time                        :       1603671409
-Initialization finish time        :       1603671409
-Overall finish time               :       1603671409
+Start time                        :       1603673090
+Initialization finish time        :       1603673090
+Overall finish time               :       1603673090
 Total time with initialization    :                0
 Total time without initialization :                0
-
-
 
