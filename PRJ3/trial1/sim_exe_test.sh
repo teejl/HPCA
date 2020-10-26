@@ -3,9 +3,9 @@ function init
   # set the current directory
   cwd="$PWD"
 
-  # clear results.txt
-  echo "Simulation executing..." > "$cwd"/results.txt
-  echo "" >> results.txt
+  # clear results_test.txt
+  echo "Simulation executing..." > "$cwd"/results_test.txt
+  echo "" >> results_test.txt
 
   # resetting the configuration files
   rm ~/sesc/src/libsuc/CacheCore.cpp
@@ -27,7 +27,7 @@ function init
 function simulate
 {
   # run simulation for default case
-  echo "~~~~~  ${2}  ~~~~~" >> "$cwd"/results.txt
+  echo "~~~~~  ${2}  ~~~~~" >> "$cwd"/results_test.txt
 
   # remove output, run simulation, and copy it to the trail folder
   rm ~/sesc/apps/Splash2/lu/"sesc_lu.mipseb.${2}"
@@ -51,11 +51,11 @@ function simulate
   echo " ~~~~~~~~~~~~~~~~~~~~"
 
   # get report statistics
-  ~/sesc/scripts/report.pl ~/sesc/apps/Splash2/lu/"sesc_lu.mipseb.${2}" >> "$cwd"/results.txt
-  echo "" >> "$cwd"/results.txt
+  ~/sesc/scripts/report.pl ~/sesc/apps/Splash2/lu/"sesc_lu.mipseb.${2}" >> "$cwd"/results_test.txt
+  echo "" >> "$cwd"/results_test.txt
   
   # output results
-  echo "~~~~~  ${2}  ~~~~~"  >> "$cwd"/results.txt
+  echo "~~~~~  ${2}  ~~~~~"  >> "$cwd"/results_test.txt
   echo ""
 
 }
