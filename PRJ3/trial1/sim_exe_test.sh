@@ -1,8 +1,11 @@
 function init 
 {
-  # clear results_test.txt
-  echo "Simulation executing..." > "$cwd"/results_test.txt
-  echo "" >> results_test.txt
+  # set the current directory
+  cwd="$PWD"
+
+  # clear results.txt
+  echo "Simulation executing..." > "$cwd"/results.txt
+  echo "" >> results.txt
 
   # resetting the configuration files
   rm ~/sesc/src/libsuc/CacheCore.cpp
@@ -24,14 +27,14 @@ function init
 function simulate
 {
   # run simulation for default case
-  echo "~~~~~  ${2}  ~~~~~" >> "$cwd"/results_test.txt
+  echo "~~~~~  ${2}  ~~~~~" >> "$cwd"/results.txt
 
   # remove output, run simulation, and copy it to the trail folder
   rm ~/sesc/apps/Splash2/lu/"sesc_lu.mipseb.${2}"
   cp "$cwd"/"${1}" ~/sesc/confs/
-  ~/sesc/sesc.opt -f $2 -c ~/sesc/confs/"${1}" -olu.out -elu.err lu.mipseb -n256 –p"$3"
+  ~/sesc/sesc.opt -f"$2" -c ~/sesc/confs/"${1}" -olu.out -elu.err lu.mipseb -n32 –p"$3"
   rm "$cwd"/"sesc_lu.mipseb.${2}"
-  cp ~/sesc/apps/Splash2/lu/"sesc_lu.mipseb.${2}" ~/Repos/HPCA/PRJ3/trial3/
+  cp ~/sesc/apps/Splash2/lu/"sesc_lu.mipseb.${2}" "$cwd"/
 
   #~/sesc/sesc.opt -fAp1 -c ~/sesc/confs/cmp16-noc.conf -olu.out -elu.err lu.mipseb -n256 -p1
   #~/sesc/sesc.opt -fAp2 -c ~/sesc/confs/cmp16-noc.conf -olu.out -elu.err lu.mipseb -n256 -p2
@@ -48,27 +51,19 @@ function simulate
   echo " ~~~~~~~~~~~~~~~~~~~~"
 
   # get report statistics
-  ~/sesc/scripts/report.pl ~/sesc/apps/Splash2/lu/"sesc_lu.mipseb.${2}" >> "$cwd"/results_test.txt
+  ~/sesc/scripts/report.pl ~/sesc/apps/Splash2/lu/"sesc_lu.mipseb.${2}" >> "$cwd"/results.txt
+  echo "" >> "$cwd"/results.txt
   
-  # output results_test
-  echo "~~~~~  ${2}  ~~~~~"  >> "$cwd"/results_test.txt
+  # output results
+  echo "~~~~~  ${2}  ~~~~~"  >> "$cwd"/results.txt
   echo ""
 
 }
 
-function testing
-{
-    echo "${1}"
-    echo $2
-}
-
-cwd="$PWD"
-
 echo "~~~~ Starting Simulation ~~~~"
 echo "I will be simulating a processor with this script. PRJ3."
 echo "by TeeJ"
-#testing cmp4-noc.conf Default
-init
+init # initialize files for running simulation
 simulate cmp16-noc.conf Ap1 1
 simulate cmp16-noc.conf Ap4 4
 simulate cmp16-noc.conf Ap16 16
