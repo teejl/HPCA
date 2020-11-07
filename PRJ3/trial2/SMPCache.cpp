@@ -40,7 +40,6 @@ Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 // set print flag TJL
 bool pbool;
-//pbool = true;
 
 #if (defined DEBUG_LEAK)
 Time_t Directory::lastClock = 0;
@@ -627,6 +626,7 @@ void SMPCache::doWrite(MemRequest *mreq)
     // compMisses are the unique sets of tags that enter the cache? TJL
     // set <int, greater <int> > cm; // added above already
     // is_in = cm.find(calcTag(addr)) != cm.end();
+    pbool = true;
     dummy = cm.find(calcTag(addr)) == cm.end();
     if (cm.find(calcTag(addr)) == cm.end()) {
         cm.insert(calcTag(addr));
