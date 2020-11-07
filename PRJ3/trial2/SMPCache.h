@@ -107,7 +107,7 @@ protected:
     GStatsCntr confMiss;
     GStatsCntr readcompMiss;
     GStatsCntr readreplMiss;
-    GStatsCntr readcohefMiss;
+    GStatsCntr readcoheMiss;
     GStatsCntr writecompMiss;
     GStatsCntr writereplMiss;
     GStatsCntr writecoheMiss;
