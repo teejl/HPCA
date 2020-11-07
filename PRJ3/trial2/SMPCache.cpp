@@ -480,6 +480,9 @@ void SMPCache::doRead(MemRequest *mreq)
             tmpv.insert(tmpv.end(), *i);
             c++;
         } else if ( c >= cache->getNumLines() ) {
+            if (pbool){
+                std::cout << "FOUND in CACHE!!";
+            }
             break;
         }
     }
@@ -655,6 +658,9 @@ void SMPCache::doWrite(MemRequest *mreq)
             tmpv.insert(tmpv.end(), *i);
             c++;
         } else if ( c >= cache->getNumLines() ) {
+            if (pbool){
+                std::cout << "FOUND in CACHE!!";
+            }
             break;
         }
     }
