@@ -20,7 +20,7 @@ function init
   # build out simulator and simulation
   cd ~/sesc/
   make
-  cd ~/sesc/apps/Splash2/lu
+  cd ~/sesc/apps/Splash2/fft
   make
 }
 
@@ -30,11 +30,11 @@ function simulate
   echo "~~~~~  ${2}  ~~~~~" >> "$cwd"/results_test.txt
 
   # remove output, run simulation, and copy it to the trail folder
-  rm ~/sesc/apps/Splash2/lu/"sesc_lu.mipseb.${2}"
+  rm ~/sesc/apps/Splash2/fft/"sesc_fft.mipseb.${2}"
   cp "$cwd"/"${1}" ~/sesc/confs/
-  ~/sesc/sesc.opt -f"$2" -c ~/sesc/confs/"${1}" -olu.out -elu.err lu.mipseb -n32 -p"$3"
-  rm "$cwd"/"sesc_lu.mipseb.${2}"
-  cp ~/sesc/apps/Splash2/lu/"sesc_lu.mipseb.${2}" "$cwd"/
+  ~/sesc/sesc.opt -f"$2" -c ~/sesc/confs/"${1}" -offt.out -efft.err fft.mipseb -p"$3"
+  rm "$cwd"/"sesc_fft.mipseb.${2}"
+  cp ~/sesc/apps/Splash2/fft/"sesc_fft.mipseb.${2}" "$cwd"/
 
   #~/sesc/sesc.opt -fAp1 -c ~/sesc/confs/cmp16-noc.conf -olu.out -elu.err lu.mipseb -n256 -p1
   #~/sesc/sesc.opt -fAp2 -c ~/sesc/confs/cmp16-noc.conf -olu.out -elu.err lu.mipseb -n256 -p2
@@ -42,16 +42,16 @@ function simulate
   
   # copy over error files and print them out
   echo " ~~~~~~ ERRORS ~~~~~~"
-  cp ~/sesc/apps/Splash2/lu/lu.err "$cwd"/
-  cat ~/sesc/apps/Splash2/lu/lu.err
+  cp ~/sesc/apps/Splash2/fft/fft.err "$cwd"/
+  cat ~/sesc/apps/Splash2/fft/fft.err
   echo ""
   echo " ~~~~~~  OUT   ~~~~~~"
-  cp ~/sesc/apps/Splash2/lu/lu.out "$cwd"/
-  cat ~/sesc/apps/Splash2/lu/lu.out
+  cp ~/sesc/apps/Splash2/fft/fft.out "$cwd"/
+  cat ~/sesc/apps/Splash2/fft/fft.out
   echo " ~~~~~~~~~~~~~~~~~~~~"
 
   # get report statistics
-  ~/sesc/scripts/report.pl ~/sesc/apps/Splash2/lu/"sesc_lu.mipseb.${2}" >> "$cwd"/results_test.txt
+  ~/sesc/scripts/report.pl ~/sesc/apps/Splash2/fft/"sesc_fft.mipseb.${2}" >> "$cwd"/results_test.txt
   echo "" >> "$cwd"/results_test.txt
   
   # output results
@@ -64,7 +64,7 @@ echo "~~~~ Starting Simulation ~~~~"
 echo "I will be simulating a processor with this script. PRJ3."
 echo "by TeeJ"
 init # initialize files for running simulation
-simulate cmp16-noc.conf Ap1 1
-simulate cmp16-noc.conf Ap4 4
-simulate cmp16-noc.conf Ap16 16
+simulate cmp16-noc.conf Hp1 1
+simulate cmp16-noc.conf Hp4 4
+simulate cmp16-noc.conf Hp16 16
 echo "~~~~ Finishing Simulation ~~~~"
