@@ -39,8 +39,8 @@ Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //bool is_in;
 
 // set print flag TJL
-bool pbool;
-pbool = true;
+//bool pbool;
+//pbool = true;
 
 #if (defined DEBUG_LEAK)
 Time_t Directory::lastClock = 0;
@@ -548,7 +548,7 @@ void SMPCache::doRead(MemRequest *mreq)
 
     readMiss.inc();
     vm = tmpv;
-    if (pbool) { // print out cache
+    if (true) { // print out cache
         for (auto i = vm.begin(); i != vm.end(); ++i)
             std::cout << *i << " ";
     }
@@ -733,7 +733,7 @@ void SMPCache::doWrite(MemRequest *mreq)
 
     writeMiss.inc();
     vm = tmpv;
-    if (pbool) { // print out cache
+    if (true) { // print out cache
         for (auto i = vm.begin(); i != vm.end(); ++i)
             std::cout << *i << " ";
     }
