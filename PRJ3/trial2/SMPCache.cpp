@@ -519,7 +519,8 @@ void SMPCache::doRead(MemRequest *mreq)
     GI(l, !l->isLocked());
 
     // used to determine cohesion miss;
-    cohef = true;
+    bool cohef;
+    cohef = false;
 
     // TJL CODE HERE
     if (dummy) {
@@ -694,6 +695,7 @@ void SMPCache::doWrite(MemRequest *mreq)
     }
 
     // used to determine cohesion miss;
+    bool cohef;
     cohef = false;
 
     // TJL CODE HERE
