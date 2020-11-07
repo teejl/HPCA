@@ -464,8 +464,10 @@ void SMPCache::doRead(MemRequest *mreq)
 
     // [LRU REPLACEMENT ALGORITHM]
     // vm.insert(vm.begin(), calcTag(addr));
-    //std::cout << "\n Update vector for TAG: " << calcTag(addr) << " Cache numbers: " << cache->getNumLines();
-    //std::cout << "\n Vector begin to end: ";
+    if (pbool){
+        std::cout << "\n Update vector for TAG: " << calcTag(addr) << " Cache numbers: " << cache->getNumLines();
+        std::cout << "\n Vector begin to end: ";
+    }
     // need to update vector !!
     // init vars
     vector <long int> tmpv; // temporary vector
@@ -634,10 +636,13 @@ void SMPCache::doWrite(MemRequest *mreq)
         writeCompMiss.inc();
     }
 
+    if (pbool){
+        std::cout << "\n Update vector for TAG: " << calcTag(addr) << " Cache numbers: " << cache->getNumLines();
+        std::cout << "\n Vector begin to end: ";
+    }
+
     // [LRU REPLACEMENT ALGORITHM]
     // vm.insert(vm.begin(), calcTag(addr));
-    // std::cout << "\n Update vector for TAG: " << calcTag(addr) << " Cache numbers: " << cache->getNumLines();
-    // std::cout << "\n Vector begin to end: ";
     // need to update vector !!
     // init vars
     vector <long int> tmpv; // temporary vector
