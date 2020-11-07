@@ -548,9 +548,11 @@ void SMPCache::doRead(MemRequest *mreq)
 
     readMiss.inc();
     vm = tmpv;
-    if (true) { // print out cache
-        for (auto i = vm.begin(); i != vm.end(); ++i)
+    if (true) { // print out cache TJL
+        for (auto i = vm.begin(); i != vm.end(); ++i) {
             std::cout << *i << " ";
+        }
+        std::cout << "\n";
     }
 
 #if (defined TRACK_MPKI)
@@ -733,10 +735,13 @@ void SMPCache::doWrite(MemRequest *mreq)
 
     writeMiss.inc();
     vm = tmpv;
-    if (true) { // print out cache
-        for (auto i = vm.begin(); i != vm.end(); ++i)
+    if (true) { // print out cache TJL
+        for (auto i = vm.begin(); i != vm.end(); ++i) {
             std::cout << *i << " ";
-    }
+        }
+        std::cout << "\n";
+
+    }   
 
 
 #ifdef SESC_ENERGY
