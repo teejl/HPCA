@@ -524,6 +524,7 @@ void SMPCache::doRead(MemRequest *mreq)
         // determine if it is an actual miss
         // && l->isLocked()
         capMiss.inc();
+        readreplMiss.inc();
     } else { // not in vector and miss
         // && !(l->isLocked()
         // cache->getNumLines() 
@@ -533,6 +534,7 @@ void SMPCache::doRead(MemRequest *mreq)
 
         // determine if it is an actual miss
         confMiss.inc();
+        readreplMiss.inc();
     }
 
     readMiss.inc();
@@ -693,6 +695,7 @@ void SMPCache::doWrite(MemRequest *mreq)
         // determine if it is an actual miss
         // && l->isLocked()
         capMiss.inc();
+        writereplMiss.inc();
     } else { // not in vector and miss
         // && !(l->isLocked()
         // cache->getNumLines() 
@@ -702,6 +705,7 @@ void SMPCache::doWrite(MemRequest *mreq)
 
         // determine if it is an actual miss
         confMiss.inc();
+        writereplMiss.inc();
     }
 
     writeMiss.inc();
