@@ -547,7 +547,7 @@ void SMPCache::doRead(MemRequest *mreq)
 
     readMiss.inc();
     vm = tmpv;
-    if (true) { // print out cache TJL
+    if (pbool) { // print out cache TJL
         for (auto i = vm.begin(); i != vm.end(); ++i) {
             std::cout << *i << " ";
         }
@@ -735,7 +735,7 @@ void SMPCache::doWrite(MemRequest *mreq)
 
     writeMiss.inc();
     vm = tmpv;
-    if (true) { // print out cache TJL
+    if (pbool) { // print out cache TJL
         for (auto i = vm.begin(); i != vm.end(); ++i) {
             std::cout << *i << " ";
         }
