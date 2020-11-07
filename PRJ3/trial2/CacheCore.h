@@ -405,7 +405,8 @@ public:
     }
 
     virtual void invalidate() {
-        clearTag();
+        clearTag(); // as anticipated
+        // im assuming this is where the tag is
     }
 
     virtual bool isLocked() const {

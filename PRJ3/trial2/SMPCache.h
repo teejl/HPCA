@@ -114,7 +114,7 @@ protected:
     set<long int> cm;
     vector<long int> vm;
     bool dummy;
-    bool cohef;
+    bool pbool = true;
 
 #ifdef SESC_ENERGY
     static unsigned cacheID;

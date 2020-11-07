@@ -544,6 +544,10 @@ void SMPCache::doRead(MemRequest *mreq)
 
     readMiss.inc();
     vm = tmpv;
+    if (pbool) { // print out cache
+        for (auto i = vm.begin(); i != vm.end(); ++i)
+            std::cout << *i << " ";
+    }
 
 #if (defined TRACK_MPKI)
     DInst *dinst = mreq->getDInst();
@@ -698,6 +702,10 @@ void SMPCache::doWrite(MemRequest *mreq)
     bool cohef;
     cohef = false;
 
+    // okay whenever it comes to cohersion misses we need to put it in a temp vector (or set)
+    // but put it in the temp vector or set just while the TAG is invalid
+    // but the question is when would that be? when it has been invalidated!
+
     // TJL CODE HERE
     if (dummy) {
     } else if ((find(vm.begin(), vm.end(), calcTag(addr)) == vm.end())) { // in vector and miss
@@ -705,7 +713,7 @@ void SMPCache::doWrite(MemRequest *mreq)
         // && l->isLocked()
         capMiss.inc();
         writeReplMiss.inc();
-    } else if (cohef) {
+    } else if (cohef) { // in vector and cohesion miss
         writeCoheMiss.inc();
     } else { // not in vector and miss
         // && !(l->isLocked()
@@ -721,8 +729,10 @@ void SMPCache::doWrite(MemRequest *mreq)
 
     writeMiss.inc();
     vm = tmpv;
-    // for (auto i = vm.begin(); i != vm.end(); ++i)
-        // std::cout << *i << " ";
+    if (pbool) { // print out cache
+        for (auto i = vm.begin(); i != vm.end(); ++i)
+            std::cout << *i << " ";
+    }
 
 
 #ifdef SESC_ENERGY
