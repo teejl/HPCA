@@ -525,7 +525,7 @@ void SMPCache::doRead(MemRequest *mreq)
         // && l->isLocked()
         capMiss.inc();
         readReplMiss.inc();
-    } else { // not in vector and miss
+    } else if { // not in vector and miss
         // && !(l->isLocked()
         // cache->getNumLines() 
         // how many lines are in cache 
@@ -536,7 +536,9 @@ void SMPCache::doRead(MemRequest *mreq)
         confMiss.inc();
         readReplMiss.inc();
     }
-
+    else {
+        readCoheMiss.inc();
+    }
     readMiss.inc();
     vm = tmpv;
 
@@ -696,7 +698,7 @@ void SMPCache::doWrite(MemRequest *mreq)
         // && l->isLocked()
         capMiss.inc();
         writeReplMiss.inc();
-    } else { // not in vector and miss
+    } else if { // not in vector and miss
         // && !(l->isLocked()
         // cache->getNumLines() 
         // how many lines are in cache 
@@ -706,6 +708,8 @@ void SMPCache::doWrite(MemRequest *mreq)
         // determine if it is an actual miss
         confMiss.inc();
         writeReplMiss.inc();
+    } else{
+        writeCoheMiss.inc();
     }
 
     writeMiss.inc();
