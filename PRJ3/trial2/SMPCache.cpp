@@ -517,6 +517,7 @@ void SMPCache::doRead(MemRequest *mreq)
     }
 
     GI(l, !l->isLocked());
+
     // used to determine cohesion miss;
     cohef = true;
 
@@ -527,23 +528,19 @@ void SMPCache::doRead(MemRequest *mreq)
         // && l->isLocked()
         capMiss.inc();
         readReplMiss.inc();
-        cohef = false;
-    } else { // not in vector and miss
+    } else if (cohef) { // not in vector and miss
         // && !(l->isLocked()
         // cache->getNumLines() 
         // how many lines are in cache 
         // how many elements in cache
         // vector_logic();
-
+        readCoheMiss.inc();
+    } else {
         // determine if it is an actual miss
         confMiss.inc();
         readReplMiss.inc();
-        cohef = false;
     }
-    // i guess its not everything else, must be cohesion
-    if (cohef) {
-        readCoheMiss.inc();
-    }
+
     readMiss.inc();
     vm = tmpv;
 
@@ -685,8 +682,6 @@ void SMPCache::doWrite(MemRequest *mreq)
     }
 
     GI(l, !l->isLocked());
-    // used to determine cohesion miss;
-    cohef = true;
 
     // this should never happen unless this is highest level because
     // SMPCache is inclusive of all other caches closer to the
@@ -698,6 +693,9 @@ void SMPCache::doWrite(MemRequest *mreq)
         mreq->mutateWriteToRead();
     }
 
+    // used to determine cohesion miss;
+    cohef = false;
+
     // TJL CODE HERE
     if (dummy) {
     } else if ((find(vm.begin(), vm.end(), calcTag(addr)) == vm.end())) { // in vector and miss
@@ -705,7 +703,8 @@ void SMPCache::doWrite(MemRequest *mreq)
         // && l->isLocked()
         capMiss.inc();
         writeReplMiss.inc();
-        cohef = false;
+    } else if (cohef) {
+        writeCoheMiss.inc();
     } else { // not in vector and miss
         // && !(l->isLocked()
         // cache->getNumLines() 
@@ -716,13 +715,8 @@ void SMPCache::doWrite(MemRequest *mreq)
         // determine if it is an actual miss
         confMiss.inc();
         writeReplMiss.inc();
-        cohef = false;
     } 
-    
-    // i guess its not everything else, must be cohesion
-    if (cohef) {
-        writeCoheMiss.inc();
-    }
+
     writeMiss.inc();
     vm = tmpv;
     // for (auto i = vm.begin(); i != vm.end(); ++i)
