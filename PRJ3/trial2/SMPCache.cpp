@@ -705,6 +705,7 @@ void SMPCache::doWrite(MemRequest *mreq)
         // && l->isLocked()
         capMiss.inc();
         writeReplMiss.inc();
+        cohef = false;
     } else { // not in vector and miss
         // && !(l->isLocked()
         // cache->getNumLines() 
@@ -715,11 +716,9 @@ void SMPCache::doWrite(MemRequest *mreq)
         // determine if it is an actual miss
         confMiss.inc();
         writeReplMiss.inc();
+        cohef = false;
     } 
     
-    {
-        writeCoheMiss.inc();
-    }
     // i guess its not everything else, must be cohesion
     if (cohef) {
         writeCoheMiss.inc();
