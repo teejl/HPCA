@@ -104,12 +104,12 @@ SMPCache::SMPCache(SMemorySystem *dms, const char *section, const char *name)
     , compMiss("%s:compMiss", name)
     , capMiss("%s:capMiss", name)
     , confMiss("%s:confMiss", name)
-    , readcompMiss("%s:readcompMiss", name)
-    , readreplMiss("%s:readreplMiss", name)
-    , readcoheMiss("%s:readcoheMiss", name)
-    , writecompMiss("%s:writecompMiss", name)
-    , writereplMiss("%s:writereplMiss", name)
-    , writecoheMiss("%s:writecoheMiss", name)
+    , readCompMiss("%s:readCompMiss", name)
+    , readReplMiss("%s:readReplMiss", name)
+    , readCoheMiss("%s:readCoheMiss", name)
+    , writeCompMiss("%s:writeCompMiss", name)
+    , writeReplMiss("%s:writeReplMiss", name)
+    , writeCoheMiss("%s:writeCoheMiss", name)
 {
     MemObj *lowerLevel = NULL;
     //printf("%d\n", dms->getPID());
@@ -456,7 +456,7 @@ void SMPCache::doRead(MemRequest *mreq)
     if (cm.find(calcTag(addr)) == cm.end()) {
         cm.insert(calcTag(addr));
         compMiss.inc();
-        readcompMiss.inc();
+        readCompMiss.inc();
     }
 
     // [LRU REPLACEMENT ALGORITHM]
@@ -524,7 +524,7 @@ void SMPCache::doRead(MemRequest *mreq)
         // determine if it is an actual miss
         // && l->isLocked()
         capMiss.inc();
-        readreplMiss.inc();
+        readReplMiss.inc();
     } else { // not in vector and miss
         // && !(l->isLocked()
         // cache->getNumLines() 
@@ -534,7 +534,7 @@ void SMPCache::doRead(MemRequest *mreq)
 
         // determine if it is an actual miss
         confMiss.inc();
-        readreplMiss.inc();
+        readReplMiss.inc();
     }
 
     readMiss.inc();
@@ -616,7 +616,7 @@ void SMPCache::doWrite(MemRequest *mreq)
     if (cm.find(calcTag(addr)) == cm.end()) {
         cm.insert(calcTag(addr));
         compMiss.inc();
-        writecompMiss.inc();
+        writeCompMiss.inc();
     }
 
     // [LRU REPLACEMENT ALGORITHM]
@@ -695,7 +695,7 @@ void SMPCache::doWrite(MemRequest *mreq)
         // determine if it is an actual miss
         // && l->isLocked()
         capMiss.inc();
-        writereplMiss.inc();
+        writeReplMiss.inc();
     } else { // not in vector and miss
         // && !(l->isLocked()
         // cache->getNumLines() 
@@ -705,7 +705,7 @@ void SMPCache::doWrite(MemRequest *mreq)
 
         // determine if it is an actual miss
         confMiss.inc();
-        writereplMiss.inc();
+        writeReplMiss.inc();
     }
 
     writeMiss.inc();

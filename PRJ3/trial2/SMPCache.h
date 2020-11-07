@@ -105,11 +105,11 @@ protected:
     GStatsCntr compMiss;
     GStatsCntr capMiss;
     GStatsCntr confMiss;
-    GStatsCntr readcompMiss;
-    GStatsCntr readreplMiss;
-    GStatsCntr readcoheMiss;
-    GStatsCntr writecompMiss;
-    GStatsCntr writereplMiss;
+    GStatsCntr readCompMiss;
+    GStatsCntr readReplMiss;
+    GStatsCntr readCoheMiss;
+    GStatsCntr writeCompMiss;
+    GStatsCntr writeReplMiss;
     GStatsCntr writecoheMiss;
     set<long int> cm;
     vector<long int> vm;
