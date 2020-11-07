@@ -110,7 +110,7 @@ protected:
     GStatsCntr readCoheMiss;
     GStatsCntr writeCompMiss;
     GStatsCntr writeReplMiss;
-    GStatsCntr writecoheMiss;
+    GStatsCntr writeCoheMiss;
     set<long int> cm;
     vector<long int> vm;
     bool dummy;
