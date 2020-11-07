@@ -456,6 +456,7 @@ void SMPCache::doRead(MemRequest *mreq)
     if (cm.find(calcTag(addr)) == cm.end()) {
         cm.insert(calcTag(addr));
         compMiss.inc();
+        readcompMiss.inc();
     }
 
     // [LRU REPLACEMENT ALGORITHM]
@@ -613,6 +614,7 @@ void SMPCache::doWrite(MemRequest *mreq)
     if (cm.find(calcTag(addr)) == cm.end()) {
         cm.insert(calcTag(addr));
         compMiss.inc();
+        writecompMiss.inc();
     }
 
     // [LRU REPLACEMENT ALGORITHM]
