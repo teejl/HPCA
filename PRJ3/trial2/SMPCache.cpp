@@ -38,6 +38,9 @@ Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //set<long int> cm3;
 //bool is_in;
 
+// set print flag TJL
+pbool = true;
+
 #if (defined DEBUG_LEAK)
 Time_t Directory::lastClock = 0;
 uint64_t Directory::totCnt = 0;
