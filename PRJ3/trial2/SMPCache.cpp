@@ -705,7 +705,7 @@ void SMPCache::doWrite(MemRequest *mreq)
         // && l->isLocked()
         capMiss.inc();
         writeReplMiss.inc();
-    } else if { // not in vector and miss
+    } else { // not in vector and miss
         // && !(l->isLocked()
         // cache->getNumLines() 
         // how many lines are in cache 
