@@ -105,6 +105,12 @@ protected:
     GStatsCntr compMiss;
     GStatsCntr capMiss;
     GStatsCntr confMiss;
+    GStatsCntr readcompMiss;
+    GStatsCntr readreplMiss;
+    GStatsCntr readcohefMiss;
+    GStatsCntr writecompMiss;
+    GStatsCntr writereplMiss;
+    GStatsCntr writecoheMiss;
     set<long int> cm;
     vector<long int> vm;
     bool dummy;

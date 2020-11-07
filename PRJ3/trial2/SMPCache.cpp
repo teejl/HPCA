@@ -104,6 +104,12 @@ SMPCache::SMPCache(SMemorySystem *dms, const char *section, const char *name)
     , compMiss("%s:compMiss", name)
     , capMiss("%s:capMiss", name)
     , confMiss("%s:confMiss", name)
+    , readcompMiss("%s:readcompMiss", name)
+    , readreplMiss("%s:readreplMiss", name)
+    , readcoheMiss("%s:readcoheMiss", name)
+    , writecompMiss("%s:writecompMiss", name)
+    , writereplMiss("%s:writereplMiss", name)
+    , writecoheMiss("%s:writecoheMiss", name)
 {
     MemObj *lowerLevel = NULL;
     //printf("%d\n", dms->getPID());
