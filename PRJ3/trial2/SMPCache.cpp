@@ -659,7 +659,7 @@ void SMPCache::doWrite(MemRequest *mreq)
         }
     }
     // push element to top and reset vm vector to tmpv vector
-    tmpv.insert(tmpv.begin(), calcTag(addr));
+    tmpv.insert(tmpv.begin(), calcTag(addr)); 
     // output updated vector
     // update the vector pretend cache
 
@@ -689,6 +689,9 @@ void SMPCache::doWrite(MemRequest *mreq)
         DEBUGPRINT(" Locked %x ... try again\n", addr);
         //printf(" Locked %x ... try again %lld\n", addr, globalClock);
         writeRetry.inc();
+        // [Add to Cohesion Vector] TJL
+        cvm.insert(tmpv.end(), *i); // add the element to the cohesion vector (probably should use set)
+        // end
         mreq->mutateWriteToRead();
         Time_t nextTry = nextSlot();
         if (nextTry == globalClock)

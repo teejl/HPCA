@@ -113,6 +113,7 @@ protected:
     GStatsCntr writeCoheMiss;
     set<long int> cm;
     vector<long int> vm;
+    set<long int> cvm;
     bool dummy;
 
 #ifdef SESC_ENERGY
