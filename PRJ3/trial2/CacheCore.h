@@ -410,8 +410,8 @@ public:
     }
 
     virtual void invalidate() {
-        oldTag = tag;
-        clearTag(); // as anticipated
+        oldTag = tag; // set the oldTag to the old tag
+        clearTag();
     }
 
     virtual bool isLocked() const {

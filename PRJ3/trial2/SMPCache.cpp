@@ -1861,7 +1861,7 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
 
     // lets just print out cvm TJL
     // loop through original vector and update tmpv vector
-    if (cvm.find(calcTag(rpl_addr))!=cvm.end()){
+    if (cvm.find(l->getOldTag())!=cvm.end()){
         std::cout <<"Printing out CVM: \n";
         for (auto i = cvm.begin(); i != cvm.end(); ++i) {
             std::cout << *i << " ";
