@@ -1857,7 +1857,7 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
         vector <long int> tmpcv; // temporary vector
         for (auto i = cvm.begin(); i != cvm.end(); ++i) {
             // add to temp vector if it is not the line we want to replace
-            if (*i != calcTag(addr)) {
+            if (i != calcTag(addr)) {
                 tmpcv.insert(tmpcv.end(), calcTag(addr));
             } 
         }
@@ -1865,7 +1865,7 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
         cvm = tmpcv;
         if (pbool) { // print out cache TJL
             for (auto i = cvm.begin(); i != cvm.end(); ++i) {
-                std::cout << *i << " ";
+                std::cout << i << " ";
             }
         }
     }
