@@ -410,7 +410,7 @@ public:
         clearTag(); // as anticipated
     }
 
-    Addr_t getOldTag() const {
+    virtual void getOldTag() const {
         return oldTag;
     }
 
