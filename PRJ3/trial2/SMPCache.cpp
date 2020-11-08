@@ -1849,42 +1849,7 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
     PAddr rpl_addr = 0;
     I(cache->findLineDebug(addr) == 0);
     Line *l = cache->findLine2Replace(addr);
-    // [TAKEOUT from Cohe List]
-    // replacing the line so take out of tag logic list
-    // is_in = cm.find(calcTag(addr)) != cm.end();
-    if (cvm.find(calcTag(addr)) != cvm.end()) { // if the tag is in the cohe list take it out
-        // init vars
-        vector <long int> tmpcv; // temporary vector
-        for (auto i = cvm.begin(); i != cvm.end(); ++i) {
-            // add to temp vector if it is not the line we want to replace
-            if (i != calcTag(addr)) {
-                tmpcv.insert(tmpcv.end(), calcTag(addr));
-            } 
-        }
-        // set cvm to the temp vector
-        //cvm = tmpcv;
-        //if (pbool) { // print out cache TJL
-            //for (auto i = cvm.begin(); i != cvm.end(); ++i) {
-                //std::cout << i << " ";
-            //}
-        //}
-    }
 
-    }
-    // init vars
-    vector <long int> tmpv; // temporary vector
-    int c = 1; // counter
-    // loop through original vector and update tmpv vector
-    for (auto i = vm.begin(); i != vm.end(); ++i) {
-        // std::cout << *i << " ";
-        // updated tmp vector with criteria
-        if (c < cache->getNumLines() && *i != calcTag(addr)) {
-            tmpv.insert(tmpv.end(), *i);
-            c++;
-        } else if ( c >= cache->getNumLines() ) {
-            break;
-        }
-    }
     if(!l) {
         // need to schedule allocate line for next cycle
         doAllocateLineCB::scheduleAbs(globalClock+1, this, addr, 0, cb);
