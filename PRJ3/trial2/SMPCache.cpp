@@ -1862,12 +1862,12 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
             } 
         }
         // set cvm to the temp vector
-        cvm = tmpcv;
-        if (pbool) { // print out cache TJL
-            for (auto i = cvm.begin(); i != cvm.end(); ++i) {
-                std::cout << i << " ";
-            }
-        }
+        //cvm = tmpcv;
+        //if (pbool) { // print out cache TJL
+            //for (auto i = cvm.begin(); i != cvm.end(); ++i) {
+                //std::cout << i << " ";
+            //}
+        //}
     }
 
     }
