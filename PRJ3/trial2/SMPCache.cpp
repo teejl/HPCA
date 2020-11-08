@@ -553,7 +553,6 @@ void SMPCache::doRead(MemRequest *mreq)
         for (auto i = cvm.begin(); i != cvm.end(); ++i) {
             std::cout << *i << " ";
         }
-        std::cout << "\n";
     }
 
 #if (defined TRACK_MPKI)
@@ -747,8 +746,6 @@ void SMPCache::doWrite(MemRequest *mreq)
         for (auto i = cvm.begin(); i != cvm.end(); ++i) {
             std::cout << *i << " ";
         }
-        std::cout << "\n";
-
     }   
 
 
