@@ -1851,11 +1851,11 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
     Line *l = cache->findLine2Replace(addr);
     // lets just print out cvm
     // loop through original vector and update tmpv vector
-    if (pbool){
+    if (pbool && cvm.find(calcTag(addr)) != cvm.end()){
         std::cout <<"Printing out CVM: \n";
-    }
-    for (auto i = cvm.begin(); i != cvm.end(); ++i) {
-        std::cout << *i << " ";
+        for (auto i = cvm.begin(); i != cvm.end(); ++i) {
+            std::cout << *i << " ";
+        }
     }
 
     if(!l) {
