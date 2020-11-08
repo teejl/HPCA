@@ -877,11 +877,14 @@ void SMPCache::realInvalidate(PAddr addr, ushort size, bool writeBack)
                 if(writeBack)
                     doWriteBack(addr);
             }
+            // TJL [ADD to cohe list after invalidation]
             if (pbool){
-                std::cout << "\n Invalidate line:" << l << " " << calcTag(addr); //TJL
+                std::cout << "\n Invalidate line:" << l << " " << calcTag(addr);
             }
+            // add to logic tag before invalidating it
+            cvm.insert(cvm.begin(), l);
+            // END
             l->invalidate(); // make this line invalid
-            // add to logic tag
         }
         addr += cache->getLineSize();
         size -= cache->getLineSize();
@@ -1730,9 +1733,13 @@ void SMPCache::concludeAccess(MemRequest *mreq)
 		DEBUGPRINT("   [%s] pending Invalidation, invalidate %x at %lld\n"
                        , getSymbolicName(), addr, globalClock);
         
+        // TJL [ADD to cohe list after invalidation]
         if (pbool){
-            std::cout << "\n Invalidate line:" << l << " " << calcTag(addr); //TJL
+            std::cout << "\n Invalidate line:" << l << " " << calcTag(addr);
         }
+        // add to logic tag before invalidating it
+        cvm.insert(cvm.begin(), l);
+        // END
 		l->invalidate();
         pendingInv.erase(taddr);
     }
@@ -1843,6 +1850,9 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
     I(cache->findLineDebug(addr) == 0);
     Line *l = cache->findLine2Replace(addr);
     // replacing the line so take out of tag logic list
+    if (pbool){
+        // take line out of cache here
+    }
 
     if(!l) {
         // need to schedule allocate line for next cycle
