@@ -879,7 +879,7 @@ void SMPCache::realInvalidate(PAddr addr, ushort size, bool writeBack)
             }
             // TJL [ADD to cohe list after invalidation]
             if (pbool){
-                std::cout << "\n Invalidate line:" << l << " " << calcTag(addr);
+                //std::cout << "\n Invalidate line:" << l << " " << calcTag(addr);
             }
             // add to logic tag before invalidating it
             cvm.insert(cvm.begin(), calcTag(addr));
@@ -1735,7 +1735,7 @@ void SMPCache::concludeAccess(MemRequest *mreq)
         
         // TJL [ADD to cohe list after invalidation]
         if (pbool){
-            std::cout << "\n Invalidate line:" << l << " " << calcTag(addr);
+            //std::cout << "\n Invalidate line:" << l << " " << calcTag(addr);
         }
         // add to logic tag before invalidating it
         cvm.insert(cvm.begin(), calcTag(addr));
@@ -1849,6 +1849,14 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
     PAddr rpl_addr = 0;
     I(cache->findLineDebug(addr) == 0);
     Line *l = cache->findLine2Replace(addr);
+    // lets just print out cvm
+    // loop through original vector and update tmpv vector
+    if (pbool){
+        std::cout <<"Printing out CVM: \n";
+    }
+    for (auto i = cvm.begin(); i != vcm.end(); ++i) {
+        std::cout << *i << " ";
+    }
 
     if(!l) {
         // need to schedule allocate line for next cycle
