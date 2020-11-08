@@ -405,8 +405,8 @@ public:
     }
 
     virtual void invalidate() {
+        // add old tag vector
         clearTag(); // as anticipated
-        // im assuming this is where the tag is
     }
 
     virtual bool isLocked() const {

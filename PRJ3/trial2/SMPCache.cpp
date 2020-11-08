@@ -549,7 +549,7 @@ void SMPCache::doRead(MemRequest *mreq)
 
     readMiss.inc();
     vm = tmpv;
-    if (pbool) { // print out cache TJL
+    if (false) { // print out cache TJL
         for (auto i = cvm.begin(); i != cvm.end(); ++i) {
             std::cout << *i << " ";
         }
@@ -688,9 +688,6 @@ void SMPCache::doWrite(MemRequest *mreq)
         DEBUGPRINT(" Locked %x ... try again\n", addr);
         //printf(" Locked %x ... try again %lld\n", addr, globalClock);
         writeRetry.inc();
-        // [Add to Cohesion Vector] TJL
-        cvm.insert(cvm.end(), calcTag(addr)); // add the element to the cohesion vector (probably should use set)
-        // end
         mreq->mutateWriteToRead();
         Time_t nextTry = nextSlot();
         if (nextTry == globalClock)
@@ -742,7 +739,7 @@ void SMPCache::doWrite(MemRequest *mreq)
 
     writeMiss.inc();
     vm = tmpv;
-    if (pbool) { // print out cache TJL
+    if (false) { // print out cache TJL
         for (auto i = cvm.begin(); i != cvm.end(); ++i) {
             std::cout << *i << " ";
         }
@@ -880,7 +877,11 @@ void SMPCache::realInvalidate(PAddr addr, ushort size, bool writeBack)
                 if(writeBack)
                     doWriteBack(addr);
             }
-            l->invalidate();
+            if (pbool){
+                std::cout << "\n Invalidate line:" << l << " " << calcTag(addr); //TJL
+            }
+            l->invalidate(); // make this line invalid
+            // add to logic tag
         }
         addr += cache->getLineSize();
         size -= cache->getLineSize();
@@ -1838,6 +1839,7 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
     PAddr rpl_addr = 0;
     I(cache->findLineDebug(addr) == 0);
     Line *l = cache->findLine2Replace(addr);
+    // replacing the line so take out of tag logic list
 
     if(!l) {
         // need to schedule allocate line for next cycle
