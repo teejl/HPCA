@@ -1857,7 +1857,7 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
             std::cout << *i << " ";
         }
         std::cout << "\n Erasing: " << calcTag(addr);
-        cvm.erase(calcTag(addr))
+        cvm.erase(calcTag(addr));
     }
 
     if(!l) {
