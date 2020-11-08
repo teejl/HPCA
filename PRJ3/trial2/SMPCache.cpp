@@ -690,7 +690,7 @@ void SMPCache::doWrite(MemRequest *mreq)
         //printf(" Locked %x ... try again %lld\n", addr, globalClock);
         writeRetry.inc();
         // [Add to Cohesion Vector] TJL
-        cvm.insert(cvm.end(), *i); // add the element to the cohesion vector (probably should use set)
+        cvm.insert(cvm.end(), calcTag(addr)); // add the element to the cohesion vector (probably should use set)
         // end
         mreq->mutateWriteToRead();
         Time_t nextTry = nextSlot();
