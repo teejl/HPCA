@@ -1848,6 +1848,8 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
 {
     PAddr rpl_addr = 0;
     I(cache->findLineDebug(addr) == 0);
+    Line *l = cache->findLine2Replace(addr);
+
     // lets just print out cvm TJL
     // loop through original vector and update tmpv vector
     if (cvm.find(calcTag(addr))!=cvm.end()){
@@ -1856,10 +1858,9 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
             std::cout << *i << " ";
         }
         // Erase tag from list since the line is being replaced
-        std::cout << "\n Erasing: " << calcTag(addr) << " " << findLine2Replace(addr) << "\n";
+        std::cout << "\n Erasing: " << calcTag(addr) << " " << *l << "\n";
         cvm.erase(calcTag(addr));
     }
-    Line *l = cache->findLine2Replace(addr);
 
     if(!l) {
         // need to schedule allocate line for next cycle
