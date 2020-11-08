@@ -42,6 +42,7 @@
         "xlocmon": "cpp",
         "xloctime": "cpp",
         "xtree": "cpp",
-        "set": "cpp"
+        "set": "cpp",
+        "iterator": "cpp"
     }
 }

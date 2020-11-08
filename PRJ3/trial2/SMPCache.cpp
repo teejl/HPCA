@@ -551,7 +551,7 @@ void SMPCache::doRead(MemRequest *mreq)
     vm = tmpv;
     if (pbool) { // print out cache TJL
         for (auto i = vm.begin(); i != vm.end(); ++i) {
-            std::cout << *i << " ";
+            std::cout << *i << ":" << (*l)->isValid() << " ";
         }
         std::cout << "\n";
     }
@@ -690,7 +690,7 @@ void SMPCache::doWrite(MemRequest *mreq)
         //printf(" Locked %x ... try again %lld\n", addr, globalClock);
         writeRetry.inc();
         // [Add to Cohesion Vector] TJL
-        cvm.insert(tmpv.end(), *i); // add the element to the cohesion vector (probably should use set)
+        cvm.insert(cvm.end(), *i); // add the element to the cohesion vector (probably should use set)
         // end
         mreq->mutateWriteToRead();
         Time_t nextTry = nextSlot();
@@ -745,7 +745,7 @@ void SMPCache::doWrite(MemRequest *mreq)
     vm = tmpv;
     if (pbool) { // print out cache TJL
         for (auto i = vm.begin(); i != vm.end(); ++i) {
-            std::cout << *i << " ";
+            std::cout << *i << ":" << (*l)->isValid() << " ";
         }
         std::cout << "\n";
 
