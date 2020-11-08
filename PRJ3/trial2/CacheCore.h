@@ -380,6 +380,7 @@ template<class Addr_t=uint32_t>
 class StateGeneric {
 private:
     Addr_t tag;
+    Addr_t oldTag;
 
 public:
     virtual ~StateGeneric() {
