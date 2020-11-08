@@ -1854,7 +1854,7 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
     if (pbool){
         std::cout <<"Printing out CVM: \n";
     }
-    for (auto i = cvm.begin(); i != vcm.end(); ++i) {
+    for (auto i = cvm.begin(); i != cvm.end(); ++i) {
         std::cout << *i << " ";
     }
 
