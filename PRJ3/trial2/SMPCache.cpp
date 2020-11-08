@@ -879,10 +879,10 @@ void SMPCache::realInvalidate(PAddr addr, ushort size, bool writeBack)
             }
             // TJL [ADD to cohe list after invalidation]
             if (pbool){
-                std::cout << "\n Invalidate line:" << l << " " << calcTag(addr);
+                std::cout << "\n Invalidate line:" << findLine(addr) << " " << calcTag(addr);
             }
             // add to logic tag before invalidating it
-            cvm.insert(cvm.begin(), l);
+            //cvm.insert(cvm.begin(), l);
             // END
             l->invalidate(); // make this line invalid
         }
@@ -1735,10 +1735,10 @@ void SMPCache::concludeAccess(MemRequest *mreq)
         
         // TJL [ADD to cohe list after invalidation]
         if (pbool){
-            std::cout << "\n Invalidate line:" << l << " " << calcTag(addr);
+            std::cout << "\n Invalidate line:" << findLine(addr) << " " << calcTag(addr);
         }
         // add to logic tag before invalidating it
-        cvm.insert(cvm.begin(), l);
+        //cvm.insert(cvm.begin(), l);
         // END
 		l->invalidate();
         pendingInv.erase(taddr);
