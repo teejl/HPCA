@@ -390,6 +390,9 @@ public:
     Addr_t getTag() const {
         return tag;
     }
+    Addr_t getOldTag() const {
+        return oldTag;
+    }
     void setTag(Addr_t a) {
         I(a);
         tag = a;
@@ -408,10 +411,6 @@ public:
     virtual void invalidate() {
         oldTag = tag;
         clearTag(); // as anticipated
-    }
-
-    virtual void getOldTag() const {
-        return oldTag;
     }
 
     virtual bool isLocked() const {
