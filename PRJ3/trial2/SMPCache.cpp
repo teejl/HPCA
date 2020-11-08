@@ -878,7 +878,7 @@ void SMPCache::realInvalidate(PAddr addr, ushort size, bool writeBack)
                     doWriteBack(addr);
             }
             if (pbool){
-                std::cout << "\n Invalidate line:" << l << ":" << *l << ", " << calcTag(addr); //TJL
+                std::cout << "\n Invalidate line:" << l << " " << calcTag(addr); //TJL
             }
             l->invalidate(); // make this line invalid
             // add to logic tag
@@ -1731,7 +1731,7 @@ void SMPCache::concludeAccess(MemRequest *mreq)
                        , getSymbolicName(), addr, globalClock);
         
         if (pbool){
-            std::cout << "\n Invalidate line:" << l << ":" << *l << ", " << calcTag(addr); //TJL
+            std::cout << "\n Invalidate line:" << l << " " << calcTag(addr); //TJL
         }
 		l->invalidate();
         pendingInv.erase(taddr);
