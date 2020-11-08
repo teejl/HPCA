@@ -384,6 +384,7 @@ private:
 public:
     virtual ~StateGeneric() {
         tag = 0;
+        oldTag = 0;
     }
 
     Addr_t getTag() const {
