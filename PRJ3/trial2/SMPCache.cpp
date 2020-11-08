@@ -534,7 +534,7 @@ void SMPCache::doRead(MemRequest *mreq)
         // && l->isLocked()
         capMiss.inc();
         readReplMiss.inc();
-    } else if (cohef) { // not in vector and miss
+    } else if (cvm.find(calcTag(addr))!=cvm.end()) { // not in vector and miss
         // && !(l->isLocked()
         // cache->getNumLines() 
         // how many lines are in cache 
@@ -723,7 +723,7 @@ void SMPCache::doWrite(MemRequest *mreq)
         // && l->isLocked()
         capMiss.inc();
         writeReplMiss.inc();
-    } else if (cohef) { // in vector and cohesion miss
+    } else if (cvm.find(calcTag(addr))!=cvm.end()) { // in vector and cohesion miss
         writeCoheMiss.inc();
     } else { // not in vector and miss
         // && !(l->isLocked()
@@ -1856,6 +1856,7 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
         for (auto i = cvm.begin(); i != cvm.end(); ++i) {
             std::cout << *i << " ";
         }
+        // Erase tag from list since the line is being replaced
         std::cout << "\n Erasing: " << calcTag(addr) << "\n";
         cvm.erase(calcTag(addr));
     }
