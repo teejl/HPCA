@@ -405,8 +405,12 @@ public:
     }
 
     virtual void invalidate() {
-        // add old tag vector
+        oldTag = tag;
         clearTag(); // as anticipated
+    }
+
+    virtual void getOldTag(){
+        return oldTag;
     }
 
     virtual bool isLocked() const {
