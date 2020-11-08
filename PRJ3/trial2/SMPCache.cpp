@@ -723,7 +723,7 @@ void SMPCache::doWrite(MemRequest *mreq)
         // && l->isLocked()
         capMiss.inc();
         writeReplMiss.inc();
-    } else if (cvm.find(calcTag(addr))!=cvm.end()) { // in vector and cohesion miss
+    } else if (cvm.find(calcTag(addr))!=cvm.end()) { // in vector and cohesion miss vector
         writeCoheMiss.inc();
     } else { // not in vector and miss
         // && !(l->isLocked()
@@ -1848,7 +1848,6 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
 {
     PAddr rpl_addr = 0;
     I(cache->findLineDebug(addr) == 0);
-    Line *l = cache->findLine2Replace(addr);
     // lets just print out cvm TJL
     // loop through original vector and update tmpv vector
     if (cvm.find(calcTag(addr))!=cvm.end()){
@@ -1860,6 +1859,7 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
         std::cout << "\n Erasing: " << calcTag(addr) << "\n";
         cvm.erase(calcTag(addr));
     }
+    Line *l = cache->findLine2Replace(addr);
 
     if(!l) {
         // need to schedule allocate line for next cycle
