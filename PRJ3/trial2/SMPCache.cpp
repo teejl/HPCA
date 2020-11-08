@@ -1856,7 +1856,7 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
             std::cout << *i << " ";
         }
         // Erase tag from list since the line is being replaced
-        std::cout << "\n Erasing: " << calcTag(addr) << "\n";
+        std::cout << "\n Erasing: " << calcTag(addr) << " " << findLine2Replace(addr) << "\n";
         cvm.erase(calcTag(addr));
     }
     Line *l = cache->findLine2Replace(addr);
