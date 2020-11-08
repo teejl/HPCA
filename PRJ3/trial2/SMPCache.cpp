@@ -637,8 +637,8 @@ void SMPCache::doWrite(MemRequest *mreq)
     }
 
     if (pbool){
-        std::cout << "\n Update vector for TAG: " << calcTag(addr) << " Cache numbers: " << cache->getNumLines();
-        std::cout << "\n Vector begin to end: ";
+        //std::cout << "\n Update vector for TAG: " << calcTag(addr) << " Cache numbers: " << cache->getNumLines();
+        //std::cout << "\n Vector begin to end: ";
     }
 
     // [LRU REPLACEMENT ALGORITHM]
