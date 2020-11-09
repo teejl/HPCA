@@ -327,7 +327,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
     Line **setEnd = theSet + assoc;
 
     // some custom vars
-    bool pbool = false; //(policy == NXLRU); // used to toggle debug prints
+    bool pbool = true; //(policy == NXLRU); // used to toggle debug prints
     int c = 0; // used for debug counting
     Line **nlineFree=0; // add one more line for NXLRU
 

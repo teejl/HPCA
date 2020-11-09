@@ -1850,6 +1850,18 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
     I(cache->findLineDebug(addr) == 0);
     Line *l = cache->findLine2Replace(addr);
 
+    // lets just print out cvm TJL
+    // loop through original vector and update tmpv vector
+    if (cvm.find(l->getOldTag())!=cvm.end()){
+        //std::cout <<"Printing out CVM: \n";
+        for (auto i = cvm.begin(); i != cvm.end(); ++i) {
+            //std::cout << *i << " ";
+        }
+        // Erase tag from list since the line is being replaced
+        //std::cout << "\n Erasing: " << calcTag(addr) << " " << l << " " << calcTag(rpl_addr) << " " << l->getOldTag() <<  "\n";
+        cvm.erase(calcTag(rpl_addr));
+    }
+
     if(!l) {
         // need to schedule allocate line for next cycle
         doAllocateLineCB::scheduleAbs(globalClock+1, this, addr, 0, cb);
@@ -1858,19 +1870,6 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
 
     rpl_addr = cache->calcAddr4Tag(l->getTag());
     lineFill.inc();
-
-    // lets just print out cvm TJL
-    // loop through original vector and update tmpv vector
-    if (cvm.find(l->getOldTag())!=cvm.end()){
-        std::cout <<"Printing out CVM: \n";
-        for (auto i = cvm.begin(); i != cvm.end(); ++i) {
-            std::cout << *i << " ";
-        }
-        // Erase tag from list since the line is being replaced
-        std::cout << "\n Erasing: " << calcTag(addr) << " " << l << " " << calcTag(rpl_addr) << 
-            " " << l->getOldTag() <<  "\n";
-        cvm.erase(calcTag(rpl_addr));
-    }
 
     nextSlot(); // have to do an access to check which line is free
 
