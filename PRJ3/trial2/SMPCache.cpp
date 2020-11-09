@@ -1849,7 +1849,6 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
     PAddr rpl_addr = 0;
     I(cache->findLineDebug(addr) == 0);
     Line *l = cache->findLine2Replace(addr);
-    std::cout << (*l)->getOldTag();
 
     // lets just print out cvm TJL
     // loop through original vector and update tmpv vector
@@ -1870,6 +1869,7 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
     }
 
     rpl_addr = cache->calcAddr4Tag(l->getTag());
+    std::cout << calcTag(rpl_addr) << ":" << l->getOldTag(); // print out difference
     lineFill.inc();
 
     nextSlot(); // have to do an access to check which line is free
