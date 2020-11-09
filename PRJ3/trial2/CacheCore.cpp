@@ -339,7 +339,7 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
         if (pbool) {
             // print data to figure out tmp
             std::cout << "\n Starting findLine2Replace: \n";
-            std::cout << "line:*line, isValid, isLocked, theSet, setEnd \n";
+            std::cout << "line:*line, isValid, isLocked, theSet, setEnd, currenttag, oldtag \n";
         }
 
         // loop to find LRU free line then Loop again for NXLRU
@@ -361,7 +361,8 @@ typename CacheAssoc<State, Addr_t, Energy>::Line
             GI(!(*l)->isValid(), !(*l)->isLocked());
 
             //print out data
-            if (pbool) std::cout << l << ":" << *l << ", " << (*l)->isValid() << ", " << (*l)->isLocked() << ", " << theSet << ", " << setEnd << " \n";
+            if (pbool) std::cout << l << ":" << *l << ", " << (*l)->isValid() << ", " << (*l)->isLocked() << ", " << theSet << ", " << setEnd 
+            << ", " << (*l)->getTag() << ", " << (*l)->getOldTag() <<  " \n";
             if (policy == NXLRU) {
                 if ((*l)->isLocked()) c++;
             }
