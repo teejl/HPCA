@@ -1849,6 +1849,7 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
     PAddr rpl_addr = 0;
     I(cache->findLineDebug(addr) == 0);
     Line *l = cache->findLine2Replace(addr);
+    std::cout << *l;
 
     // lets just print out cvm TJL
     // loop through original vector and update tmpv vector
