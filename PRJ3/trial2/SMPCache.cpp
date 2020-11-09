@@ -1869,7 +1869,7 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
     }
 
     rpl_addr = cache->calcAddr4Tag(l->getTag());
-    std::cout << calcTag(rpl_addr) << ":" << l->getOldTag() << "\n"; // print out difference
+    //std::cout << calcTag(rpl_addr) << ":" << l->getOldTag() << "\n"; // print out difference
     lineFill.inc();
 
     nextSlot(); // have to do an access to check which line is free
