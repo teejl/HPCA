@@ -882,9 +882,10 @@ void SMPCache::realInvalidate(PAddr addr, ushort size, bool writeBack)
                 //std::cout << "\n Invalidate line:" << l << " " << calcTag(addr);
             }
             // add to logic tag before invalidating it
-            cvm.insert(cvm.begin(), calcTag(addr));
+            //cvm.insert(cvm.begin(), calcTag(addr));
             // END
             l->invalidate(); // make this line invalid
+            cvm.insert(cvm.begin(), l->getOldTag());
         }
         addr += cache->getLineSize();
         size -= cache->getLineSize();
@@ -1738,9 +1739,10 @@ void SMPCache::concludeAccess(MemRequest *mreq)
             //std::cout << "\n Invalidate line:" << l << " " << calcTag(addr);
         }
         // add to logic tag before invalidating it
-        cvm.insert(cvm.begin(), calcTag(addr));
+        // cvm.insert(cvm.begin(), calcTag(addr));
         // END
 		l->invalidate();
+        cvm.insert(cvm.begin(), l->getOldTag());
         pendingInv.erase(taddr);
     }
 
