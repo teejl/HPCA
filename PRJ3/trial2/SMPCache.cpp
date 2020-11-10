@@ -1874,9 +1874,10 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
     if(!l->isValid()) {
         if(canDestroyCB)
             cb->destroy();
-        //l->setOldTag(l->getTag()); // set old tag TJL
-        //cvm.erase(l->getTag()); // erase from set TJL
         l->setTag(cache->calcTag(addr));
+        
+        // [ERASE FROM CVM] TJL
+        cvm.erase(l->getOldTag()); // remove old tag
         DEBUGPRINT("   [%s] allocated free line for %x at %lld \n",
                    getSymbolicName(), addr , globalClock);
 
