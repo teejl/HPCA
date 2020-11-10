@@ -1852,14 +1852,14 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
 
     // lets just print out cvm TJL
     // loop through original vector and update tmpv vector
-    if (cvm.find(l->getOldTag())!=cvm.end()){
+    if (cvm.find(calcTag(addr))!=cvm.end()){
         //std::cout <<"Printing out CVM: \n";
         for (auto i = cvm.begin(); i != cvm.end(); ++i) {
             //std::cout << *i << " ";
         }
         // Erase tag from list since the line is being replaced
         //std::cout << "\n Erasing: " << calcTag(addr) << " " << l << " " << calcTag(rpl_addr) << " " << l->getOldTag() <<  "\n";
-        cvm.erase(l->getOldTag());
+        cvm.erase(calcTag(addr));
     }
 
     if(!l) {
