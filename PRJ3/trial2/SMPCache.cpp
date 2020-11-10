@@ -718,13 +718,13 @@ void SMPCache::doWrite(MemRequest *mreq)
 
     // TJL CODE HERE
     if (dummy) {
+    } else if (cvm.find(calcTag(addr))!=cvm.end()) { // in vector and cohesion miss vector
+        writeCoheMiss.inc();
     } else if ((find(vm.begin(), vm.end(), calcTag(addr)) == vm.end())) { // in vector and miss
         // determine if it is an actual miss
         // && l->isLocked()
         capMiss.inc();
         writeReplMiss.inc();
-    } else if (cvm.find(calcTag(addr))!=cvm.end()) { // in vector and cohesion miss vector
-        writeCoheMiss.inc();
     } else { // not in vector and miss
         // && !(l->isLocked()
         // cache->getNumLines() 
