@@ -391,16 +391,20 @@ public:
     Addr_t getTag() const {
         return tag;
     }
+    
+    // Jenn's Imports [Getter and Setter]
     Addr_t getOldTag() const {
         return oldTag;
     }
+    void setOldTag(Addr_t a) {
+        oldTag = a; //set old tag to prev tag TJL
+    }
+    // END
+
     void setTag(Addr_t a) {
         I(a);
-        oldTag = tag; //set old tag to prev tag TJL
+        oldTag = tag; //set old tag to prev tag TJL // Jenn Remove
         tag = a;
-    }
-    void setOldTag() {
-        oldTag = tag; //set old tag to prev tag TJL
     }
     void clearTag() {
         //oldTag = tag; // set old tag to prev tag TJL
@@ -415,7 +419,7 @@ public:
     }
 
     virtual void invalidate() {
-        oldTag = tag; // set the oldTag to the old tag
+        //oldTag = tag; // set the oldTag to the old tag // Jenn Remove
         clearTag();
     }
 

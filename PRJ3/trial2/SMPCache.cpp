@@ -884,7 +884,7 @@ void SMPCache::realInvalidate(PAddr addr, ushort size, bool writeBack)
             // [ADD TO TAG] TJL
             // insert to set and set old tag TJL
             cvm.insert(cvm.begin(), l->getTag()); // add prior tag to set TJL
-            //l->setOldTag();
+            l->setOldTag(l->getTag());
             // END
             l->invalidate(); // make this line invalid
         }
@@ -1739,12 +1739,12 @@ void SMPCache::concludeAccess(MemRequest *mreq)
         if (pbool){
             //std::cout << "\n Invalidate line:" << l << " " << calcTag(addr);
         }
-        // [ADD TO TAG] TJL
-        // insert to set and set old tag TJL
-        cvm.insert(cvm.begin(), l->getTag()); // add prior tag to set TJL
-        //l->setOldTag();
-        // END
-        l->invalidate(); // make this line invalid
+            // [ADD TO TAG] TJL
+            // insert to set and set old tag TJL
+            cvm.insert(cvm.begin(), l->getTag()); // add prior tag to set TJL
+            l->setOldTag(l->getTag());
+            // END
+            l->invalidate(); // make this line invalid
         pendingInv.erase(taddr);
     }
 
