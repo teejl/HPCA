@@ -881,11 +881,10 @@ void SMPCache::realInvalidate(PAddr addr, ushort size, bool writeBack)
             if (pbool){
                 //std::cout << "\n Invalidate line:" << l << " " << calcTag(addr);
             }
-            // add to logic tag before invalidating it
-            //cvm.insert(cvm.begin(), calcTag(addr));
+
             // END
             l->invalidate(); // make this line invalid
-            cvm.insert(cvm.begin(), l->getOldTag());
+            cvm.insert(cvm.begin(), l->getOldTag()); // add prior tag to set TJL
         }
         addr += cache->getLineSize();
         size -= cache->getLineSize();
@@ -1738,11 +1737,9 @@ void SMPCache::concludeAccess(MemRequest *mreq)
         if (pbool){
             //std::cout << "\n Invalidate line:" << l << " " << calcTag(addr);
         }
-        // add to logic tag before invalidating it
-        // cvm.insert(cvm.begin(), calcTag(addr));
-        // END
+
 		l->invalidate();
-        cvm.insert(cvm.begin(), l->getOldTag());
+        cvm.insert(cvm.begin(), l->getOldTag()); // add prior tag to set TJL
         pendingInv.erase(taddr);
     }
 
@@ -1869,6 +1866,19 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
         l->setTag(cache->calcTag(addr));
         DEBUGPRINT("   [%s] allocated free line for %x at %lld \n",
                    getSymbolicName(), addr , globalClock);
+
+        // [ERASE FROM CVM] TJL
+        if (cvm.find(calcTag(addr))!=cvm.end()){ // is it in set
+            //std::cout <<"Printing out CVM: \n";
+            //std::cout << "CVM, l, CalcTag(addr), l->getTag(), l->getOldTag() \n";
+            //for (auto i = cvm.begin(); i != cvm.end(); ++i) {
+                //std::cout << *i << ", " << l << ", " << calcTag(addr) << ", " << l->getTag() << ", " << l->getOldTag() << "\n";
+            //}
+            // Erase tag from list since the line is being replaced
+            //std::cout << "Erasing: CalcTag():" << calcTag(addr) << ", l:" << l << ", calcTag(rpl_addr):" << calcTag(rpl_addr) << ", l->getTag():" << l->getTag() << ", l->getOldTag():" << l->getOldTag() <<  "\n\n";
+            cvm.erase(calcTag(addr)); // erase from set
+        }
+
         return l;
     }
     DEBUGPRINT("   [%s] allocated line %x for %x at %lld \n",
@@ -1889,20 +1899,6 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
     de->setBusy();
 #endif
 
-     // THIS PART OF THE CODE IS WRONG?
-    // lets just print out cvm TJL
-    // loop through original vector and update tmpv vector
-    if (cvm.find(calcTag(addr))!=cvm.end()){
-        std::cout <<"Printing out CVM: \n";
-        std::cout << "CVM, l, CalcTag(addr), l->getTag(), l->getOldTag() \n";
-        for (auto i = cvm.begin(); i != cvm.end(); ++i) {
-            std::cout << *i << ", " << l << ", " << calcTag(addr) << ", " << l->getTag() << ", " << l->getOldTag() << "\n";
-        }
-        // Erase tag from list since the line is being replaced
-        std::cout << "Erasing: CalcTag():" << calcTag(addr) << ", l:" << l << ", calcTag(rpl_addr):" << calcTag(rpl_addr) << ", l->getTag():" << l->getTag() << ", l->getOldTag():" << l->getOldTag() <<  "\n\n";
-        cvm.erase(calcTag(addr));
-    }
-
     if(isHighestLevel()) {
         bool wb = false;
         bool tk = false;
@@ -1912,6 +1908,18 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
             wb = true;
             //data = true;
         }
+        
+    // [ERASE FROM CVM] TJL
+    if (cvm.find(calcTag(addr))!=cvm.end()){ // is it in set
+        //std::cout <<"Printing out CVM: \n";
+        //std::cout << "CVM, l, CalcTag(addr), l->getTag(), l->getOldTag() \n";
+        //for (auto i = cvm.begin(); i != cvm.end(); ++i) {
+            //std::cout << *i << ", " << l << ", " << calcTag(addr) << ", " << l->getTag() << ", " << l->getOldTag() << "\n";
+        //}
+        // Erase tag from list since the line is being replaced
+        //std::cout << "Erasing: CalcTag():" << calcTag(addr) << ", l:" << l << ", calcTag(rpl_addr):" << calcTag(rpl_addr) << ", l->getTag():" << l->getTag() << ", l->getOldTag():" << l->getOldTag() <<  "\n\n";
+        cvm.erase(calcTag(addr)); // erase from set
+    }
 
 #if 0
         if(canDestroyCB)
@@ -2034,6 +2042,17 @@ void SMPCache::doAllocateLine(PAddr addr, PAddr rpl_addr, CallbackBase *cb)
         if(l) {
             I(cb);
             l->setTag(calcTag(addr));
+            // [ERASE FROM CVM] TJL
+            if (cvm.find(calcTag(addr))!=cvm.end()){ // is it in set
+                //std::cout <<"Printing out CVM: \n";
+                //std::cout << "CVM, l, CalcTag(addr), l->getTag(), l->getOldTag() \n";
+                //for (auto i = cvm.begin(); i != cvm.end(); ++i) {
+                    //std::cout << *i << ", " << l << ", " << calcTag(addr) << ", " << l->getTag() << ", " << l->getOldTag() << "\n";
+                //}
+                // Erase tag from list since the line is being replaced
+                //std::cout << "Erasing: CalcTag():" << calcTag(addr) << ", l:" << l << ", calcTag(rpl_addr):" << calcTag(rpl_addr) << ", l->getTag():" << l->getTag() << ", l->getOldTag():" << l->getOldTag() <<  "\n\n";
+                cvm.erase(calcTag(addr)); // erase from set
+            }
             l->changeStateTo(SMP_TRANS_RSV);
             cb->call();
         }
@@ -2053,6 +2072,17 @@ void SMPCache::doAllocateLine(PAddr addr, PAddr rpl_addr, CallbackBase *cb)
 
     I(cb);
     l->setTag(cache->calcTag(addr));
+    // [ERASE FROM CVM] TJL
+    if (cvm.find(calcTag(addr))!=cvm.end()){ // is it in set
+        //std::cout <<"Printing out CVM: \n";
+        //std::cout << "CVM, l, CalcTag(addr), l->getTag(), l->getOldTag() \n";
+        //for (auto i = cvm.begin(); i != cvm.end(); ++i) {
+            //std::cout << *i << ", " << l << ", " << calcTag(addr) << ", " << l->getTag() << ", " << l->getOldTag() << "\n";
+        //}
+        // Erase tag from list since the line is being replaced
+        //std::cout << "Erasing: CalcTag():" << calcTag(addr) << ", l:" << l << ", calcTag(rpl_addr):" << calcTag(rpl_addr) << ", l->getTag():" << l->getTag() << ", l->getOldTag():" << l->getOldTag() <<  "\n\n";
+        cvm.erase(calcTag(addr)); // erase from set
+    }
     l->changeStateTo(SMP_TRANS_RSV);
     cb->call();
 }
