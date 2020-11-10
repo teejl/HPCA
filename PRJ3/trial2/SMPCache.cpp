@@ -1868,7 +1868,7 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
                    getSymbolicName(), addr , globalClock);
 
         // [ERASE FROM CVM] TJL
-        if (cvm.find(calcTag(addr))!=cvm.end()){ // is it in set
+        if (l->getOldTag())!=cvm.end()){ // is it in set
             //std::cout <<"Printing out CVM: \n";
             //std::cout << "CVM, l, CalcTag(addr), l->getTag(), l->getOldTag() \n";
             //for (auto i = cvm.begin(); i != cvm.end(); ++i) {
@@ -1910,7 +1910,7 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
         }
         
     // [ERASE FROM CVM] TJL
-    if (cvm.find(calcTag(addr))!=cvm.end()){ // is it in set
+    if (l->getOldTag())!=cvm.end()){// is it in set
         //std::cout <<"Printing out CVM: \n";
         //std::cout << "CVM, l, CalcTag(addr), l->getTag(), l->getOldTag() \n";
         //for (auto i = cvm.begin(); i != cvm.end(); ++i) {
@@ -2043,7 +2043,7 @@ void SMPCache::doAllocateLine(PAddr addr, PAddr rpl_addr, CallbackBase *cb)
             I(cb);
             l->setTag(calcTag(addr));
             // [ERASE FROM CVM] TJL
-            if (cvm.find(calcTag(addr))!=cvm.end()){ // is it in set
+            if (l->getOldTag())!=cvm.end()){ // is it in set
                 //std::cout <<"Printing out CVM: \n";
                 //std::cout << "CVM, l, CalcTag(addr), l->getTag(), l->getOldTag() \n";
                 //for (auto i = cvm.begin(); i != cvm.end(); ++i) {
@@ -2073,7 +2073,7 @@ void SMPCache::doAllocateLine(PAddr addr, PAddr rpl_addr, CallbackBase *cb)
     I(cb);
     l->setTag(cache->calcTag(addr));
     // [ERASE FROM CVM] TJL
-    if (cvm.find(calcTag(addr))!=cvm.end()){ // is it in set
+    if (l->getOldTag())!=cvm.end()){ // is it in set
         //std::cout <<"Printing out CVM: \n";
         //std::cout << "CVM, l, CalcTag(addr), l->getTag(), l->getOldTag() \n";
         //for (auto i = cvm.begin(); i != cvm.end(); ++i) {
