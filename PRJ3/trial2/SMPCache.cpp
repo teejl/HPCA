@@ -720,6 +720,8 @@ void SMPCache::doWrite(MemRequest *mreq)
     if (dummy) {
     } else if (cvm.find(calcTag(addr))!=cvm.end()) { // in vector and cohesion miss vector
         writeCoheMiss.inc();
+    } else if (l->canBeRead() && !(l->canBeWritten())){
+        writeCoheMiss.inc();
     } else if ((find(vm.begin(), vm.end(), calcTag(addr)) == vm.end())) { // in vector and miss
         // determine if it is an actual miss
         // && l->isLocked()
