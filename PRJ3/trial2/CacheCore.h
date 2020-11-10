@@ -396,9 +396,11 @@ public:
     }
     void setTag(Addr_t a) {
         I(a);
+        oldTag = tag; //set old tag to prev tag TJL
         tag = a;
     }
     void clearTag() {
+        oldTag = tag; // set old tag to prev tag TJL
         tag = 0;
     }
     void initialize(void *c) {
@@ -410,7 +412,7 @@ public:
     }
 
     virtual void invalidate() {
-        oldTag = tag; // set the oldTag to the old tag
+        //oldTag = tag; // set the oldTag to the old tag
         clearTag();
     }
 
