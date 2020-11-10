@@ -403,7 +403,7 @@ public:
         oldTag = tag; //set old tag to prev tag TJL
     }
     void clearTag() {
-        //oldTag = tag; // set old tag to prev tag TJL
+        oldTag = tag; // set old tag to prev tag TJL
         tag = 0;
     }
     void initialize(void *c) {
@@ -415,7 +415,7 @@ public:
     }
 
     virtual void invalidate() {
-        oldTag = tag; // set the oldTag to the old tag
+        //oldTag = tag; // set the oldTag to the old tag
         clearTag();
     }
 
