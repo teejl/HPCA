@@ -717,8 +717,7 @@ void SMPCache::doWrite(MemRequest *mreq)
     // but the question is when would that be? when it has been invalidated!
 
     // TJL CODE HERE
-    if (dummy) {
-    } else if (cvm.find(calcTag(addr))!=cvm.end()) { // in vector and cohesion miss vector
+    if (cvm.find(calcTag(addr))!=cvm.end()) { // in vector and cohesion miss vector
         writeCoheMiss.inc();
     } else if ((find(vm.begin(), vm.end(), calcTag(addr)) == vm.end())) { // in vector and miss
         // determine if it is an actual miss
