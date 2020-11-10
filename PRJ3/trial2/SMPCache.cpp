@@ -1860,7 +1860,7 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
             std::cout << *i << ", " << l << ", " << calcTag(addr) << ", " << l->getTag() << ", " << l->getOldTag() << "\n";
         }
         // Erase tag from list since the line is being replaced
-        std::cout << "\n Erasing: CalcTag():" << calcTag(addr) << ", l:" << l << ", calcTag(rpl_addr):" << calcTag(rpl_addr) << ", l->getTag():" << l->getTag() << ", l->getOldTag():" << l->getOldTag() <<  "\n";
+        std::cout << "Erasing: CalcTag():" << calcTag(addr) << ", l:" << l << ", calcTag(rpl_addr):" << calcTag(rpl_addr) << ", l->getTag():" << l->getTag() << ", l->getOldTag():" << l->getOldTag() <<  "\n\n";
         cvm.erase(calcTag(addr));
     }
 
