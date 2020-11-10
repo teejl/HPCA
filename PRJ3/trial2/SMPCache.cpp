@@ -1850,21 +1850,6 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
     I(cache->findLineDebug(addr) == 0);
     Line *l = cache->findLine2Replace(addr);
 
-    // THIS PART OF THE CODE IS WRONG!!!
-    // lets just print out cvm TJL
-    // loop through original vector and update tmpv vector
-    //if (cvm.find(calcTag(addr))!=cvm.end()){
-    if (false) {
-        std::cout <<"Printing out CVM: \n";
-        std::cout << "CVM, l, CalcTag(addr), l->getTag(), l->getOldTag() \n";
-        for (auto i = cvm.begin(); i != cvm.end(); ++i) {
-            std::cout << *i << ", " << l << ", " << calcTag(addr) << ", " << l->getTag() << ", " << l->getOldTag() << "\n";
-        }
-        // Erase tag from list since the line is being replaced
-        std::cout << "Erasing: CalcTag():" << calcTag(addr) << ", l:" << l << ", calcTag(rpl_addr):" << calcTag(rpl_addr) << ", l->getTag():" << l->getTag() << ", l->getOldTag():" << l->getOldTag() <<  "\n\n";
-        cvm.erase(calcTag(addr));
-    }
-
     if(!l) {
         // need to schedule allocate line for next cycle
         doAllocateLineCB::scheduleAbs(globalClock+1, this, addr, 0, cb);
@@ -1902,6 +1887,20 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
 
     de->setBusy();
 #endif
+
+    // THIS PART OF THE CODE IS WRONG!!!
+    // lets just print out cvm TJL
+    // loop through original vector and update tmpv vector
+    if (cvm.find(calcTag(addr))!=cvm.end()){
+        std::cout <<"Printing out CVM: \n";
+        std::cout << "CVM, l, CalcTag(addr), l->getTag(), l->getOldTag() \n";
+        for (auto i = cvm.begin(); i != cvm.end(); ++i) {
+            std::cout << *i << ", " << l << ", " << calcTag(addr) << ", " << l->getTag() << ", " << l->getOldTag() << "\n";
+        }
+        // Erase tag from list since the line is being replaced
+        std::cout << "Erasing: CalcTag():" << calcTag(addr) << ", l:" << l << ", calcTag(rpl_addr):" << calcTag(rpl_addr) << ", l->getTag():" << l->getTag() << ", l->getOldTag():" << l->getOldTag() <<  "\n\n";
+        cvm.erase(calcTag(addr));
+    }
 
     if(isHighestLevel()) {
         bool wb = false;
