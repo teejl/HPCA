@@ -1866,6 +1866,21 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
         if(canDestroyCB)
             cb->destroy();
         l->setTag(cache->calcTag(addr));
+        
+        // THIS PART OF THE CODE IS WRONG?
+        // lets just print out cvm TJL
+        // loop through original vector and update tmpv vector
+        if (cvm.find(calcTag(addr))!=cvm.end()){
+            std::cout <<"Printing out CVM: \n";
+            std::cout << "CVM, l, CalcTag(addr), l->getTag(), l->getOldTag() \n";
+            for (auto i = cvm.begin(); i != cvm.end(); ++i) {
+                std::cout << *i << ", " << l << ", " << calcTag(addr) << ", " << l->getTag() << ", " << l->getOldTag() << "\n";
+            }
+            // Erase tag from list since the line is being replaced
+            std::cout << "Erasing: CalcTag():" << calcTag(addr) << ", l:" << l << ", calcTag(rpl_addr):" << calcTag(rpl_addr) << ", l->getTag():" << l->getTag() << ", l->getOldTag():" << l->getOldTag() <<  "\n\n";
+            cvm.erase(calcTag(addr));
+
+        }
         DEBUGPRINT("   [%s] allocated free line for %x at %lld \n",
                    getSymbolicName(), addr , globalClock);
         return l;
@@ -1899,20 +1914,6 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
             wb = true;
             //data = true;
         }
-
-    // THIS PART OF THE CODE IS WRONG?
-    // lets just print out cvm TJL
-    // loop through original vector and update tmpv vector
-    if (cvm.find(calcTag(addr))!=cvm.end()){
-        std::cout <<"Printing out CVM: \n";
-        std::cout << "CVM, l, CalcTag(addr), l->getTag(), l->getOldTag() \n";
-        for (auto i = cvm.begin(); i != cvm.end(); ++i) {
-            std::cout << *i << ", " << l << ", " << calcTag(addr) << ", " << l->getTag() << ", " << l->getOldTag() << "\n";
-        }
-        // Erase tag from list since the line is being replaced
-        std::cout << "Erasing: CalcTag():" << calcTag(addr) << ", l:" << l << ", calcTag(rpl_addr):" << calcTag(rpl_addr) << ", l->getTag():" << l->getTag() << ", l->getOldTag():" << l->getOldTag() <<  "\n\n";
-        cvm.erase(calcTag(addr));
-    }
 
 #if 0
         if(canDestroyCB)
