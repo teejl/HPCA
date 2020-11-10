@@ -403,11 +403,11 @@ public:
 
     void setTag(Addr_t a) {
         I(a);
-        //oldTag = tag; //set old tag to prev tag TJL // Jenn Remove
+        oldTag = tag; //set old tag to prev tag TJL // Jenn Remove
         tag = a;
     }
     void clearTag() {
-        //oldTag = tag; // set old tag to prev tag TJL // Jenn Remove
+        oldTag = tag; // set old tag to prev tag TJL // Jenn Remove
         tag = 0;
     }
     void initialize(void *c) {

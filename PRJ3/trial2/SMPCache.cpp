@@ -883,10 +883,11 @@ void SMPCache::realInvalidate(PAddr addr, ushort size, bool writeBack)
             }
             // [ADD TO TAG] TJL
             // insert to set and set old tag TJL
-            cvm.insert(cvm.begin(), l->getTag()); // add prior tag to set TJL
-            l->setOldTag(l->getTag());
+            //cvm.insert(cvm.begin(), l->getTag()); // add prior tag to set TJL
+            //l->setOldTag(l->getTag());
             // END
             l->invalidate(); // make this line invalid
+            cvm.insert(cvm.begin(), l->getOldTag());
         }
         addr += cache->getLineSize();
         size -= cache->getLineSize();
@@ -1741,10 +1742,11 @@ void SMPCache::concludeAccess(MemRequest *mreq)
         }
             // [ADD TO TAG] TJL
             // insert to set and set old tag TJL
-            cvm.insert(cvm.begin(), l->getTag()); // add prior tag to set TJL
-            l->setOldTag(l->getTag());
+            // cvm.insert(cvm.begin(), l->getTag()); // add prior tag to set TJL
+            // l->setOldTag(l->getTag());
             // END
             l->invalidate(); // make this line invalid
+            cvm.insert(cvm.begin(), l->getOldTag());
         pendingInv.erase(taddr);
     }
 
@@ -1853,6 +1855,8 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
     PAddr rpl_addr = 0;
     I(cache->findLineDebug(addr) == 0);
     Line *l = cache->findLine2Replace(addr);
+
+    //cvm.erase(l->getOldTag()); // erase from set
 
     if(!l) {
         // need to schedule allocate line for next cycle
