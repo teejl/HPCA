@@ -391,7 +391,7 @@ public:
     Addr_t getTag() const {
         return tag;
     }
-    
+
     // Jenn's Imports [Getter and Setter]
     Addr_t getOldTag() const {
         return oldTag;
@@ -403,7 +403,7 @@ public:
 
     void setTag(Addr_t a) {
         I(a);
-        oldTag = tag; //set old tag to prev tag TJL // Jenn Remove
+        //oldTag = tag; //set old tag to prev tag TJL // Jenn Remove
         tag = a;
     }
     void clearTag() {
