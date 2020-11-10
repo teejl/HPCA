@@ -1888,7 +1888,19 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
     de->setBusy();
 #endif
 
-    // THIS PART OF THE CODE IS WRONG!!!
+    // tried here 64 | 60
+
+    if(isHighestLevel()) {
+        bool wb = false;
+        bool tk = false;
+        if(l->isDirty()) {
+            allocDirty.inc();
+            doWriteBack(rpl_addr);
+            wb = true;
+            //data = true;
+        }
+
+    // THIS PART OF THE CODE IS WRONG?
     // lets just print out cvm TJL
     // loop through original vector and update tmpv vector
     if (cvm.find(calcTag(addr))!=cvm.end()){
@@ -1901,16 +1913,6 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
         std::cout << "Erasing: CalcTag():" << calcTag(addr) << ", l:" << l << ", calcTag(rpl_addr):" << calcTag(rpl_addr) << ", l->getTag():" << l->getTag() << ", l->getOldTag():" << l->getOldTag() <<  "\n\n";
         cvm.erase(calcTag(addr));
     }
-
-    if(isHighestLevel()) {
-        bool wb = false;
-        bool tk = false;
-        if(l->isDirty()) {
-            allocDirty.inc();
-            doWriteBack(rpl_addr);
-            wb = true;
-            //data = true;
-        }
 
 #if 0
         if(canDestroyCB)
