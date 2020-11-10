@@ -415,7 +415,7 @@ public:
     }
 
     virtual void invalidate() {
-        //oldTag = tag; // set the oldTag to the old tag
+        oldTag = tag; // set the oldTag to the old tag
         clearTag();
     }
 

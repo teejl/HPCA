@@ -883,7 +883,7 @@ void SMPCache::realInvalidate(PAddr addr, ushort size, bool writeBack)
             }
             // insert to set and set old tag TJL
             cvm.insert(cvm.begin(), l->getTag()); // add prior tag to set TJL
-            l->setOldTag();
+            //l->setOldTag();
             // END
             l->invalidate(); // make this line invalid
         }
@@ -1740,7 +1740,7 @@ void SMPCache::concludeAccess(MemRequest *mreq)
         }
         // insert to set and set old tag TJL
         cvm.insert(cvm.begin(), l->getTag()); // add prior tag to set TJL
-        l->setOldTag();
+        //l->setOldTag();
         // END
         l->invalidate(); // make this line invalid
         pendingInv.erase(taddr);
