@@ -407,7 +407,7 @@ public:
         tag = a;
     }
     void clearTag() {
-        //oldTag = tag; // set old tag to prev tag TJL
+        //oldTag = tag; // set old tag to prev tag TJL // Jenn Remove
         tag = 0;
     }
     void initialize(void *c) {
