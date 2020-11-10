@@ -534,7 +534,7 @@ void SMPCache::doRead(MemRequest *mreq)
         // && l->isLocked()
         capMiss.inc();
         readReplMiss.inc();
-    } else if (cvm.find(l->getTag())!=cvm.end()) { // not in vector and miss
+    } else if (cvm.find(calcTag(addr))!=cvm.end()) { // not in vector and miss
         // && !(l->isLocked()
         // cache->getNumLines() 
         // how many lines are in cache 
