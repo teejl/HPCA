@@ -1868,7 +1868,7 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
                    getSymbolicName(), addr , globalClock);
 
         // [ERASE FROM CVM] TJL
-        if (l->getOldTag())!=cvm.end()){ // is it in set
+        if (l->getOldTag()!=cvm.end()){ // is it in set
             //std::cout <<"Printing out CVM: \n";
             //std::cout << "CVM, l, CalcTag(addr), l->getTag(), l->getOldTag() \n";
             //for (auto i = cvm.begin(); i != cvm.end(); ++i) {
@@ -1876,7 +1876,7 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
             //}
             // Erase tag from list since the line is being replaced
             //std::cout << "Erasing: CalcTag():" << calcTag(addr) << ", l:" << l << ", calcTag(rpl_addr):" << calcTag(rpl_addr) << ", l->getTag():" << l->getTag() << ", l->getOldTag():" << l->getOldTag() <<  "\n\n";
-            cvm.erase(calcTag(addr)); // erase from set
+            cvm.erase(l->getOldTag()); // erase from set
         }
 
         return l;
@@ -1910,7 +1910,7 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
         }
         
     // [ERASE FROM CVM] TJL
-    if (l->getOldTag())!=cvm.end()){// is it in set
+    if (l->getOldTag()!=cvm.end()){ // is it in set
         //std::cout <<"Printing out CVM: \n";
         //std::cout << "CVM, l, CalcTag(addr), l->getTag(), l->getOldTag() \n";
         //for (auto i = cvm.begin(); i != cvm.end(); ++i) {
@@ -1918,7 +1918,7 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
         //}
         // Erase tag from list since the line is being replaced
         //std::cout << "Erasing: CalcTag():" << calcTag(addr) << ", l:" << l << ", calcTag(rpl_addr):" << calcTag(rpl_addr) << ", l->getTag():" << l->getTag() << ", l->getOldTag():" << l->getOldTag() <<  "\n\n";
-        cvm.erase(calcTag(addr)); // erase from set
+        cvm.erase(l->getOldTag()); // erase from set
     }
 
 #if 0
@@ -2043,7 +2043,7 @@ void SMPCache::doAllocateLine(PAddr addr, PAddr rpl_addr, CallbackBase *cb)
             I(cb);
             l->setTag(calcTag(addr));
             // [ERASE FROM CVM] TJL
-            if (l->getOldTag())!=cvm.end()){ // is it in set
+            if (l->getOldTag()!=cvm.end()){ // is it in set
                 //std::cout <<"Printing out CVM: \n";
                 //std::cout << "CVM, l, CalcTag(addr), l->getTag(), l->getOldTag() \n";
                 //for (auto i = cvm.begin(); i != cvm.end(); ++i) {
@@ -2051,7 +2051,7 @@ void SMPCache::doAllocateLine(PAddr addr, PAddr rpl_addr, CallbackBase *cb)
                 //}
                 // Erase tag from list since the line is being replaced
                 //std::cout << "Erasing: CalcTag():" << calcTag(addr) << ", l:" << l << ", calcTag(rpl_addr):" << calcTag(rpl_addr) << ", l->getTag():" << l->getTag() << ", l->getOldTag():" << l->getOldTag() <<  "\n\n";
-                cvm.erase(calcTag(addr)); // erase from set
+                cvm.erase(l->getOldTag()); // erase from set
             }
             l->changeStateTo(SMP_TRANS_RSV);
             cb->call();
@@ -2073,7 +2073,7 @@ void SMPCache::doAllocateLine(PAddr addr, PAddr rpl_addr, CallbackBase *cb)
     I(cb);
     l->setTag(cache->calcTag(addr));
     // [ERASE FROM CVM] TJL
-    if (l->getOldTag())!=cvm.end()){ // is it in set
+    if (l->getOldTag()!=cvm.end()){ // is it in set
         //std::cout <<"Printing out CVM: \n";
         //std::cout << "CVM, l, CalcTag(addr), l->getTag(), l->getOldTag() \n";
         //for (auto i = cvm.begin(); i != cvm.end(); ++i) {
@@ -2081,7 +2081,7 @@ void SMPCache::doAllocateLine(PAddr addr, PAddr rpl_addr, CallbackBase *cb)
         //}
         // Erase tag from list since the line is being replaced
         //std::cout << "Erasing: CalcTag():" << calcTag(addr) << ", l:" << l << ", calcTag(rpl_addr):" << calcTag(rpl_addr) << ", l->getTag():" << l->getTag() << ", l->getOldTag():" << l->getOldTag() <<  "\n\n";
-        cvm.erase(calcTag(addr)); // erase from set
+        cvm.erase(l->getOldTag()); // erase from set
     }
     l->changeStateTo(SMP_TRANS_RSV);
     cb->call();
