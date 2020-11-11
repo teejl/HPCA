@@ -1856,9 +1856,21 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
 {
     PAddr rpl_addr = 0;
     I(cache->findLineDebug(addr) == 0);
-    Line *l = cache->findLine2Replace(addr);
+    Line *l = cache->findLine2Replace(addr); // this is the line that we want to replace
 
     //cvm.erase(l->getOldTag()); // erase from set
+
+     // [ERASE FROM CVM] TJL
+    if (cvm.find(l->getOldTag())!=cvm.end()){ // remove the old tag if it is in the set
+        std::cout <<"Printing out CVM: \n";
+        std::cout << "CVM, l, CalcTag(addr), l->getTag(), l->getOldTag() \n";
+        for (auto i = cvm.begin(); i != cvm.end(); ++i) {
+            std::cout << *i << ", " << l << ", " << calcTag(addr) << ", " << l->getTag() << ", " << l->getOldTag() << "\n";
+        }
+        // Erase tag from list since the line is being replaced
+        std::cout << "Erasing: CalcTag():" << calcTag(addr) << ", l:" << l << ", calcTag(rpl_addr):" << calcTag(rpl_addr) << ", l->getTag():" << l->getTag() << ", l->getOldTag():" << l->getOldTag() <<  "\n\n";
+        cvm.erase(l->getOldTag()); // erase from set
+    }
 
     if(!l) {
         // need to schedule allocate line for next cycle
@@ -1880,18 +1892,6 @@ SMPCache::Line *SMPCache::allocateLine(PAddr addr, CallbackBase *cb,
         //cvm.erase(l->getOldTag()); // remove old tag
         DEBUGPRINT("   [%s] allocated free line for %x at %lld \n",
                    getSymbolicName(), addr , globalClock);
-
-        // [ERASE FROM CVM] TJL
-        if (cvm.find(l->getOldTag())!=cvm.end()){ // is it in set
-            std::cout <<"Printing out CVM: \n";
-            std::cout << "CVM, l, CalcTag(addr), l->getTag(), l->getOldTag() \n";
-            //for (auto i = cvm.begin(); i != cvm.end(); ++i) {
-                //std::cout << *i << ", " << l << ", " << calcTag(addr) << ", " << l->getTag() << ", " << l->getOldTag() << "\n";
-            //}
-            // Erase tag from list since the line is being replaced
-            std::cout << "Erasing: CalcTag():" << calcTag(addr) << ", l:" << l << ", calcTag(rpl_addr):" << calcTag(rpl_addr) << ", l->getTag():" << l->getTag() << ", l->getOldTag():" << l->getOldTag() <<  "\n\n";
-            cvm.erase(l->getOldTag()); // erase from set
-        }
 
         return l;
     }
