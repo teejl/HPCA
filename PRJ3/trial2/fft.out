@@ -13,9 +13,9 @@ FFT with Blocking Transpose
     0                 0              0          -nan
 
                  TIMING INFORMATION
-Start time                        :       1604864767
-Initialization finish time        :       1604864767
-Overall finish time               :       1604864767
+Start time                        :       1605052687
+Initialization finish time        :       1605052687
+Overall finish time               :       1605052687
 Total time with initialization    :                0
 Total time without initialization :                0
 Overall transpose time            :                0

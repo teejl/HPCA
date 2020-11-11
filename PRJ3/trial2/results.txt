@@ -2,7 +2,7 @@ Simulation executing...
 
 ~~~~~  Ap1  ~~~~~
 # Bench : /home/cs6290/sesc/sesc.opt -fAp1 -c /home/cs6290/sesc/confs/cmp16-noc.conf -olu.out -elu.err lu.mipseb -n32 –p1 
-# File  : /home/cs6290/sesc/apps/Splash2/lu/sesc_lu.mipseb.Ap1 :       Sun Oct 25 19:42:58 2020
+# File  : /home/cs6290/sesc/apps/Splash2/lu/sesc_lu.mipseb.Ap1 :       Tue Nov 10 19:07:17 2020
       Exe Speed        Exe MHz         Exe Time         Sim Time (1000MHz)
     116.295 KIPS      0.1714 MHz       2.780 secs       0.477 msec
 Proc  Avg.Time BPType       Total          RAS           BPred          BTB            BTAC
@@ -17,12 +17,13 @@ Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ...
 ################################################################################
 Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
    0  IL1 0.0   0.45% ( 0.4%, 0.0%) 192.14%  0.10GB/s :  MemoryBus 0 MB/s : 
+
 ~~~~~  Ap1  ~~~~~
 ~~~~~  Ap4  ~~~~~
 # Bench : /home/cs6290/sesc/sesc.opt -fAp4 -c /home/cs6290/sesc/confs/cmp16-noc.conf -olu.out -elu.err lu.mipseb -n32 –p4 
-# File  : /home/cs6290/sesc/apps/Splash2/lu/sesc_lu.mipseb.Ap4 :       Sun Oct 25 19:43:01 2020
+# File  : /home/cs6290/sesc/apps/Splash2/lu/sesc_lu.mipseb.Ap4 :       Tue Nov 10 19:07:20 2020
       Exe Speed        Exe MHz         Exe Time         Sim Time (1000MHz)
-    118.425 KIPS      0.1746 MHz       2.730 secs       0.477 msec
+    115.878 KIPS      0.1708 MHz       2.790 secs       0.477 msec
 Proc  Avg.Time BPType       Total          RAS           BPred          BTB            BTAC
    0   58.877  hybrid       91.12% ( 99.89% of  11.35%)  90.00% ( 95.82% of  57.81%)   0.00% 
            nInst     BJ    Load   Store      INT      FP  : LD Forward , Replay : Worst Unit (clk)
@@ -35,10 +36,11 @@ Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ...
 ################################################################################
 Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
    0  IL1 0.0   0.45% ( 0.4%, 0.0%) 192.14%  0.10GB/s :  MemoryBus 0 MB/s : 
+
 ~~~~~  Ap4  ~~~~~
 ~~~~~  Ap16  ~~~~~
 # Bench : /home/cs6290/sesc/sesc.opt -fAp16 -c /home/cs6290/sesc/confs/cmp16-noc.conf -olu.out -elu.err lu.mipseb -n32 –p16 
-# File  : /home/cs6290/sesc/apps/Splash2/lu/sesc_lu.mipseb.Ap16 :       Sun Oct 25 19:43:04 2020
+# File  : /home/cs6290/sesc/apps/Splash2/lu/sesc_lu.mipseb.Ap16 :       Tue Nov 10 19:07:22 2020
       Exe Speed        Exe MHz         Exe Time         Sim Time (1000MHz)
     117.564 KIPS      0.1733 MHz       2.750 secs       0.477 msec
 Proc  Avg.Time BPType       Total          RAS           BPred          BTB            BTAC
@@ -53,4 +55,5 @@ Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ...
 ################################################################################
 Proc  Cache Occ MissRate (RD, WR) %DMemAcc MB/s : ... 
    0  IL1 0.0   0.45% ( 0.4%, 0.0%) 192.14%  0.10GB/s :  MemoryBus 0 MB/s : 
+
 ~~~~~  Ap16  ~~~~~
